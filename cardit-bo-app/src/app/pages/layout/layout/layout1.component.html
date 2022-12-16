@@ -1,0 +1,60 @@
+<!--display: flex!important;flex-wrap: wrap!important; position:fixed-->
+<div *ngIf="loggedIn" [ngClass]="theme">
+  <app-header (toggleMenubar)="toggleMenu()"></app-header>
+
+  <div class="container2" style="width:1520px;height:100%;padding-top:25px!important;">
+    <div>
+
+      <div id="sidebar" style="width:100%">
+        <app-header (toggleMenubar)="toggleMenu()"></app-header>
+
+        <div class="ng-menubar1  col1" [ngClass]="{'hidden-menu-content': !isMobileResolution && !isMenuVisible}">
+
+          <!--     <ng-scrollbar #scrollable1
+      [invertX]=false
+      [invertY]=false
+      [trackX]=true
+      [compact]=true
+      [shown]="always"
+      [disableOnBreakpoints]=false
+      [disabled]="false">
+-->
+          <p-sidebar #menubar [visible]="isMenuVisible" position="left" [showCloseIcon]="false" styleClass="ng-menubar"
+            [modal]="false">
+
+            <app-menu (closeClicked)="isMobileResolution && isMenuVisible=$event" *ngIf="menuloaded"
+              [items]="menuItems">
+            </app-menu>
+
+          </p-sidebar>
+          <!-- </ng-scrollbar>-->
+        </div>
+      </div>
+      <div id="content" class="ng-content">
+        <div class="ui-fluid ng-main" [ngClass]="theme">
+          <p-toast position="bottom-right"></p-toast>
+          <div [class.hidden]="!showLoader" class="np-loader">
+            <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+          </div>
+          <!--overflow:auto;height:100%;-->
+          <!--position:absolute;width:83%;-->
+          <!--margin-left:16%;  height:80%;-->
+          <!--height:550px;-->
+          <div id="contentAreaLayout" class="main container3 full-height" #contentArea
+            onscroll="scrollFunction1('scrollBtn2','contentArea')">
+            <!--flex-shrink: 0;display: flex!important;flex-grow: 1;-->
+            <router-outlet (activate)="topFunction()"></router-outlet><!-- style="width:100%"-->
+            <button onclick="topFunction()" id="scrollBtn" title="Go to top" style="display:none">Top</button>
+          </div>
+        </div>
+      </div>
+
+      <!--<app-footer></app-footer>-->
+    </div>
+  </div>
+
+
+
+
+  <app-footer></app-footer>
+</div>

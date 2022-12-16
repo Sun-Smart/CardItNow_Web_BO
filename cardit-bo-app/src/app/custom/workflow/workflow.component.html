@@ -1,0 +1,70 @@
+<form [formGroup]="boworkflowForm" class="frm" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <hr>
+  <div class="container" id="contentArea1">
+
+    <div class="form-group row">
+      <div class="col-12 ">
+        <label (click)="editfield = 'comments'; " for="comments" class="control-label">Workflow Notes</label>
+        <app-comment *ngIf="!showview" id="comments" formControlName="comments" [label]="'Notes'"
+          placeholder="{{'Notes' | translate}}">
+        </app-comment>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="help-tip">
+        <p> {{f.history?.value}}</p> <label *ngIf="showview && editfield!='history'" (click)="editfield = 'history';"
+          class="form-control labelview">{{f.history?.value}}</label>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col"><label (click)="editfield = 'workflowstatus'; " for="workflowstatus"
+          class="control-label">Workflow Status</label>
+        <select *ngIf="!showview" id="workflowstatus" (change)="workflowstatusonChange($event.target)"
+          formControlName="workflowstatus" class="form-control">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of workflowstatusList" value="{{item.configkey}}">{{item.configtext}}</option>
+        </select>
+        <label *ngIf="showview  && editfield!='workflowstatus'" (click)="editfield = 'workflowstatus';"
+          class="form-control labelview">{{f.workflowstatusdesc?.value}}</label>
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+    <p-accordion [multiple]='true'>
+      <div
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.length>0">
+        <p-accordionTab header='CustomField' [selected]='false'>
+          <div class="sticky"
+            *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+          </div>
+          <div class="form-group row"
+            *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+            <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+          </div>
+        </p-accordionTab>
+      </div>
+      <div>
+        <p-accordionTab header='Attachment' [selected]='false'>
+          <app-attachment isAttachment="true" #fileattachment formControlName="attachment" [SessionData]="sessiondata">
+          </app-attachment>
+        </p-accordionTab>
+      </div>
+    </p-accordion>
+    <div class="form-group row">
+      <div class="col">
+        <button *ngIf="bstartworkflow" class="btn btn-info" (click)="startworkflow()" type="button"><i
+            class="fa fa-database"></i>
+          Start Workflow</button>
+        <button *ngIf="saveworkflow" class="btn btn-info" (click)="approve()" type="button"><i
+            class="fa fa-database"></i>
+          Approve</button>
+        <button *ngIf="saveworkflow" class="btn btn-info" (click)="deny()" type="button"><i class="fa fa-database"></i>
+          Deny</button>
+        <!-- <button  *ngIf="saveworkflow" class="btn btn-info" (click)="onSubmitAndWait()" type="button"><i class="fa fa-database"></i>
+          Submit</button>-->
+      </div>
+    </div>
+  </div>
+</form>

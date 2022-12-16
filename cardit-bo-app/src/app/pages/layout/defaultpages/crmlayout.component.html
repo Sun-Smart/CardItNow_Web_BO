@@ -1,0 +1,45 @@
+<!--display: flex!important;flex-wrap: wrap!important; -->
+<div style="width:100%;padding-top:5px!important">
+  <div>
+
+    <div class="navbar-header">
+      <a href="#/home" class="navbar-brand">SUNSMART</a>
+    </div>
+    <div id="main-nav" class="stellarnav dark desktop"><a href="#" class="menu-toggle full"><i class="fa fa-bars"></i>
+        Menu</a>
+      <ul id="nav" class="nav navbar-nav">
+        <li class="active"><a href="#home">home</a></li>
+        <li class=""><a href="#features">Features</a></li>
+        <li class=""><a href="#service">Service</a></li>
+        <li class=""><a href="#portfolio">Portfolio</a></li>
+        <li class=""><a href="#team">Team</a></li>
+        <li class=""><a href="#client">Clients</a></li>
+        <li class=""><a href="#pricing">Pricing</a></li>
+        <li class=""><a href="#news">News</a></li>
+        <li class=""><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div id="content" class="ng-content">
+      <div class="ui-fluid ng-main" [ngClass]="theme">
+        <p-toast position="bottom-right"></p-toast>
+        <div [class.hidden]="!showLoader" class="np-loader">
+          <p-progressSpinner strokeWidth="5"></p-progressSpinner>
+        </div>
+        <!--overflow:auto;height:100%;-->
+        <!--position:absolute;width:83%;-->
+        <!--margin-left:16%;  height:80%;-->
+        <!--height:550px;-->
+        <div id="contentArea1"
+          style="overflow-y:scroll!important;overflow-x:scroll!important;scrollbar-width: thin; margin-left:16%!important; width: 84%!important;"
+          class="main container full-height" #contentArea onscroll="scrollFunction()">
+          <!--flex-shrink: 0;display: flex!important;flex-grow: 1;-->
+          <router-outlet (activate)="topFunction()"></router-outlet><!-- style="width:100%"-->
+          <button onclick="topFunction()" id="scrollBtn" title="Go to top" style="display:none">Top</button>
+        </div>
+      </div>
+    </div>
+
+    <!--<app-footer></app-footer>-->
+  </div>
+</div>

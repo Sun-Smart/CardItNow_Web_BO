@@ -1,0 +1,79 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<p-blockUI [target]="pnl" [blocked]="blockedDocument"><i class="pi pi-lock" style="font-size: 3rem"></i></p-blockUI>
+<form id="frm_customertermsacceptance" [formGroup]="customertermsacceptance_Form" (ngSubmit)="onSubmit()"
+  [ngClass]="theme">
+  <p-panel #pnl [showHeader]="false">
+    <app-title reportcode="" title="Terms Acceptances" [f]="f" [data]="data" [maindata]="maindata" [p_menuid]="p_menuid"
+      [action]="action" (edit)="edit_customertermsacceptances()" (first)="first()" (prev)="prev()"
+      (onSelectedpk)="onSelectedpk($event)" (next)="next()" (last)="last()" (resetForm)="resetForm()"
+      (onSubmit)="onSubmit()" (onDelete)="onDelete()" (onCopy)="onCopy()" (onCopyDetails)="onCopyDetails()"
+      (onCopycursive)="onCopyRecursive()" (onClose)="onClose()" (afterAction)="afterAction"
+      (onSubmitAndWait)="onSubmitAndWait()" (onChangeAction)="onChangeAction()"></app-title>
+    <p-scrollTop></p-scrollTop>
+    <p-scrollPanel #panelscroller [style]="maindata?sharedService.dialogScreenSize:sharedService.mainScreenSize"
+      styleClass="custom">
+      <div class="container1  ui-fluid p-grid"
+        id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+        <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+          <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+        </div>
+        <div *ngIf="!showview" id="div_customertermsacceptances"></div>
+        <div *ngIf="showview" id="div_customertermsacceptances"></div>
+        <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+        </div>
+
+
+        <!--termid-->
+
+        <div *ngIf="hidelist.indexOf('termid')<0" class=" p-float-label  p-col-12 p-md-3">
+          <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+            class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="termid"
+            pTooltip="{{'Enter' | translate}} {{'termid' | translate}}" field="label" [suggestions]="termid_Suggestions"
+            (onSelect)="onSelected_termid($event)" (completeMethod)="onEntered_termid($event)" [dropdown]="true">
+            <ng-template let-termid pTemplate="item">
+              <div>{{termid.label}}</div>
+            </ng-template>
+          </p-autoComplete>
+          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.termiddesc?.value}}</label>
+          <label for="termid" class="control-label">{{'Term' | translate}}</label>
+        </div>
+        <div *ngIf="hidelist.indexOf('version')<0" class="  p-float-label  p-col-12 p-md-3">
+
+          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.version?.value}}</label>
+          <input type="text" pInputText *ngIf="!showview" id="version"
+            pTooltip="{{'Enter' | translate}} {{'version' | translate}}" formControlName="version"
+            class="  p-form-control p-inputtext-sm p-field">
+          <label for="version" class="control-label">{{'Version' | translate}}</label>
+        </div>
+
+
+        <!--customerid-->
+
+        <div *ngIf="hidelist.indexOf('customerid')<0" class=" p-float-label  p-col-12 p-md-3">
+          <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+            class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="customerid"
+            pTooltip="{{'Enter' | translate}} {{'customerid' | translate}}" field="label"
+            [suggestions]="customerid_Suggestions" (onSelect)="onSelected_customerid($event)"
+            (completeMethod)="onEntered_customerid($event)" [dropdown]="true">
+            <ng-template let-customerid pTemplate="item">
+              <div>{{customerid.label}}</div>
+            </ng-template>
+          </p-autoComplete>
+          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.customeriddesc?.value}}</label>
+          <label for="customerid" class="control-label">{{'Customer' | translate}}</label>
+        </div>
+        <div *ngIf="hidelist.indexOf('dateofacceptance')<0" class="  p-float-label  p-col-12 p-md-3">
+
+          <label *ngIf="showview"
+            class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.dateofacceptance?.value)}}</label>
+          <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview" dateFormat="d/M/y"
+            class="p-form-control p-inputtext-sm p-field"
+            pTooltip="{{'Select' | translate}} {{'dateofacceptance' | translate}}" formControlName="dateofacceptance">
+          </p-calendar><label for="dateofacceptance" class="control-label">{{'Dateof Acceptance' | translate}}</label>
+        </div>
+      </div>
+      <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
+    </p-scrollPanel>
+  </p-panel>
+</form>

@@ -1,0 +1,35 @@
+<!--<form [formGroup]="commentlistForm" >-->
+<div class="comments" *ngIf="postComment!==undefined">
+    <h6 *ngIf="postComment?.length<1">No {{label}} found</h6>
+    <ul *ngIf="postComment?.length>0">
+        <li *ngFor="let post of postComment; let i = index;">
+            <div class="col-12 col-sm-12 comment-container">
+                <i>{{post.commentTxt}}</i>
+                <div class="actions">
+                    <span><small class="bluecolor">{{post.user}}:{{post.currentDate | date:
+                            'dd/MM/yyyy'}}</small></span>
+                    <span class="divider"></span>
+                    <button type="button" class="btn btn-sm btn-info" (click)="replyComment(i)">
+                        Reply
+                    </button>
+
+                    <span class="divider"></span>
+                    <button type="button" class="btn btn-sm btn-danger" (click)="removeComment(i)">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+                <div class="childCommentBox">
+                    <div datacontainer></div>
+                    <ul *ngIf="post?.replyComment?.length>0">
+                        <li *ngFor="let rl of post.replyComment">
+                            <div class="col-12 col-sm-12 comment-container">
+                                <i>{{rl.commentTxt}}</i>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<!--</form>-->

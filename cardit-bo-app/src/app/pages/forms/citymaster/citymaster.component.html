@@ -1,0 +1,58 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<p-blockUI [target]="pnl" [blocked]="blockedDocument"><i class="pi pi-lock" style="font-size: 3rem"></i></p-blockUI>
+<form id="frm_citymaster" [formGroup]="citymaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <p-panel #pnl [showHeader]="false">
+    <app-title reportcode="" title="Masters" [f]="f" [data]="data" [maindata]="maindata" [p_menuid]="p_menuid"
+      [action]="action" (edit)="edit_citymasters()" (first)="first()" (prev)="prev()"
+      (onSelectedpk)="onSelectedpk($event)" (next)="next()" (last)="last()" (resetForm)="resetForm()"
+      (onSubmit)="onSubmit()" (onDelete)="onDelete()" (onCopy)="onCopy()" (onCopyDetails)="onCopyDetails()"
+      (onCopycursive)="onCopyRecursive()" (onClose)="onClose()" (afterAction)="afterAction"
+      (onSubmitAndWait)="onSubmitAndWait()" (onChangeAction)="onChangeAction()"></app-title>
+    <p-scrollTop></p-scrollTop>
+    <p-scrollPanel #panelscroller [style]="maindata?sharedService.dialogScreenSize:sharedService.mainScreenSize"
+      styleClass="custom">
+      <div class="container1  ui-fluid p-grid"
+        id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+        <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+          <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+        </div>
+        <div *ngIf="!showview" id="div_citymasters"></div>
+        <div *ngIf="showview" id="div_citymasters"></div>
+        <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+        </div>
+
+
+        <!--geoid-->
+
+        <div *ngIf="hidelist.indexOf('geoid')<0" class=" p-float-label  p-col-12 p-md-3">
+          <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+            class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="geoid"
+            pTooltip="{{'Enter' | translate}} {{'geoid' | translate}}" field="label" [suggestions]="geoid_Suggestions"
+            (onSelect)="onSelected_geoid($event)" (completeMethod)="onEntered_geoid($event)" [dropdown]="true">
+            <ng-template let-geoid pTemplate="item">
+              <div>{{geoid.label}}</div>
+            </ng-template>
+          </p-autoComplete>
+          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.geoiddesc?.value}}</label>
+          <label for="geoid" class="control-label required">{{'Geo' | translate}}</label>
+          <app-field-error-display [displayError]="f.geoid.errors?.required"
+            errorMsg="{{'Enter'| translate}} {{'Geo' | translate}}">
+          </app-field-error-display>
+        </div>
+        <div *ngIf="hidelist.indexOf('cityname')<0" class="  p-float-label  p-col-12 p-md-3">
+
+          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.cityname?.value}}</label>
+          <input type="text" pInputText *ngIf="!showview" id="cityname" required
+            pTooltip="{{'Enter' | translate}} {{'cityname' | translate}}" formControlName="cityname"
+            class="  p-form-control p-inputtext-sm p-field">
+          <label for="cityname" class="control-label required">{{'City Name' | translate}}</label>
+          <app-field-error-display [displayError]="f.cityname.errors?.required"
+            errorMsg="{{'Enter'| translate}} {{'City Name' | translate}}">
+          </app-field-error-display>
+        </div>
+      </div>
+      <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
+    </p-scrollPanel>
+  </p-panel>
+</form>

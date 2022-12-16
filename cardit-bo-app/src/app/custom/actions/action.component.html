@@ -1,0 +1,10 @@
+<div style="display:flex">
+    <ng-container *ngFor="let action of menuactions">
+        <ng-container *ngIf="condition(action)">
+
+            <button class="btn btn-info" type="button"
+                (click)="processaction(action.actionid)">{{action.description}}</button>
+
+        </ng-container>
+    </ng-container>
+</div>

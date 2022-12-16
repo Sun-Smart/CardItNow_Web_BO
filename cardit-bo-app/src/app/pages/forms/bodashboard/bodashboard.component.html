@@ -1,0 +1,191 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<p-blockUI [target]="pnl" [blocked]="blockedDocument"><i class="pi pi-lock" style="font-size: 3rem"></i></p-blockUI>
+<form id="frm_bodashboard" [formGroup]="bodashboard_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <p-panel #pnl [showHeader]="false">
+    <app-title reportcode="ybg3p" title="bodashboards" [f]="f" [data]="data" [maindata]="maindata" [p_menuid]="p_menuid"
+      [action]="action" (edit)="edit_bodashboards()" (first)="first()" (prev)="prev()"
+      (onSelectedpk)="onSelectedpk($event)" (next)="next()" (last)="last()" (resetForm)="resetForm()"
+      (onSubmit)="onSubmit()" (onDelete)="onDelete()" (onCopy)="onCopy()" (onCopyDetails)="onCopyDetails()"
+      (onClose)="onClose()" (afterAction)="afterAction" (onSubmitAndWait)="onSubmitAndWait()"></app-title>
+    <p-scrollTop></p-scrollTop>
+    <p-scrollPanel #panelscroller [style]="maindata?sharedService.dialogScreenSize:sharedService.mainScreenSize"
+      styleClass="custom">
+      <div class="container1  ui-fluid p-grid"
+        id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+        <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+          <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+        </div>
+        <div *ngIf="!showview" id="div_bodashboards"></div>
+        <div *ngIf="showview" id="div_bodashboards"></div>
+        <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+        </div>
+        <p-tabView class="tabset1" [destroyOnHide]="false">
+          <div *ngIf="!showview" id="div_bodashboards"></div>
+          <div *ngIf="showview" id="div_bodashboards"></div>
+          <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+          </div>
+          <p-tabPanel header="Master">
+            <div class="col-12">
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <div *ngIf="hidelist.indexOf('dashboardname')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.dashboardname?.value}}</label>
+                    <input type="text" pInputText *ngIf="!showview" id="dashboardname" required
+                      pTooltip="{{'Enter' | translate}} {{'dashboardname' | translate}}" formControlName="dashboardname"
+                      class="  p-form-control p-inputtext-sm p-field">
+                    <label for="dashboardname" class="control-label required">{{'Dashboard Name' | translate}}</label>
+                    <app-field-error-display [displayError]="f.dashboardname.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'Dashboard Name' | translate}}">
+                    </app-field-error-display>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('rows')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.rows?.value}}</label>
+                    <p-inputNumber *ngIf="!showview" id="rows" required
+                      pTooltip="{{'Enter' | translate}} {{'rows' | translate}}" formControlName="rows"
+                      class="  p-form-control p-inputtext-sm p-field">
+                    </p-inputNumber>
+                    <label for="rows" class="control-label required">{{'Rows' | translate}}</label>
+                    <app-field-error-display
+                      [displayError]="f.rows.errors!=null && f.rows.errors?.pattern!=null && f.rows.errors!=undefined && f.rows.errors.pattern!=undefined  && (f.rows.touched|| isSubmitted)"
+                      errorMsg="Not a valid number">
+                    </app-field-error-display>
+                    <app-field-error-display
+                      [displayError]="f.rows.errors!=null && f.rows.errors?.min!=null && f.rows.errors!=undefined && f.rows.errors.min!=undefined  && (f.rows.touched|| isSubmitted)"
+                      errorMsg="Minimum value have to be entered">
+                    </app-field-error-display>
+                    <app-field-error-display
+                      [displayError]="f.rows.errors!=null && f.rows.errors?.max!=null && f.rows.errors!=undefined && f.rows.errors.max!=undefined  && (f.rows.touched|| isSubmitted)"
+                      errorMsg="Maximum value Exceeded">
+                    </app-field-error-display>
+                    <app-field-error-display [displayError]="f.rows.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'Rows' | translate}}">
+                    </app-field-error-display>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('cols')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.cols?.value}}</label>
+                    <p-inputNumber *ngIf="!showview" id="cols" required
+                      pTooltip="{{'Enter' | translate}} {{'cols' | translate}}" formControlName="cols"
+                      class="  p-form-control p-inputtext-sm p-field">
+                    </p-inputNumber>
+                    <label for="cols" class="control-label required">{{'Cols' | translate}}</label>
+                    <app-field-error-display
+                      [displayError]="f.cols.errors!=null && f.cols.errors?.pattern!=null && f.cols.errors!=undefined && f.cols.errors.pattern!=undefined  && (f.cols.touched|| isSubmitted)"
+                      errorMsg="Not a valid number">
+                    </app-field-error-display>
+                    <app-field-error-display
+                      [displayError]="f.cols.errors!=null && f.cols.errors?.min!=null && f.cols.errors!=undefined && f.cols.errors.min!=undefined  && (f.cols.touched|| isSubmitted)"
+                      errorMsg="Minimum value have to be entered">
+                    </app-field-error-display>
+                    <app-field-error-display
+                      [displayError]="f.cols.errors!=null && f.cols.errors?.max!=null && f.cols.errors!=undefined && f.cols.errors.max!=undefined  && (f.cols.touched|| isSubmitted)"
+                      errorMsg="Maximum value Exceeded">
+                    </app-field-error-display>
+                    <app-field-error-display [displayError]="f.cols.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'Cols' | translate}}">
+                    </app-field-error-display>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('design')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.design?.value}}</label>
+                    <input type="text" pInputText *ngIf="!showview" id="design"
+                      pTooltip="{{'Enter' | translate}} {{'design' | translate}}" formControlName="design"
+                      class="  p-form-control p-inputtext-sm p-field">
+                    <label for="design" class="control-label">{{'Design' | translate}}</label>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('remarks')<0" class="  p-col-12 p-md-12">
+                    <label for="remarks" class="control-label">{{'Remarks' | translate}}</label>
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.remarks?.value}}</label>
+                    <app-comment *ngIf="!showview" id="remarks"
+                      pTooltip="{{'Enter' | translate}} {{'remarks' | translate}}" formControlName="remarks"
+                      [label]="'Remarks'" class=" p-field">
+                    </app-comment>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('userid')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.userid?.value}}</label>
+                    <p-inputNumber *ngIf="!showview" id="userid"
+                      pTooltip="{{'Enter' | translate}} {{'userid' | translate}}" formControlName="userid"
+                      class="  p-form-control p-inputtext-sm p-field">
+                    </p-inputNumber>
+                    <label for="userid" class="control-label">{{'User' | translate}}</label>
+                    <app-field-error-display
+                      [displayError]="f.userid.errors!=null && f.userid.errors?.pattern!=null && f.userid.errors!=undefined && f.userid.errors.pattern!=undefined  && (f.userid.touched|| isSubmitted)"
+                      errorMsg="Not a valid number">
+                    </app-field-error-display>
+                    <app-field-error-display
+                      [displayError]="f.userid.errors!=null && f.userid.errors?.min!=null && f.userid.errors!=undefined && f.userid.errors.min!=undefined  && (f.userid.touched|| isSubmitted)"
+                      errorMsg="Minimum value have to be entered">
+                    </app-field-error-display>
+                    <app-field-error-display
+                      [displayError]="f.userid.errors!=null && f.userid.errors?.max!=null && f.userid.errors!=undefined && f.userid.errors.max!=undefined  && (f.userid.touched|| isSubmitted)"
+                      errorMsg="Maximum value Exceeded">
+                    </app-field-error-display>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('module')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.module?.value}}</label>
+                    <p-inputNumber *ngIf="!showview" id="module"
+                      pTooltip="{{'Enter' | translate}} {{'module' | translate}}" formControlName="module"
+                      class="  p-form-control p-inputtext-sm p-field">
+                    </p-inputNumber>
+                    <label for="module" class="control-label">{{'Module' | translate}}</label>
+                    <app-field-error-display
+                      [displayError]="f.module.errors!=null && f.module.errors?.pattern!=null && f.module.errors!=undefined && f.module.errors.pattern!=undefined  && (f.module.touched|| isSubmitted)"
+                      errorMsg="Not a valid number">
+                    </app-field-error-display>
+                    <app-field-error-display
+                      [displayError]="f.module.errors!=null && f.module.errors?.min!=null && f.module.errors!=undefined && f.module.errors.min!=undefined  && (f.module.touched|| isSubmitted)"
+                      errorMsg="Minimum value have to be entered">
+                    </app-field-error-display>
+                    <app-field-error-display
+                      [displayError]="f.module.errors!=null && f.module.errors?.max!=null && f.module.errors!=undefined && f.module.errors.max!=undefined  && (f.module.touched|| isSubmitted)"
+                      errorMsg="Maximum value Exceeded">
+                    </app-field-error-display>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('helptext')<0" class="  p-col-12 p-md-12">
+                    <label for="helptext" class="control-label">{{'Help Text' | translate}}</label>
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.helptext?.value}}</label>
+                    <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="helptext"
+                      pTooltip="{{'Enter' | translate}} {{'helptext' | translate}}" formControlName="helptext"
+                      [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                      class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                  </div>
+                </div>
+              </p-accordion>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel [disabled]="formid==''?true:false" header="Dashboard Details">
+            <div class="col-12">
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <!-- child table bodashboarddetails-->
+                  <div>
+                    <!--End-->
+                    <div>
+                      <a *ngIf="formid" class="rightside" [routerLink]=''
+                        (click)="AddOrEdit_bodashboarddetail(null, null, formid)"><i class="fa fa-plus"></i></a>
+                    </div>
+                    <div [ngClass]="maindata?.ScreenType==2?'dialogscreen':'mainscreen'">
+                      <ngx-reportviewer viewtype="'1'" #tbl_bodashboarddetails
+                        (onExecute)="onExecute_bodashboarddetails($event)"></ngx-reportviewer>
+                    </div>
+                  </div>
+                  <!--End of child table bodashboarddetails-->
+                </div>
+              </p-accordion>
+            </div>
+          </p-tabPanel>
+        </p-tabView>
+      </div>
+      <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
+    </p-scrollPanel>
+  </p-panel>
+</form>

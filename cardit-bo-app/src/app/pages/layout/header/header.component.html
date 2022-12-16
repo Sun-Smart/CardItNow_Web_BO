@@ -1,0 +1,232 @@
+<style>
+    .p-sm-1,
+    .p-sm-2,
+    .p-sm-3,
+    .p-sm-4,
+    .p-sm-5,
+    .p-sm-6,
+    .p-sm-7,
+    .p-sm-8,
+    .p-sm-9,
+    .p-sm-10,
+    .p-sm-11,
+    .p-sm-12,
+    .p-md-1,
+    .p-md-2,
+    .p-md-3,
+    .p-md-4,
+    .p-md-5,
+    .p-md-6,
+    .p-md-7,
+    .p-md-8,
+    .p-md-9,
+    .p-md-10,
+    .p-md-11,
+    .p-md-12,
+    .p-lg-1,
+    .p-lg-2,
+    .p-lg-3,
+    .p-lg-4,
+    .p-lg-5,
+    .p-lg-6,
+    .p-lg-7,
+    .p-lg-8,
+    .p-lg-9,
+    .p-lg-10,
+    .p-lg-11,
+    .p-lg-12,
+    .p-xl-1,
+    .p-xl-2,
+    .p-xl-3,
+    .p-xl-4,
+    .p-xl-5,
+    .p-xl-6,
+    .p-xl-7,
+    .p-xl-8,
+    .p-xl-9,
+    .p-xl-10,
+    .p-xl-11,
+    .p-xl-12 {
+        padding-top: 0rem !important;
+        padding: 0rem !important;
+        margin-top: 0rem !important;
+        min-height: 0rem !important;
+    }
+
+    @media (max-width: 992px) {
+
+        .p-button-label,
+        .p-menuitem-text {
+            display: none !important;
+        }
+    }
+</style>
+
+<div class="p-grid" [ngClass]="theme" style="background-color:#004751;padding:0;margin:0;width: 100%;">
+    <div class="p-col-12 p-md-5">
+
+        <div class="toggle-menu-button left p-col-12 p-md-2" style="    position: absolute;
+        left: 65px;
+        top: 0px;">
+            <img src="assets/images/loginlogo.png" style="height: 50px;" alt="">
+            <!-- <a class="icon" (click)="toggleMenu()"><i class="fa fa-bars"></i></a> -->
+            <!-- <img src="assets/images/Cardit.com - HomePage-02.png" style="height: 7vh;margin: 10px;"> -->
+        </div>
+      
+    
+
+    </div>
+    <div class="p-col">
+        
+        <!--  <p-megaMenu [model]="items" orientation="vertical"></p-megaMenu>-->
+
+    </div>
+
+
+    <div class="p-col-12 p-md-3 text-right ">
+        <ul class="p-grid p-dir-row zero">
+            <li class="p-col listnone ">
+                <div class="searchBox  p-ripple">
+        
+                    <input class="searchInput"type="text" name="" placeholder="Search">
+                    <button class="searchButton" href="#">
+                        <i class="material-icons">
+                            search
+                        </i>
+                    </button>
+                </div>
+                <!---->
+            </li>
+            <li class="p-col listnone ">
+                <!-- <a pripple="" class="layout-topbar-action rounded-circle ng-tns-c186-0 p-ripple"
+                    (click)="showNotificationSidebar()"><span class="p-overlay-badge ng-tns-c186-0"><i
+                            class="pi pi-bell fs-large ng-tns-c186-0"></i><span
+                            class="p-badge p-badge-warning p-badge-dot ng-tns-c186-0">{{notifications.length}}</span></span><span
+                        class="p-ink" style="height: 44px; width: 44px;"></span></a> -->
+                <!---->
+            </li>
+            <li class="p-col listnone ">
+                <a pripple="" class="layout-topbar-action rounded-circle ng-tns-c186-0 p-ripple"
+                (click)="showNotificationSidebar()"><span class="p-overlay-badge ng-tns-c186-0" style="color: #cee812;"><i
+                        class="pi pi-bell fs-large ng-tns-c186-0"></i><span
+                        class="p-badge p-badge-warning p-badge-dot ng-tns-c186-0">{{notifications.length}}</span></span><span
+                    class="p-ink" style="height: 44px; width: 44px;"></span></a>
+                <!---->
+            </li>
+            <li class="p-col listnone ">
+                <label class="dropdown">
+
+                    <div class="">
+                        <img src="assets/images/profile.jpg" style="height: 30px;border-radius: 15px;">
+                    </div>
+                  
+                    <input type="checkbox" class="dd-input" id="test">
+                  
+                    <ul class="dd-menu">
+                      <li  class="p-col listnone " style="    display: flex;
+                      justify-content: center;">
+                        <img src="assets/images/profile.jpg" style="height: 30px;">
+                       
+                        
+                      
+                      </li>
+                      <li>my@carditnow.com</li>
+                      <li  class="p-col listnone "> <div class="ui-g">
+
+                        <select (change)="selectTheme($event.target.value)">
+                            <option value="">Select Theme</option>
+                            <option value="cruze">cruze</option>
+                            <option value="cupertino">cupertino</option>
+                            <option value="darkness">darkness</option>
+                            <option value="flick">flick</option>
+                            <option value="home">home</option>
+                            <option value="kasper">kasper</option>
+                            <option value="lightness">lightness</option>
+                            <option value="ludvig">ludvig</option>
+                            <option value="luna-amber">luna-amber</option>
+                            <option value="luna-blue">luna-blue</option>
+                            <option value="luna-green">luna-green</option>
+                            <option value="luna-pink">luna-pink</option>
+                            <option value="nova-colored">nova-colored</option>
+                            <option value="nova-light">nova-light</option>
+                            <option value="omega">omega</option>
+                            <option value="pepper-grinder">pepper-grinder</option>
+                            <option value="redmond">redmond</option>
+                            <option value="rhea">rhea</option>
+                            <option value="rocket">rocket</option>
+                            <option value="south-street">south-street</option>
+                            <option value="start">start</option>
+                            <option value="trontastic">trontastic</option>
+                            <option value="voclain">voclain</option>
+                        </select>
+                
+                        <!--
+                        <div class="ui-g-4">
+                            <button pButton type="button" (click)="selectTheme('blue-theme')" style="background-color:#517fa4"></button>
+                        </div>
+                        <div class="ui-g-4">
+                            <button pButton type="button" (click)="selectTheme('grey-theme')" style="background-color:#C0C0C0"></button>
+                        </div>
+                        <div class="ui-g-4">
+                            <button pButton type="button" (click)="selectTheme('pink-theme')" style="background-color:#BD7CB4"></button>
+                        </div>
+                        <div class="ui-g-4">
+                            <button pButton type="button" (click)="selectTheme('green-theme')"
+                                style="background-color:#668014"></button>
+                        </div>
+                        <div class="ui-g-4">
+                            <button pButton type="button" (click)="selectTheme('orange-theme')"
+                                style="background-color:#D8552E"></button>
+                        </div>
+                        <div class="ui-g-4">
+                            <button pButton type="button" (click)="selectTheme('brown-theme')"
+                                style="background-color:#2E0000"></button>
+                        </div>
+                        <div class="ui-g-4">
+                            <button pButton type="button" (click)="selectTheme('cupertino')"
+                                style="background-color:#2E0000"></button>
+                        </div>
+                        <div class="ui-g-4">
+                            <button pButton type="button" (click)="selectTheme('cruze')"
+                                style="background-color:#2E0000"></button>
+                        </div>
+                    -->
+                    
+                    </div></li>
+                    <li class="p-col listnone " style="    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    vertical-align: middle;
+                " (click)="logout()">Logout <span class="fa fa-sign-out"></span></li>
+                    </ul>
+                    
+                  </label>
+            </li>
+            <!-- <li class="p-col listnone "><a pripple="" (click)="logout()"
+                    class="layout-topbar-action rounded-circle ng-tns-c186-0 p-ripple"><i
+                        class="pi fs-large ng-tns-c186-0 pi-arrow-right"></i><span class="p-ink"></span></a></li> -->
+ 
+        </ul>
+    </div>
+
+</div>
+
+<!-- user detials overlay panel -->
+<p-overlayPanel #userdetails>
+    <div><b>User Name: </b><i [innerHtml]="user.username"></i></div>
+    <div><b>Code: </b><i [innerHtml]="user.usercode"></i></div>
+    <div><b>Logindate: </b><i [innerHtml]="user.logindate | date:'dd/MM/yyyy'"></i></div>
+</p-overlayPanel>
+
+<!-- notifications sidebar -->
+<p-sidebar [(visible)]="displayNotifications" [(position)]="rightside">
+    <div *ngFor="let notification of notifications; let i=index" class="notification-message">
+        <div (click)="ShowTask(notification)"><b><i [innerHtml]="notification.targetdate"></i></b><i
+                [innerHtml]="notification.subject"></i></div>
+    </div>
+</p-sidebar>
+
+<!-- theme chooser overlay panel -->
+<p-overlayPanel #themeChooser>
+   
+</p-overlayPanel>

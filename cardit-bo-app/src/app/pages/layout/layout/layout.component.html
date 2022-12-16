@@ -1,0 +1,27 @@
+ <!-- <button (click)="expanded = !expanded">Click me</button> Header -->
+<!-- <div class="container-fluid"> -->
+        <ng-container *ngIf="loggedIn">
+                <div class="full-width full-height" style="width: 100%;height: 100%;">
+                        
+ <div class="">
+        <span class="fa fa-bars" style="    position: absolute;
+        font-size: 25px;
+        top: 10px;
+        left: 20px;
+        color: #cee812;" (click)="expanded = !expanded"></span>
+
+        <app-header></app-header>
+</div>
+<div class="main-layout">
+  <aside class="sidebar" *ngIf="expanded"  @slidein>
+    
+       <p-panelMenu [model]="menuItems" [style]="{'width':'100%'}"></p-panelMenu>
+    
+  </aside>
+  <div class="section">
+   <router-outlet></router-outlet>
+</div>
+</div>             
+<!-- </div> -->
+</div>
+</ng-container>

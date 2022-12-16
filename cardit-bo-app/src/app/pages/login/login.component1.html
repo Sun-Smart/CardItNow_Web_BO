@@ -1,0 +1,185 @@
+<div class="topbar  first" style='margin-bottom: 2px'>
+    <div class="page">
+        <div class="topbar-container row">
+            <div class='' style="width:68%">
+                <a class="topbar-logo topbar-logo-envato" href="https://account.sunsmartaccount.com/"><img
+                        alt="SunSmart Account" src="../../../../assets/sunsmart.png"></a>
+
+            </div>
+
+            <div class="topbar-content right" style="width:30%">
+                <span class="topbar-action-text is-hidden-tablet">Don't have an Account yet?</span>
+                <a class="button third" href="/sign_up">Create Account</a>
+
+            </div>
+
+
+            <div class="toolbar-content right" style="width:2%" (click)="themeChooser.toggle($event)">
+                <a class="icon">
+                    <font style='color:white'><i class="fa fa-cog"></i></font>
+                </a>
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+</div>
+
+
+<p-overlayPanel #themeChooser>
+    Select Theme:
+    <div class="ui-g">
+        <div class="ui-g-4">
+            <button pButton type="button" (click)="selectTheme('dark-theme')" style="background-color:#517fa4"></button>
+        </div>
+        <div class="ui-g-4">
+            <button pButton type="button" (click)="selectTheme('light-theme')"
+                style="background-color:#C0C0C0"></button>
+        </div>
+        <div class="ui-g-4">
+            <button pButton type="button" (click)="selectTheme('green-theme')"
+                style="background-color:#668014"></button>
+        </div>
+    </div>
+</p-overlayPanel>
+
+
+
+<div class="page second">
+
+    <div role="main" class="main  second" style="width:100%;height:70%;padding:3px;">
+        <script>sso.init = "sessions/new"</script>
+
+
+        <div class="box-right-form">
+            <form [formGroup]="bologinForm" class="frm" (ngSubmit)="onSubmit()"
+                [ngClass]="sessionService.getItem('selected-theme')">
+                <input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token"
+                    value="N6metwI7hMjoYPGPUZB4I4rC7gLRUA43y7NqXGceEL1LYyKq60MmiNyuDFuavlxMAJ+gYt3qvOYct91bT1R3ww==">
+
+                <input type="hidden" name="to" id="to" value="sunsmart">
+                <input type="hidden" name="state" id="state" value="">
+                <h1 class="box-heading">Sign In</h1>
+
+                <div class="error-container">
+                </div>
+
+                <div class="input-group ill-input initialised">
+                    <!--  <label  class='control-label' for="user_username">Username</label>-->
+                    <input id="input-username" class='form-control' type='text' placeholder='Your username'
+                        formControlName='username' required autofocus />
+                    <div *ngIf='formErrors.username'> {{formErrors.username}} </div>
+                </div>
+
+                <div class="input-group ill-input initialised">
+                    <!--  <label  class='control-label' for="user_password">Password</label>-->
+                    <input id="input-password" class='form-control' type='password' placeholder='Your password'
+                        formControlName='password' required />
+                    <div *ngIf='formErrors.password'> {{formErrors.password}} </div>
+                </div>
+
+                <div class="captcha-container">
+                    <div id="captcha" class="is-hidden-js">
+                        <div id="recaptcha-widget" class="g-recaptcha"
+                            data-sitekey="6Lcl9EwUAAAAACOzikfNI9wU01lH129hNipn6MKQ" data-language-code="en"></div>
+                        <input type="hidden" name="recaptcha_version" value="2">
+                        <input type="hidden" name="recaptcha_site_key" value="6Lcl9EwUAAAAACOzikfNI9wU01lH129hNipn6MKQ">
+
+                        <script
+                            src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaV2LoadedCallback&amp;render=explicit"
+                            async="" defer=""></script>
+
+                    </div>
+                </div>
+
+                <div class="two-factor-container input-group is-hidden-js">
+                    <label for="user_authentication_code">Authentication code</label>
+                    <input name="authentication_code" autocomplete="off" type="text" id="user_authentication_code">
+                    <small for="authentication_code">You may use a backup code instead</small>
+                </div>
+
+
+                <div class="input-group">
+
+                    <input type="button" value="Login" class="button third" (click)="onSubmit()" />
+                    <small>Forgot <a href="/recover_usernames">Username</a> / <a
+                            href="/reset_password">Password</a></small>
+                </div>
+
+            </form>
+
+        </div>
+
+        <div class="copy-area">
+            <h1>Sign in to SunSmart Applications</h1>
+            <p>Our applications has been designed to be multi option, intelligent and adaptable process allows its users
+                to gain vital intellect from every aspect of their business. Our application allows for faster, clearer
+                and more cost effective working, management and day to day running of your business or organization.
+            </p>
+            <ul class="brand-box">
+                <li>
+                    <a class="brand-box-audiojungle" href="https://Sunsmart.in/CRM"><img alt="CRM"
+                            src="../../../../assets/CRM.png"></a>
+                </li>
+
+
+
+                <li>
+                    <a class="brand-box-graphicriver" href="https://Sunsmart.in/MobileApp"><img alt="MobileApp"
+                            src="../../../../assets/MobileApp.png"></a>
+                </li>
+                <li>
+                    <a class="brand-box-videohive" href="https://Sunsmart.in/BOT"><img alt="BOT"
+                            src="../../../../assets/BOT.png"></a>
+                </li>
+
+                <li>
+                    <a class="brand-box-3docean" href="https://Sunsmart.in/Procurement"><img alt="Procurement"
+                            src="../../../../assets/Procurement.png"></a>
+                </li>
+                <li>
+                    <a class="brand-box-codecanyon" href="https://Sunsmart.in/HRMS"><img alt="HRMS"
+                            src="../../../../assets/HRMS.png"></a>
+                </li>
+
+                <li>
+                    <a class="brand-box-photodune" href="https://Sunsmart.in/Instiview"><img alt="Instiview"
+                            src="../../../../assets/Instiview.png"></a>
+                </li>
+
+                <li>
+                    <a class="brand-box-elements" href="https://Sunsmart.in/Asset Management"><img
+                            alt="Asset Management" src="../../../../assets/CAMS.png"></a>
+                </li>
+
+
+                <li>
+                    <a class="brand-box-themeforest" href="https://Sunsmart.in/ERP"><img alt="ERP"
+                            src="../../../../assets/ERP.png"></a>
+                </li>
+                <li>
+                    <a class="brand-box-tutsplus" href="https://Sunsmart.in/Document Management"><img
+                            alt="Document Management" src="../../../../assets/DMS.png"></a>
+                </li>
+                <li>
+                    <a class="brand-box-studio" href="https://Sunsmart.in/Legal Management"><img alt="Legal Management"
+                            src="../../../../assets/Legal.png"></a>
+                </li>
+            </ul>
+
+        </div>
+
+
+
+    </div>
+    <footer>
+        <a href="https://help.sunsmartglobal.com">Help Center</a>
+        <a href="http://sunsmartglobal.com">About SunSmart Global</a>
+        <a id="cookie-preferences" style="display: none" href="javascript:Cookiebot.show()">Cookie Declaration</a>
+        <a href="http://sunsmartglobal.com/privacy">Privacy Policy</a>
+    </footer>
+
+</div>

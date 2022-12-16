@@ -1,0 +1,93 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<p-blockUI [target]="pnl" [blocked]="blockedDocument"><i class="pi pi-lock" style="font-size: 3rem"></i></p-blockUI>
+<form id="frm_customersecurityquestionshistory" [formGroup]="customersecurityquestionshistory_Form"
+  (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <p-panel #pnl [showHeader]="false">
+    <app-title reportcode="" title="Security Questions Histories" [f]="f" [data]="data" [maindata]="maindata"
+      [p_menuid]="p_menuid" [action]="action" (edit)="edit_customersecurityquestionshistories()" (first)="first()"
+      (prev)="prev()" (onSelectedpk)="onSelectedpk($event)" (next)="next()" (last)="last()" (resetForm)="resetForm()"
+      (onSubmit)="onSubmit()" (onDelete)="onDelete()" (onCopy)="onCopy()" (onCopyDetails)="onCopyDetails()"
+      (onCopycursive)="onCopyRecursive()" (onClose)="onClose()" (afterAction)="afterAction"
+      (onSubmitAndWait)="onSubmitAndWait()" (onChangeAction)="onChangeAction()"></app-title>
+    <p-scrollTop></p-scrollTop>
+    <p-scrollPanel #panelscroller [style]="maindata?sharedService.dialogScreenSize:sharedService.mainScreenSize"
+      styleClass="custom">
+      <div class="container1  ui-fluid p-grid"
+        id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+        <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+          <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+        </div>
+        <div *ngIf="!showview" id="div_customersecurityquestionshistories"></div>
+        <div *ngIf="showview" id="div_customersecurityquestionshistories"></div>
+        <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+        </div>
+
+
+        <!--customerid-->
+
+        <div *ngIf="hidelist.indexOf('customerid')<0" class=" p-float-label  p-col-12 p-md-3">
+          <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+            class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="customerid"
+            pTooltip="{{'Enter' | translate}} {{'customerid' | translate}}" field="label"
+            [suggestions]="customerid_Suggestions" (onSelect)="onSelected_customerid($event)"
+            (completeMethod)="onEntered_customerid($event)" [dropdown]="true">
+            <ng-template let-customerid pTemplate="item">
+              <div>{{customerid.label}}</div>
+            </ng-template>
+          </p-autoComplete>
+          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.customeriddesc?.value}}</label>
+          <label for="customerid" class="control-label required">{{'Customer' | translate}}</label>
+          <app-field-error-display [displayError]="f.customerid.errors?.required"
+            errorMsg="{{'Enter'| translate}} {{'Customer' | translate}}">
+          </app-field-error-display>
+        </div>
+
+
+        <!--securityquestionid-->
+
+        <div *ngIf="hidelist.indexOf('securityquestionid')<0" class=" p-float-label  p-col-12 p-md-3">
+          <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+            class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="securityquestionid"
+            pTooltip="{{'Enter' | translate}} {{'securityquestionid' | translate}}" field="label"
+            [suggestions]="securityquestionid_Suggestions" (onSelect)="onSelected_securityquestionid($event)"
+            (completeMethod)="onEntered_securityquestionid($event)" [dropdown]="true">
+            <ng-template let-securityquestionid pTemplate="item">
+              <div>{{securityquestionid.label}}</div>
+            </ng-template>
+          </p-autoComplete>
+          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.securityquestioniddesc?.value}}</label>
+          <label for="securityquestionid" class="control-label" (click)="AddOrEdit_securityquestionid(null)">{{'Security
+            Question' | translate}}</label>
+        </div>
+        <div *ngIf="hidelist.indexOf('questionid')<0" class="  p-float-label  p-col-12 p-md-3">
+
+          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.questionid?.value}}</label>
+          <input type="text" pInputText *ngIf="!showview" id="questionid"
+            pTooltip="{{'Enter' | translate}} {{'questionid' | translate}}" formControlName="questionid"
+            class="  p-form-control p-inputtext-sm p-field">
+          <label for="questionid" class="control-label">{{'Question' | translate}}</label>
+        </div>
+        <div *ngIf="hidelist.indexOf('oldanswer')<0" class="  p-col-12 p-md-12">
+          <label for="oldanswer" class="control-label">{{'Old Answer' | translate}}</label>
+
+          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.oldanswer?.value}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="oldanswer"
+            pTooltip="{{'Enter' | translate}} {{'oldanswer' | translate}}" formControlName="oldanswer" [rows]="5"
+            [cols]="200" pInputTextarea autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+        </div>
+        <div *ngIf="hidelist.indexOf('newanswer')<0" class="  p-col-12 p-md-12">
+          <label for="newanswer" class="control-label">{{'New Answer' | translate}}</label>
+
+          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.newanswer?.value}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="newanswer"
+            pTooltip="{{'Enter' | translate}} {{'newanswer' | translate}}" formControlName="newanswer" [rows]="5"
+            [cols]="200" pInputTextarea autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+        </div>
+      </div>
+      <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
+    </p-scrollPanel>
+  </p-panel>
+</form>

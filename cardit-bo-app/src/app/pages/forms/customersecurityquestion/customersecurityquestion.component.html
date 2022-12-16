@@ -1,0 +1,85 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<p-blockUI [target]="pnl" [blocked]="blockedDocument"><i class="pi pi-lock" style="font-size: 3rem"></i></p-blockUI>
+<form id="frm_customersecurityquestion" [formGroup]="customersecurityquestion_Form" (ngSubmit)="onSubmit()"
+  [ngClass]="theme">
+  <p-panel #pnl [showHeader]="false">
+    <app-title reportcode="" title="Security Questions" [f]="f" [data]="data" [maindata]="maindata"
+      [p_menuid]="p_menuid" [action]="action" (edit)="edit_customersecurityquestions()" (first)="first()"
+      (prev)="prev()" (onSelectedpk)="onSelectedpk($event)" (next)="next()" (last)="last()" (resetForm)="resetForm()"
+      (onSubmit)="onSubmit()" (onDelete)="onDelete()" (onCopy)="onCopy()" (onCopyDetails)="onCopyDetails()"
+      (onCopycursive)="onCopyRecursive()" (onClose)="onClose()" (afterAction)="afterAction"
+      (onSubmitAndWait)="onSubmitAndWait()" (onChangeAction)="onChangeAction()"></app-title>
+    <p-scrollTop></p-scrollTop>
+    <p-scrollPanel #panelscroller [style]="maindata?sharedService.dialogScreenSize:sharedService.mainScreenSize"
+      styleClass="custom">
+      <div class="container1  ui-fluid p-grid"
+        id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+        <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+          <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+        </div>
+        <div *ngIf="!showview" id="div_customersecurityquestions"></div>
+        <div *ngIf="showview" id="div_customersecurityquestions"></div>
+        <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+        </div>
+
+
+        <!--customerid-->
+
+        <div *ngIf="hidelist.indexOf('customerid')<0" class=" p-float-label  p-col-12 p-md-3">
+          <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+            class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="customerid"
+            pTooltip="{{'Enter' | translate}} {{'customerid' | translate}}" field="label"
+            [suggestions]="customerid_Suggestions" (onSelect)="onSelected_customerid($event)"
+            (completeMethod)="onEntered_customerid($event)" [dropdown]="true">
+            <ng-template let-customerid pTemplate="item">
+              <div>{{customerid.label}}</div>
+            </ng-template>
+          </p-autoComplete>
+          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.customeriddesc?.value}}</label>
+          <label for="customerid" class="control-label required">{{'Customer' | translate}}</label>
+          <app-field-error-display [displayError]="f.customerid.errors?.required"
+            errorMsg="{{'Enter'| translate}} {{'Customer' | translate}}">
+          </app-field-error-display>
+        </div>
+
+
+        <!--questionid-->
+
+        <div *ngIf="hidelist.indexOf('questionid')<0" class=" p-float-label  p-col-12 p-md-3">
+          <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+            class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="questionid"
+            pTooltip="{{'Enter' | translate}} {{'questionid' | translate}}" field="label"
+            [suggestions]="questionid_Suggestions" (onSelect)="onSelected_questionid($event)"
+            (completeMethod)="onEntered_questionid($event)" [dropdown]="true">
+            <ng-template let-questionid pTemplate="item">
+              <div>{{questionid.label}}</div>
+            </ng-template>
+          </p-autoComplete>
+          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.questioniddesc?.value}}</label>
+          <label for="questionid" class="control-label" (click)="AddOrEdit_questionid(null)">{{'Question' |
+            translate}}</label>
+        </div>
+        <div *ngIf="hidelist.indexOf('answer')<0" class="  p-col-12 p-md-12">
+          <label for="answer" class="control-label">{{'Answer' | translate}}</label>
+
+          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.answer?.value}}</label>
+          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="answer"
+            pTooltip="{{'Enter' | translate}} {{'answer' | translate}}" formControlName="answer" [rows]="5" [cols]="200"
+            pInputTextarea autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+        </div>
+        <div *ngIf="hidelist.indexOf('deletedon')<0" class="  p-float-label  p-col-12 p-md-3">
+
+          <label *ngIf="showview"
+            class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.deletedon?.value)}}</label>
+          <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview" dateFormat="d/M/y"
+            class="p-form-control p-inputtext-sm p-field"
+            pTooltip="{{'Select' | translate}} {{'deletedon' | translate}}" formControlName="deletedon"></p-calendar>
+          <label for="deletedon" class="control-label">{{'Deleted On' | translate}}</label>
+        </div>
+      </div>
+      <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
+    </p-scrollPanel>
+  </p-panel>
+</form>

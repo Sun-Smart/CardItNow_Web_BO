@@ -1,0 +1,1192 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<p-blockUI [target]="pnl" [blocked]="blockedDocument"><i class="pi pi-lock" style="font-size: 3rem"></i></p-blockUI>
+<form id="frm_boreport" [formGroup]="boreport_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <p-panel #pnl [showHeader]="false">
+    <app-title reportcode="r5oo7" title="boreports" [f]="f" [data]="data" [maindata]="maindata" [p_menuid]="p_menuid"
+      [action]="action" (edit)="edit_boreports()" (first)="first()" (prev)="prev()"
+      (onSelectedpk)="onSelectedpk($event)" (next)="next()" (last)="last()" (resetForm)="resetForm()"
+      (onSubmit)="onSubmit()" (onDelete)="onDelete()" (onCopy)="onCopy()" (onCopyDetails)="onCopyDetails()"
+      (onClose)="onClose()" (afterAction)="afterAction" (onSubmitAndWait)="onSubmitAndWait()"></app-title>
+    <p-scrollTop></p-scrollTop>
+    <p-scrollPanel #panelscroller [style]="maindata?sharedService.dialogScreenSize:sharedService.mainScreenSize"
+      styleClass="custom">
+      <div class="container1  ui-fluid p-grid"
+        id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+        <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+          <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+        </div>
+        <div *ngIf="!showview" id="div_boreports"></div>
+        <div *ngIf="showview" id="div_boreports"></div>
+        <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+        </div>
+        <p-tabView class="tabset1" [destroyOnHide]="false">
+          <div *ngIf="!showview" id="div_boreports"></div>
+          <div *ngIf="showview" id="div_boreports"></div>
+          <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+          </div>
+          <p-tabPanel header="Master">
+            <div class="col-12">
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <div *ngIf="hidelist.indexOf('reportcode')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.reportcode?.value}}</label>
+                    <input type="text" pInputText *ngIf="!showview" id="reportcode" required
+                      pTooltip="{{'Enter' | translate}} {{'reportcode' | translate}}" formControlName="reportcode"
+                      class="  p-form-control p-inputtext-sm p-field">
+                    <label for="reportcode" class="control-label required">{{'Report Code' | translate}}</label>
+                    <app-field-error-display [displayError]="f.reportcode.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'Report Code' | translate}}">
+                    </app-field-error-display>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('reportname')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.reportname?.value}}</label>
+                    <input type="text" pInputText *ngIf="!showview" id="reportname" required
+                      pTooltip="{{'Enter' | translate}} {{'reportname' | translate}}" formControlName="reportname"
+                      class="  p-form-control p-inputtext-sm p-field">
+                    <label for="reportname" class="control-label required">{{'Report Name' | translate}}</label>
+                    <app-field-error-display [displayError]="f.reportname.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'Report Name' | translate}}">
+                    </app-field-error-display>
+                  </div>
+
+
+                  <!--reportmodule-->
+
+                  <div *ngIf="hidelist.indexOf('reportmodule')<0" class=" p-float-label  p-col-12 p-md-3">
+                    <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                      class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="reportmodule"
+                      pTooltip="{{'Enter' | translate}} {{'reportmodule' | translate}}" field="label"
+                      [suggestions]="reportmodule_Suggestions" (onSelect)="onSelected_reportmodule($event)"
+                      (completeMethod)="onEntered_reportmodule($event)" [dropdown]="true">
+                      <ng-template let-reportmodule pTemplate="item">
+                        <div>{{reportmodule.label}}</div>
+                      </ng-template>
+                    </p-autoComplete>
+                    <label *ngIf="showview"
+                      class="labelview p-inputwrapper-filled">{{f.reportmoduledesc?.value}}</label>
+                    <label for="reportmodule" class="control-label required">{{'Report Module' | translate}}</label>
+                    <app-field-error-display [displayError]="f.reportmodule.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'Report Module' | translate}}">
+                    </app-field-error-display>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('actionkey')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.actionkey?.value}}</label>
+                    <input type="text" pInputText *ngIf="!showview" id="actionkey" required
+                      pTooltip="{{'Enter' | translate}} {{'actionkey' | translate}}" formControlName="actionkey"
+                      class="  p-form-control p-inputtext-sm p-field">
+                    <label for="actionkey" class="control-label required">{{'Action Key' | translate}}</label>
+                    <app-field-error-display [displayError]="f.actionkey.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'Action Key' | translate}}">
+                    </app-field-error-display>
+                  </div>
+
+
+                  <!--reporttype-->
+
+                  <div *ngIf="hidelist.indexOf('reporttype')<0" class=" p-float-label  p-col-12 p-md-3">
+                    <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                      class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="reporttype"
+                      pTooltip="{{'Enter' | translate}} {{'reporttype' | translate}}" field="label"
+                      [suggestions]="reporttype_Suggestions" (onSelect)="onSelected_reporttype($event)"
+                      (completeMethod)="onEntered_reporttype($event)" [dropdown]="true">
+                      <ng-template let-reporttype pTemplate="item">
+                        <div>{{reporttype.label}}</div>
+                      </ng-template>
+                    </p-autoComplete>
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.reporttypedesc?.value}}</label>
+                    <label for="reporttype" class="control-label required">{{'Report Type' | translate}}</label>
+                    <app-field-error-display [displayError]="f.reporttype.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'Report Type' | translate}}">
+                    </app-field-error-display>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('columns')<0" class="  p-col-12 p-md-12">
+                    <label for="columns" class="control-label">{{'Columns' | translate}}</label>
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.columns?.value}}</label>
+                    <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="columns"
+                      pTooltip="{{'Enter' | translate}} {{'columns' | translate}}" formControlName="columns" [rows]="5"
+                      [cols]="200" pInputTextarea autoResize="autoResize"
+                      class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('sidefilter')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.sidefilter?.value}}</label>
+                    <p-inputSwitch type="checkbox" *ngIf="!showview" id="sidefilter"
+                      pTooltip="{{'Enter' | translate}} {{'sidefilter' | translate}}" formControlName="sidefilter"
+                      class=" p-field p-inputwrapper-filled">
+                    </p-inputSwitch>
+                    <label for="sidefilter" class="control-label">{{'Side Filter' | translate}}</label>
+                  </div>
+
+
+                  <!--sidefiltertype-->
+
+                  <div *ngIf="hidelist.indexOf('sidefiltertype')<0" class=" p-float-label  p-col-12 p-md-3">
+                    <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                      class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
+                      formControlName="sidefiltertype"
+                      pTooltip="{{'Enter' | translate}} {{'sidefiltertype' | translate}}" field="label"
+                      [suggestions]="sidefiltertype_Suggestions" (onSelect)="onSelected_sidefiltertype($event)"
+                      (completeMethod)="onEntered_sidefiltertype($event)" [dropdown]="true">
+                      <ng-template let-sidefiltertype pTemplate="item">
+                        <div>{{sidefiltertype.label}}</div>
+                      </ng-template>
+                    </p-autoComplete>
+                    <label *ngIf="showview"
+                      class="labelview p-inputwrapper-filled">{{f.sidefiltertypedesc?.value}}</label>
+                    <label for="sidefiltertype" class="control-label">{{'Side Filter Type' | translate}}</label>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('sidefilters')<0" class="  p-float-label  p-col-12 p-md-6">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.sidefilters?.value}}</label>
+                    <input type="text" pInputText *ngIf="!showview" id="sidefilters"
+                      pTooltip="{{'Enter' | translate}} {{'sidefilters' | translate}}" formControlName="sidefilters"
+                      class="  p-form-control p-inputtext-sm p-field">
+                    <label for="sidefilters" class="control-label">{{'Side Filters' | translate}}</label>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('maintablename')<0" class="  p-float-label  p-col-12 p-md-6">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.maintablename?.value}}</label>
+                    <input type="text" pInputText *ngIf="!showview" id="maintablename" required
+                      pTooltip="{{'Enter' | translate}} {{'maintablename' | translate}}" formControlName="maintablename"
+                      class="  p-form-control p-inputtext-sm p-field">
+                    <label for="maintablename" class="control-label required">{{'Main Table Name' | translate}}</label>
+                    <app-field-error-display [displayError]="f.maintablename.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'Main Table Name' | translate}}">
+                    </app-field-error-display>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('maintablealias')<0" class="  p-float-label  p-col-12 p-md-6">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.maintablealias?.value}}</label>
+                    <input type="text" pInputText *ngIf="!showview" id="maintablealias" required
+                      pTooltip="{{'Enter' | translate}} {{'maintablealias' | translate}}"
+                      formControlName="maintablealias" class="  p-form-control p-inputtext-sm p-field">
+                    <label for="maintablealias" class="control-label required">{{'Main Table Alias' |
+                      translate}}</label>
+                    <app-field-error-display [displayError]="f.maintablealias.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'Main Table Alias' | translate}}">
+                    </app-field-error-display>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('maintableidentityfield')<0" class="  p-float-label  p-col-12 p-md-6">
+
+                    <label *ngIf="showview"
+                      class="labelview p-inputwrapper-filled">{{f.maintableidentityfield?.value}}</label>
+                    <input type="text" pInputText *ngIf="!showview" id="maintableidentityfield" required
+                      pTooltip="{{'Enter' | translate}} {{'maintableidentityfield' | translate}}"
+                      formControlName="maintableidentityfield" class="  p-form-control p-inputtext-sm p-field">
+                    <label for="maintableidentityfield" class="control-label required">{{'Main Table Identity Field' |
+                      translate}}</label>
+                    <app-field-error-display [displayError]="f.maintableidentityfield.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'Main Table Identity Field' | translate}}">
+                    </app-field-error-display>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('pk')<0" class="  p-float-label  p-col-12 p-md-6">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.pk?.value}}</label>
+                    <input type="text" pInputText *ngIf="!showview" id="pk" required
+                      pTooltip="{{'Enter' | translate}} {{'pk' | translate}}" formControlName="pk"
+                      class="  p-form-control p-inputtext-sm p-field">
+                    <label for="pk" class="control-label required">{{'P K' | translate}}</label>
+                    <app-field-error-display [displayError]="f.pk.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'P K' | translate}}">
+                    </app-field-error-display>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('query')<0" class="  p-col-12 p-md-12">
+                    <label for="query" class="control-label">{{'Query' | translate}}</label>
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.query?.value}}</label>
+                    <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="query"
+                      pTooltip="{{'Enter' | translate}} {{'query' | translate}}" formControlName="query" [rows]="5"
+                      [cols]="200" pInputTextarea autoResize="autoResize"
+                      class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('postquery')<0" class="  p-col-12 p-md-12">
+                    <label for="query" class="control-label">{{'Post Query' | translate}}</label>
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.postquery?.value}}</label>
+                    <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="postquery"
+                      pTooltip="{{'Enter' | translate}} {{'postquery' | translate}}" formControlName="postquery"
+                      [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                      class=" p-field p-inputwrapper-filled p-md-12">
+    </textarea>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('wherecondition')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.wherecondition?.value}}</label>
+                    <input type="text" pInputText *ngIf="!showview" id="wherecondition"
+                      pTooltip="{{'Enter' | translate}} {{'wherecondition' | translate}}"
+                      formControlName="wherecondition" class="  p-form-control p-inputtext-sm p-field">
+                    <label for="wherecondition" class="control-label">{{'Where Condition' | translate}}</label>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('cardtype')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.cardtype?.value}}</label>
+                    <p-inputSwitch type="checkbox" *ngIf="!showview" id="cardtype"
+                      pTooltip="{{'Enter' | translate}} {{'cardtype' | translate}}" formControlName="cardtype"
+                      class=" p-field p-inputwrapper-filled">
+                    </p-inputSwitch>
+                    <label for="cardtype" class="control-label">{{'Card Type' | translate}}</label>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('html')<0" class="  p-col-12 p-md-12">
+                    <label for="html" class="control-label">{{'H T M L' | translate}}</label>
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.html?.value}}</label>
+                    <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="html"
+                      pTooltip="{{'Enter' | translate}} {{'html' | translate}}" formControlName="html" [rows]="5"
+                      [cols]="200" pInputTextarea autoResize="autoResize"
+                      class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('calendar')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.calendar?.value}}</label>
+                    <p-inputSwitch type="checkbox" *ngIf="!showview" id="calendar"
+                      pTooltip="{{'Enter' | translate}} {{'calendar' | translate}}" formControlName="calendar"
+                      class=" p-field p-inputwrapper-filled">
+                    </p-inputSwitch>
+                    <label for="calendar" class="control-label">{{'Calendar' | translate}}</label>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('kanbanview')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.kanbanview?.value}}</label>
+                    <p-inputSwitch type="checkbox" *ngIf="!showview" id="kanbanview"
+                      pTooltip="{{'Enter' | translate}} {{'kanbanview' | translate}}" formControlName="kanbanview"
+                      class=" p-field p-inputwrapper-filled">
+                    </p-inputSwitch>
+                    <label for="kanbanview" class="control-label">{{'Kanban View' | translate}}</label>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('kanbankey')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.kanbankey?.value}}</label>
+                    <input type="text" pInputText *ngIf="!showview" id="kanbankey"
+                      pTooltip="{{'Enter' | translate}} {{'kanbankey' | translate}}" formControlName="kanbankey"
+                      class="  p-form-control p-inputtext-sm p-field">
+                    <label for="kanbankey" class="control-label">{{'Kanban Key' | translate}}</label>
+                  </div>
+                </div>
+              </p-accordion>
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <p-accordionTab header='Date' [selected]='false'>
+                    <div class='ui-fluid p-formgrid p-grid '>
+                      <div *ngIf="hidelist.indexOf('datefilter')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.datefilter?.value}}</label>
+                        <p-inputSwitch type="checkbox" *ngIf="!showview" id="datefilter"
+                          pTooltip="{{'Enter' | translate}} {{'datefilter' | translate}}" formControlName="datefilter"
+                          class=" p-field p-inputwrapper-filled">
+                        </p-inputSwitch>
+                        <label for="datefilter" class="control-label">{{'Date Filter' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('datefiltercolumnname')<0" class="  p-float-label  p-col-12 p-md-6">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.datefiltercolumnname?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="datefiltercolumnname"
+                          pTooltip="{{'Enter' | translate}} {{'datefiltercolumnname' | translate}}"
+                          formControlName="datefiltercolumnname" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="datefiltercolumnname" class="control-label">{{'Date Filter Column Name' |
+                          translate}}</label>
+                      </div>
+
+
+                      <!--datefiltertype-->
+
+                      <div *ngIf="hidelist.indexOf('datefiltertype')<0" class=" p-float-label  p-col-12 p-md-3">
+                        <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                          class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
+                          formControlName="datefiltertype"
+                          pTooltip="{{'Enter' | translate}} {{'datefiltertype' | translate}}" field="label"
+                          [suggestions]="datefiltertype_Suggestions" (onSelect)="onSelected_datefiltertype($event)"
+                          (completeMethod)="onEntered_datefiltertype($event)" [dropdown]="true">
+                          <ng-template let-datefiltertype pTemplate="item">
+                            <div>{{datefiltertype.label}}</div>
+                          </ng-template>
+                        </p-autoComplete>
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.datefiltertypedesc?.value}}</label>
+                        <label for="datefiltertype" class="control-label">{{'Date Filter Type' | translate}}</label>
+                      </div>
+                    </div>
+                  </p-accordionTab>
+                </div>
+              </p-accordion>
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <p-accordionTab header='Group' [selected]='false'>
+                    <div class='ui-fluid p-formgrid p-grid '>
+                      <div *ngIf="hidelist.indexOf('groupby')<0" class="  p-float-label  p-col-12 p-md-6">
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.groupby?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="groupby"
+                          pTooltip="{{'Enter' | translate}} {{'groupby' | translate}}" formControlName="groupby"
+                          class="  p-form-control p-inputtext-sm p-field">
+                        <label for="groupby" class="control-label">{{'Group By' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('groupbytext')<0" class="  p-col-12 p-md-12">
+                        <label for="groupbytext" class="control-label">{{'Group By Text' | translate}}</label>
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.groupbytext?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="groupbytext"
+                          pTooltip="{{'Enter' | translate}} {{'groupbytext' | translate}}" formControlName="groupbytext"
+                          [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('groupby2')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.groupby2?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="groupby2"
+                          pTooltip="{{'Enter' | translate}} {{'groupby2' | translate}}" formControlName="groupby2"
+                          class="  p-form-control p-inputtext-sm p-field">
+                        <label for="groupby2" class="control-label">{{'Group By2' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('groupby2text')<0" class="  p-col-12 p-md-12">
+                        <label for="groupby2text" class="control-label">{{'Group By2 Text' | translate}}</label>
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.groupby2text?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="groupby2text"
+                          pTooltip="{{'Enter' | translate}} {{'groupby2text' | translate}}"
+                          formControlName="groupby2text" [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+
+
+                      <!--groupbyrelationship-->
+
+                      <div *ngIf="hidelist.indexOf('groupbyrelationship')<0" class=" p-float-label  p-col-12 p-md-3">
+                        <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                          class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
+                          formControlName="groupbyrelationship"
+                          pTooltip="{{'Enter' | translate}} {{'groupbyrelationship' | translate}}" field="label"
+                          [suggestions]="groupbyrelationship_Suggestions"
+                          (onSelect)="onSelected_groupbyrelationship($event)"
+                          (completeMethod)="onEntered_groupbyrelationship($event)" [dropdown]="true">
+                          <ng-template let-groupbyrelationship pTemplate="item">
+                            <div>{{groupbyrelationship.label}}</div>
+                          </ng-template>
+                        </p-autoComplete>
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.groupbyrelationshipdesc?.value}}</label>
+                        <label for="groupbyrelationship" class="control-label">{{'Group By Relationship' |
+                          translate}}</label>
+                      </div>
+                    </div>
+                  </p-accordionTab>
+                </div>
+              </p-accordion>
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <p-accordionTab header='Sort' [selected]='false'>
+                    <div class='ui-fluid p-formgrid p-grid '>
+                      <div *ngIf="hidelist.indexOf('sortby1')<0" class="  p-float-label  p-col-12 p-md-6">
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.sortby1?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="sortby1"
+                          pTooltip="{{'Enter' | translate}} {{'sortby1' | translate}}" formControlName="sortby1"
+                          class="  p-form-control p-inputtext-sm p-field">
+                        <label for="sortby1" class="control-label">{{'Sort By1' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('sortby2')<0" class="  p-float-label  p-col-12 p-md-6">
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.sortby2?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="sortby2"
+                          pTooltip="{{'Enter' | translate}} {{'sortby2' | translate}}" formControlName="sortby2"
+                          class="  p-form-control p-inputtext-sm p-field">
+                        <label for="sortby2" class="control-label">{{'Sort By2' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('sortby3')<0" class="  p-float-label  p-col-12 p-md-6">
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.sortby3?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="sortby3"
+                          pTooltip="{{'Enter' | translate}} {{'sortby3' | translate}}" formControlName="sortby3"
+                          class="  p-form-control p-inputtext-sm p-field">
+                        <label for="sortby3" class="control-label">{{'Sort By3' | translate}}</label>
+                      </div>
+                    </div>
+                  </p-accordionTab>
+                </div>
+              </p-accordion>
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <p-accordionTab header='Parent' [selected]='false'>
+                    <div class='ui-fluid p-formgrid p-grid '>
+                      <div *ngIf="hidelist.indexOf('parentid')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.parentid?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="parentid"
+                          pTooltip="{{'Enter' | translate}} {{'parentid' | translate}}" formControlName="parentid"
+                          class="  p-form-control p-inputtext-sm p-field">
+                        <label for="parentid" class="control-label">{{'Parent' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('parentdescription')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.parentdescription?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="parentdescription"
+                          pTooltip="{{'Enter' | translate}} {{'parentdescription' | translate}}"
+                          formControlName="parentdescription" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="parentdescription" class="control-label">{{'Parent Description' |
+                          translate}}</label>
+                      </div>
+                    </div>
+                  </p-accordionTab>
+                </div>
+              </p-accordion>
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <p-accordionTab header='Detail Table' [selected]='false'>
+                    <div class='ui-fluid p-formgrid p-grid '>
+                      <div *ngIf="hidelist.indexOf('detailtablename')<0" class="  p-float-label  p-col-12 p-md-6">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.detailtablename?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="detailtablename"
+                          pTooltip="{{'Enter' | translate}} {{'detailtablename' | translate}}"
+                          formControlName="detailtablename" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="detailtablename" class="control-label">{{'Detail Table Name' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('detailtablealias')<0" class="  p-float-label  p-col-12 p-md-6">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.detailtablealias?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="detailtablealias"
+                          pTooltip="{{'Enter' | translate}} {{'detailtablealias' | translate}}"
+                          formControlName="detailtablealias" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="detailtablealias" class="control-label">{{'Detail Table Alias' | translate}}</label>
+                      </div>
+
+
+                      <!--jointype-->
+
+                      <div *ngIf="hidelist.indexOf('jointype')<0" class=" p-float-label  p-col-12 p-md-3">
+                        <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                          class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="jointype"
+                          pTooltip="{{'Enter' | translate}} {{'jointype' | translate}}" field="label"
+                          [suggestions]="jointype_Suggestions" (onSelect)="onSelected_jointype($event)"
+                          (completeMethod)="onEntered_jointype($event)" [dropdown]="true">
+                          <ng-template let-jointype pTemplate="item">
+                            <div>{{jointype.label}}</div>
+                          </ng-template>
+                        </p-autoComplete>
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.jointypedesc?.value}}</label>
+                        <label for="jointype" class="control-label">{{'Join Type' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('detailtableidentityfield')<0"
+                        class="  p-float-label  p-col-12 p-md-6">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.detailtableidentityfield?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="detailtableidentityfield"
+                          pTooltip="{{'Enter' | translate}} {{'detailtableidentityfield' | translate}}"
+                          formControlName="detailtableidentityfield" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="detailtableidentityfield" class="control-label">{{'Detail Table Identity Field' |
+                          translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('detailtablefk')<0" class="  p-float-label  p-col-12 p-md-6">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.detailtablefk?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="detailtablefk"
+                          pTooltip="{{'Enter' | translate}} {{'detailtablefk' | translate}}"
+                          formControlName="detailtablefk" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="detailtablefk" class="control-label">{{'Detail Table F K' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('detailtableconcatenate')<0"
+                        class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.detailtableconcatenate?.value}}</label>
+                        <p-inputSwitch type="checkbox" *ngIf="!showview" id="detailtableconcatenate"
+                          pTooltip="{{'Enter' | translate}} {{'detailtableconcatenate' | translate}}"
+                          formControlName="detailtableconcatenate" class=" p-field p-inputwrapper-filled">
+                        </p-inputSwitch>
+                        <label for="detailtableconcatenate" class="control-label">{{'Detail Table Concatenate' |
+                          translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('detailtableheader')<0" class="  p-col-12 p-md-12">
+                        <label for="detailtableheader" class="control-label">{{'Detail Table Header' |
+                          translate}}</label>
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.detailtableheader?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
+                          id="detailtableheader" pTooltip="{{'Enter' | translate}} {{'detailtableheader' | translate}}"
+                          formControlName="detailtableheader" [rows]="5" [cols]="200" pInputTextarea
+                          autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('detailtablefooter')<0" class="  p-col-12 p-md-12">
+                        <label for="detailtablefooter" class="control-label">{{'Detail Table Footer' |
+                          translate}}</label>
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.detailtablefooter?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
+                          id="detailtablefooter" pTooltip="{{'Enter' | translate}} {{'detailtablefooter' | translate}}"
+                          formControlName="detailtablefooter" [rows]="5" [cols]="200" pInputTextarea
+                          autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('detailtablequery')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.detailtablequery?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="detailtablequery"
+                          pTooltip="{{'Enter' | translate}} {{'detailtablequery' | translate}}"
+                          formControlName="detailtablequery" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="detailtablequery" class="control-label">{{'Detail Table Query' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('masterdetailwhere')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.masterdetailwhere?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="masterdetailwhere"
+                          pTooltip="{{'Enter' | translate}} {{'masterdetailwhere' | translate}}"
+                          formControlName="masterdetailwhere" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="masterdetailwhere" class="control-label">{{'Master Detail Where' |
+                          translate}}</label>
+                      </div>
+                    </div>
+                  </p-accordionTab>
+                </div>
+              </p-accordion>
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <p-accordionTab header='Others' [selected]='false'>
+                    <div class='ui-fluid p-formgrid p-grid '>
+                      <div *ngIf="hidelist.indexOf('numrows')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.numrows?.value}}</label>
+                        <p-inputNumber *ngIf="!showview" id="numrows"
+                          pTooltip="{{'Enter' | translate}} {{'numrows' | translate}}" formControlName="numrows"
+                          class="  p-form-control p-inputtext-sm p-field">
+                        </p-inputNumber>
+                        <label for="numrows" class="control-label">{{'Num Rows' | translate}}</label>
+                        <app-field-error-display
+                          [displayError]="f.numrows.errors!=null && f.numrows.errors?.pattern!=null && f.numrows.errors!=undefined && f.numrows.errors.pattern!=undefined  && (f.numrows.touched|| isSubmitted)"
+                          errorMsg="Not a valid number">
+                        </app-field-error-display>
+                        <app-field-error-display
+                          [displayError]="f.numrows.errors!=null && f.numrows.errors?.min!=null && f.numrows.errors!=undefined && f.numrows.errors.min!=undefined  && (f.numrows.touched|| isSubmitted)"
+                          errorMsg="Minimum value have to be entered">
+                        </app-field-error-display>
+                        <app-field-error-display
+                          [displayError]="f.numrows.errors!=null && f.numrows.errors?.max!=null && f.numrows.errors!=undefined && f.numrows.errors.max!=undefined  && (f.numrows.touched|| isSubmitted)"
+                          errorMsg="Maximum value Exceeded">
+                        </app-field-error-display>
+                      </div>
+
+
+                      <!--reportoutputtype-->
+
+                      <div *ngIf="hidelist.indexOf('reportoutputtype')<0" class=" p-float-label  p-col-12 p-md-3">
+                        <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                          class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
+                          formControlName="reportoutputtype"
+                          pTooltip="{{'Enter' | translate}} {{'reportoutputtype' | translate}}" field="label"
+                          [suggestions]="reportoutputtype_Suggestions" (onSelect)="onSelected_reportoutputtype($event)"
+                          (completeMethod)="onEntered_reportoutputtype($event)" [dropdown]="true">
+                          <ng-template let-reportoutputtype pTemplate="item">
+                            <div>{{reportoutputtype.label}}</div>
+                          </ng-template>
+                        </p-autoComplete>
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.reportoutputtypedesc?.value}}</label>
+                        <label for="reportoutputtype" class="control-label">{{'Report Output Type' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('noheader')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.noheader?.value}}</label>
+                        <p-inputSwitch type="checkbox" *ngIf="!showview" id="noheader"
+                          pTooltip="{{'Enter' | translate}} {{'noheader' | translate}}" formControlName="noheader"
+                          class=" p-field p-inputwrapper-filled">
+                        </p-inputSwitch>
+                        <label for="noheader" class="control-label">{{'No Header' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('header')<0" class="  p-col-12 p-md-12">
+                        <label for="header" class="control-label">{{'Header' | translate}}</label>
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.header?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="header"
+                          pTooltip="{{'Enter' | translate}} {{'header' | translate}}" formControlName="header"
+                          [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('footer')<0" class="  p-col-12 p-md-12">
+                        <label for="footer" class="control-label">{{'Footer' | translate}}</label>
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.footer?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="footer"
+                          pTooltip="{{'Enter' | translate}} {{'footer' | translate}}" formControlName="footer"
+                          [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('headerquery')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.headerquery?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="headerquery"
+                          pTooltip="{{'Enter' | translate}} {{'headerquery' | translate}}" formControlName="headerquery"
+                          class="  p-form-control p-inputtext-sm p-field">
+                        <label for="headerquery" class="control-label">{{'Header Query' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('footerquery')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.footerquery?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="footerquery"
+                          pTooltip="{{'Enter' | translate}} {{'footerquery' | translate}}" formControlName="footerquery"
+                          class="  p-form-control p-inputtext-sm p-field">
+                        <label for="footerquery" class="control-label">{{'Footer Query' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('headerquery1')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.headerquery1?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="headerquery1"
+                          pTooltip="{{'Enter' | translate}} {{'headerquery1' | translate}}"
+                          formControlName="headerquery1" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="headerquery1" class="control-label">{{'Header Query1' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('footerquery1')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.footerquery1?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="footerquery1"
+                          pTooltip="{{'Enter' | translate}} {{'footerquery1' | translate}}"
+                          formControlName="footerquery1" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="footerquery1" class="control-label">{{'Footer Query1' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('headerquery2')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.headerquery2?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="headerquery2"
+                          pTooltip="{{'Enter' | translate}} {{'headerquery2' | translate}}"
+                          formControlName="headerquery2" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="headerquery2" class="control-label">{{'Header Query2' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('footerquery2')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.footerquery2?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="footerquery2"
+                          pTooltip="{{'Enter' | translate}} {{'footerquery2' | translate}}"
+                          formControlName="footerquery2" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="footerquery2" class="control-label">{{'Footer Query2' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('headerquery3')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.headerquery3?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="headerquery3"
+                          pTooltip="{{'Enter' | translate}} {{'headerquery3' | translate}}"
+                          formControlName="headerquery3" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="headerquery3" class="control-label">{{'Header Query3' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('footerquery3')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.footerquery3?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="footerquery3"
+                          pTooltip="{{'Enter' | translate}} {{'footerquery3' | translate}}"
+                          formControlName="footerquery3" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="footerquery3" class="control-label">{{'Footer Query3' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('headerquery4')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.headerquery4?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="headerquery4"
+                          pTooltip="{{'Enter' | translate}} {{'headerquery4' | translate}}"
+                          formControlName="headerquery4" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="headerquery4" class="control-label">{{'Header Query4' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('footerquery4')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.footerquery4?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="footerquery4"
+                          pTooltip="{{'Enter' | translate}} {{'footerquery4' | translate}}"
+                          formControlName="footerquery4" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="footerquery4" class="control-label">{{'Footer Query4' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('headerquery5')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.headerquery5?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="headerquery5"
+                          pTooltip="{{'Enter' | translate}} {{'headerquery5' | translate}}"
+                          formControlName="headerquery5" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="headerquery5" class="control-label">{{'Header Query5' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('footerquery5')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.footerquery5?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="footerquery5"
+                          pTooltip="{{'Enter' | translate}} {{'footerquery5' | translate}}"
+                          formControlName="footerquery5" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="footerquery5" class="control-label">{{'Footer Query5' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('header1')<0" class="  p-col-12 p-md-12">
+                        <label for="header1" class="control-label">{{'Header1' | translate}}</label>
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.header1?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="header1"
+                          pTooltip="{{'Enter' | translate}} {{'header1' | translate}}" formControlName="header1"
+                          [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('footer1')<0" class="  p-col-12 p-md-12">
+                        <label for="footer1" class="control-label">{{'Footer1' | translate}}</label>
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.footer1?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="footer1"
+                          pTooltip="{{'Enter' | translate}} {{'footer1' | translate}}" formControlName="footer1"
+                          [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('header2')<0" class="  p-col-12 p-md-12">
+                        <label for="header2" class="control-label">{{'Header2' | translate}}</label>
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.header2?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="header2"
+                          pTooltip="{{'Enter' | translate}} {{'header2' | translate}}" formControlName="header2"
+                          [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('footer2')<0" class="  p-col-12 p-md-12">
+                        <label for="footer2" class="control-label">{{'Footer2' | translate}}</label>
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.footer2?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="footer2"
+                          pTooltip="{{'Enter' | translate}} {{'footer2' | translate}}" formControlName="footer2"
+                          [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('header3')<0" class="  p-col-12 p-md-12">
+                        <label for="header3" class="control-label">{{'Header3' | translate}}</label>
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.header3?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="header3"
+                          pTooltip="{{'Enter' | translate}} {{'header3' | translate}}" formControlName="header3"
+                          [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('footer3')<0" class="  p-col-12 p-md-12">
+                        <label for="footer3" class="control-label">{{'Footer3' | translate}}</label>
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.footer3?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="footer3"
+                          pTooltip="{{'Enter' | translate}} {{'footer3' | translate}}" formControlName="footer3"
+                          [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('header4')<0" class="  p-col-12 p-md-12">
+                        <label for="header4" class="control-label">{{'Header4' | translate}}</label>
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.header4?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="header4"
+                          pTooltip="{{'Enter' | translate}} {{'header4' | translate}}" formControlName="header4"
+                          [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('footer4')<0" class="  p-col-12 p-md-12">
+                        <label for="footer4" class="control-label">{{'Footer4' | translate}}</label>
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.footer4?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="footer4"
+                          pTooltip="{{'Enter' | translate}} {{'footer4' | translate}}" formControlName="footer4"
+                          [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('header5')<0" class="  p-col-12 p-md-12">
+                        <label for="header5" class="control-label">{{'Header5' | translate}}</label>
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.header5?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="header5"
+                          pTooltip="{{'Enter' | translate}} {{'header5' | translate}}" formControlName="header5"
+                          [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('footer5')<0" class="  p-col-12 p-md-12">
+                        <label for="footer5" class="control-label">{{'Footer5' | translate}}</label>
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.footer5?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="footer5"
+                          pTooltip="{{'Enter' | translate}} {{'footer5' | translate}}" formControlName="footer5"
+                          [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('css')<0" class="  p-col-12 p-md-12">
+                        <label for="css" class="control-label">{{'C S S' | translate}}</label>
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.css?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="css"
+                          pTooltip="{{'Enter' | translate}} {{'css' | translate}}" formControlName="css" [rows]="5"
+                          [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+
+
+                      <!--viewhtmltype-->
+
+                      <div *ngIf="hidelist.indexOf('viewhtmltype')<0" class=" p-float-label  p-col-12 p-md-3">
+                        <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                          class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
+                          formControlName="viewhtmltype"
+                          pTooltip="{{'Enter' | translate}} {{'viewhtmltype' | translate}}" field="label"
+                          [suggestions]="viewhtmltype_Suggestions" (onSelect)="onSelected_viewhtmltype($event)"
+                          (completeMethod)="onEntered_viewhtmltype($event)" [dropdown]="true">
+                          <ng-template let-viewhtmltype pTemplate="item">
+                            <div>{{viewhtmltype.label}}</div>
+                          </ng-template>
+                        </p-autoComplete>
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.viewhtmltypedesc?.value}}</label>
+                        <label for="viewhtmltype" class="control-label">{{'View H T M L Type' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('viewhtml')<0" class="  p-col-12 p-md-12">
+                        <label for="viewhtml" class="control-label">{{'View Html' | translate}}</label>
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.viewhtml?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="viewhtml"
+                          pTooltip="{{'Enter' | translate}} {{'viewhtml' | translate}}" formControlName="viewhtml"
+                          [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('viewcss')<0" class="  p-col-12 p-md-12">
+                        <label for="viewcss" class="control-label">{{'View C S S' | translate}}</label>
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.viewcss?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="viewcss"
+                          pTooltip="{{'Enter' | translate}} {{'viewcss' | translate}}" formControlName="viewcss"
+                          [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('reporthtml')<0" class="  p-col-12 p-md-12">
+                        <label for="reporthtml" class="control-label">{{'Report H T M L' | translate}}</label>
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.reporthtml?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="reporthtml"
+                          pTooltip="{{'Enter' | translate}} {{'reporthtml' | translate}}" formControlName="reporthtml"
+                          [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+
+
+                      <!--workflowhtmltype-->
+
+                      <div *ngIf="hidelist.indexOf('workflowhtmltype')<0" class=" p-float-label  p-col-12 p-md-3">
+                        <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                          class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
+                          formControlName="workflowhtmltype"
+                          pTooltip="{{'Enter' | translate}} {{'workflowhtmltype' | translate}}" field="label"
+                          [suggestions]="workflowhtmltype_Suggestions" (onSelect)="onSelected_workflowhtmltype($event)"
+                          (completeMethod)="onEntered_workflowhtmltype($event)" [dropdown]="true">
+                          <ng-template let-workflowhtmltype pTemplate="item">
+                            <div>{{workflowhtmltype.label}}</div>
+                          </ng-template>
+                        </p-autoComplete>
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.workflowhtmltypedesc?.value}}</label>
+                        <label for="workflowhtmltype" class="control-label">{{'Work Flow H T M L Type' |
+                          translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('workflowhtml')<0" class="  p-col-12 p-md-12">
+                        <label for="workflowhtml" class="control-label">{{'Work Flow H T M L' | translate}}</label>
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.workflowhtml?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="workflowhtml"
+                          pTooltip="{{'Enter' | translate}} {{'workflowhtml' | translate}}"
+                          formControlName="workflowhtml" [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('component')<0" class="  p-float-label  p-col-12 p-md-6">
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.component?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="component"
+                          pTooltip="{{'Enter' | translate}} {{'component' | translate}}" formControlName="component"
+                          class="  p-form-control p-inputtext-sm p-field">
+                        <label for="component" class="control-label">{{'Component' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('alternateview')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.alternateview?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="alternateview"
+                          pTooltip="{{'Enter' | translate}} {{'alternateview' | translate}}"
+                          formControlName="alternateview" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="alternateview" class="control-label">{{'Alternate View' | translate}}</label>
+                      </div>
+
+
+                      <!--recordtype-->
+
+                      <div *ngIf="hidelist.indexOf('recordtype')<0" class=" p-float-label  p-col-12 p-md-3">
+                        <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                          class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
+                          formControlName="recordtype" pTooltip="{{'Enter' | translate}} {{'recordtype' | translate}}"
+                          field="label" [suggestions]="recordtype_Suggestions"
+                          (onSelect)="onSelected_recordtype($event)" (completeMethod)="onEntered_recordtype($event)"
+                          [dropdown]="true">
+                          <ng-template let-recordtype pTemplate="item">
+                            <div>{{recordtype.label}}</div>
+                          </ng-template>
+                        </p-autoComplete>
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.recordtypedesc?.value}}</label>
+                        <label for="recordtype" class="control-label">{{'Record Type' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('userfield')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.userfield?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="userfield"
+                          pTooltip="{{'Enter' | translate}} {{'userfield' | translate}}" formControlName="userfield"
+                          class="  p-form-control p-inputtext-sm p-field">
+                        <label for="userfield" class="control-label">{{'User Field' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('employeefield')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.employeefield?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="employeefield"
+                          pTooltip="{{'Enter' | translate}} {{'employeefield' | translate}}"
+                          formControlName="employeefield" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="employeefield" class="control-label">{{'Employee Field' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('userfiltertype')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.userfiltertype?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="userfiltertype"
+                          pTooltip="{{'Enter' | translate}} {{'userfiltertype' | translate}}"
+                          formControlName="userfiltertype" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="userfiltertype" class="control-label">{{'User Filter Type' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('rolefield')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.rolefield?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="rolefield"
+                          pTooltip="{{'Enter' | translate}} {{'rolefield' | translate}}" formControlName="rolefield"
+                          class="  p-form-control p-inputtext-sm p-field">
+                        <label for="rolefield" class="control-label">{{'Role Field' | translate}}</label>
+                      </div>
+
+
+                      <!--dashboardid-->
+
+                      <div *ngIf="hidelist.indexOf('dashboardid')<0" class=" p-float-label  p-col-12 p-md-3">
+                        <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                          class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
+                          formControlName="dashboardid" pTooltip="{{'Enter' | translate}} {{'dashboardid' | translate}}"
+                          field="label" [suggestions]="dashboardid_Suggestions"
+                          (onSelect)="onSelected_dashboardid($event)" (completeMethod)="onEntered_dashboardid($event)"
+                          [dropdown]="true">
+                          <ng-template let-dashboardid pTemplate="item">
+                            <div>{{dashboardid.label}}</div>
+                          </ng-template>
+                        </p-autoComplete>
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.dashboardiddesc?.value}}</label>
+                        <label for="dashboardid" class="control-label"
+                          (click)="AddOrEdit_dashboardid(null)">{{'Dashboard' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('tableheader')<0" class="  p-col-12 p-md-12">
+                        <label for="tableheader" class="control-label">{{'Table Header' | translate}}</label>
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.tableheader?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="tableheader"
+                          pTooltip="{{'Enter' | translate}} {{'tableheader' | translate}}" formControlName="tableheader"
+                          [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('reportjsondata')<0" class="  p-col-12 p-md-12">
+                        <label for="reportjsondata" class="control-label">{{'Report J S O N Data' | translate}}</label>
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.reportjsondata?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
+                          id="reportjsondata" pTooltip="{{'Enter' | translate}} {{'reportjsondata' | translate}}"
+                          formControlName="reportjsondata" [rows]="5" [cols]="200" pInputTextarea
+                          autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('helptext')<0" class="  p-col-12 p-md-12">
+                        <label for="helptext" class="control-label">{{'Help Text' | translate}}</label>
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.helptext?.value}}</label>
+                        <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="helptext"
+                          pTooltip="{{'Enter' | translate}} {{'helptext' | translate}}" formControlName="helptext"
+                          [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                          class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('filters')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.filters?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="filters"
+                          pTooltip="{{'Enter' | translate}} {{'filters' | translate}}" formControlName="filters"
+                          class="  p-form-control p-inputtext-sm p-field">
+                        <label for="filters" class="control-label">{{'Filters' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('filtercolumns')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.filtercolumns?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="filtercolumns"
+                          pTooltip="{{'Enter' | translate}} {{'filtercolumns' | translate}}"
+                          formControlName="filtercolumns" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="filtercolumns" class="control-label">{{'Filter Columns' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('groupbyfooter')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.groupbyfooter?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="groupbyfooter"
+                          pTooltip="{{'Enter' | translate}} {{'groupbyfooter' | translate}}"
+                          formControlName="groupbyfooter" class="  p-form-control p-inputtext-sm p-field">
+                        <label for="groupbyfooter" class="control-label">{{'Groupby Footer' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('email')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.email?.value}}</label>
+                        <input type="text" pInputText *ngIf="!showview" id="email"
+                          pTooltip="{{'Enter' | translate}} {{'email' | translate}}" formControlName="email"
+                          class="  p-form-control p-inputtext-sm p-field">
+                        <label for="email" class="control-label">{{'Email' | translate}}</label>
+                      </div>
+
+
+                      <!--schedule-->
+
+                      <div *ngIf="hidelist.indexOf('schedule')<0" class=" p-float-label  p-col-12 p-md-3">
+                        <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                          class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="schedule"
+                          pTooltip="{{'Enter' | translate}} {{'schedule' | translate}}" field="label"
+                          [suggestions]="schedule_Suggestions" (onSelect)="onSelected_schedule($event)"
+                          (completeMethod)="onEntered_schedule($event)" [dropdown]="true">
+                          <ng-template let-schedule pTemplate="item">
+                            <div>{{schedule.label}}</div>
+                          </ng-template>
+                        </p-autoComplete>
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{f.scheduledesc?.value}}</label>
+                        <label for="schedule" class="control-label">{{'Schedule' | translate}}</label>
+                      </div>
+                      <div *ngIf="hidelist.indexOf('nextschedule')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                        <label *ngIf="showview"
+                          class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.nextschedule?.value)}}</label>
+                        <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
+                          dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
+                          pTooltip="{{'Select' | translate}} {{'nextschedule' | translate}}"
+                          formControlName="nextschedule"></p-calendar><label for="nextschedule"
+                          class="control-label">{{'Next Schedule' | translate}}</label>
+                      </div>
+                    </div>
+                  </p-accordionTab>
+                </div>
+              </p-accordion>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel [disabled]="formid==''?true:false" header="boreportdetails">
+            <div class="col-12">
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <!-- child table boreportdetails-->
+                  <div>
+                    <!--End-->
+                    <div>
+                      <a *ngIf="formid" class="rightside" [routerLink]=''
+                        (click)="AddOrEdit_boreportdetail(null, null, formid)"><i class="fa fa-plus"></i></a>
+                    </div>
+                    <div [ngClass]="maindata?.ScreenType==2?'dialogscreen':'mainscreen'">
+                      <ngx-reportviewer viewtype="'1'" #tbl_boreportdetails
+                        (onExecute)="onExecute_boreportdetails($event)"></ngx-reportviewer>
+                    </div>
+                  </div>
+                  <!--End of child table boreportdetails-->
+                </div>
+              </p-accordion>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel [disabled]="formid==''?true:false" header="boreportothertables">
+            <div class="col-12">
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <!-- child table boreportothertables-->
+                  <div>
+                    <!--End-->
+                    <div>
+                      <a *ngIf="formid" class="rightside" [routerLink]=''
+                        (click)="AddOrEdit_boreportothertable(null, null, formid)"><i class="fa fa-plus"></i></a>
+                    </div>
+                    <div [ngClass]="maindata?.ScreenType==2?'dialogscreen':'mainscreen'">
+                      <ngx-reportviewer viewtype="'1'" #tbl_boreportothertables
+                        (onExecute)="onExecute_boreportothertables($event)"></ngx-reportviewer>
+                    </div>
+                  </div>
+                  <!--End of child table boreportothertables-->
+                </div>
+              </p-accordion>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel [disabled]="formid==''?true:false" header="Columns">
+            <div class="col-12">
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <!-- child table boreportcolumns-->
+                  <div>
+                    <!--End-->
+                    <div>
+                      <a *ngIf="formid" class="rightside" [routerLink]=''
+                        (click)="AddOrEdit_boreportcolumn(null, null, formid)"><i class="fa fa-plus"></i></a>
+                    </div>
+                    <div [ngClass]="maindata?.ScreenType==2?'dialogscreen':'mainscreen'">
+                      <ngx-reportviewer viewtype="'1'" #tbl_boreportcolumns
+                        (onExecute)="onExecute_boreportcolumns($event)"></ngx-reportviewer>
+                    </div>
+                    <button type="button" (click)="boreportcolumnsmoveUp()"><i class="fas fa-arrow-up"></i></button>
+                    <button type="button" (click)="boreportcolumnsmoveDown()"><i class="fas fa-arrow-down"></i></button>
+                  </div>
+                  <!--End of child table boreportcolumns-->
+                </div>
+              </p-accordion>
+            </div>
+          </p-tabPanel>
+        </p-tabView>
+      </div>
+      <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
+    </p-scrollPanel>
+  </p-panel>
+</form>

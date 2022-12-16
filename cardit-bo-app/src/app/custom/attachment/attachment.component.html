@@ -1,0 +1,74 @@
+<ng-container *ngIf="UIDesign=='primeNG'">
+    <p-fileUpload #fileInput name="files" multiple="multiple" accept="image/*" showUploadButton="false"
+        (onSelect)="addFiles($event)"></p-fileUpload>
+</ng-container>
+<ng-container *ngIf="UIDesign!='primeNG'">
+    <form [formGroup]="attachmentForm">
+        <div class="container">
+
+
+
+
+            <div class="p-grid row">
+
+
+
+                <!--Multiple-->
+                <div *ngIf='isAttachment' class="p-col-12 p-md-3 p-float-label">
+                    <input id="description" formControlName="description" class="form-control"
+                        placeholder="Enter attachment description">
+                    <label for="description"></label>
+                </div>
+                <div class="p-col-12 p-md-5">
+                    <input type="file" appImgCompressor [uploader]="uploader" multiple
+                        (onFileSelected)="onFileSelected($event)" />
+                    <div ng2FileDrop [ngClass]="{'another-file-over-class': hasAnotherDropZoneOver}"
+                        (fileOver)="fileOverAnother($event)" [uploader]="uploader" (onFileDrop)="onFileSelected($event)"
+                        class="well my-drop-zone">
+                    </div>
+                    <div class="p-col" *ngIf="!isAttachment && uploadedFiles.length>0"><img
+                            [src]="AttachmentURL+uploadedFiles[uploadedFiles.length-1].filekey"
+                            style="width:200px;height:200px"></div>
+
+
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom: 40px" *ngIf="isAttachment">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="50%">Name</th>
+                            <th>Size</th>
+                            <th *ngFor="let attachmentfield of attachmentfields">
+                                {{attachmentfield.label}}
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let uploadedfile of attachedfiles">
+                            <td>{{uploadedfile.desc}}</td>
+                            <td><a [routerLink]=''
+                                    (click)="geturl(uploadedfile.filekey,uploadedfile.type)">{{uploadedfile.name}}</a>
+                            </td>
+                            <!--<td *ngFor="let attachmentfield of attachmentfields">
+                    {{uploadedfile[attachmentfield.label + uploadedfile.Key]}}
+                </td>-->
+                            <td>{{uploadedfile.size}} bytes</td>
+                            <td><button type="button" class="btn btn-danger btn-xs p-button-icon pi pi-times"
+                                    (click)="delete(uploadedfile.filekey)"> <span
+                                        class="glyphicon glyphicon-trash"></span></button></td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+    </form>
+</ng-container>

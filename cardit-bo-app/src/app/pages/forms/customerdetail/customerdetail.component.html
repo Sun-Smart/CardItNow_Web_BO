@@ -1,0 +1,353 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<p-blockUI [target]="pnl" [blocked]="blockedDocument"><i class="pi pi-lock" style="font-size: 3rem"></i></p-blockUI>
+<form id="frm_customerdetail" [formGroup]="customerdetail_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+      <p-panel #pnl [showHeader]="false">
+            <app-title reportcode="" title="Details" [f]="f" [data]="data" [maindata]="maindata" [p_menuid]="p_menuid"
+                  [action]="action" (edit)="edit_customerdetails()" (first)="first()" (prev)="prev()"
+                  (onSelectedpk)="onSelectedpk($event)" (next)="next()" (last)="last()" (resetForm)="resetForm()"
+                  (onSubmit)="onSubmit()" (onDelete)="onDelete()" (onCopy)="onCopy()" (onCopyDetails)="onCopyDetails()"
+                  (onCopycursive)="onCopyRecursive()" (onClose)="onClose()" (afterAction)="afterAction"
+                  (onSubmitAndWait)="onSubmitAndWait()" (onChangeAction)="onChangeAction()"></app-title>
+            <p-scrollTop></p-scrollTop>
+            <p-scrollPanel #panelscroller [style]="maindata?sharedService.dialogScreenSize:sharedService.mainScreenSize"
+                  styleClass="custom">
+                  <div class="container1  ui-fluid p-grid"
+                        id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+                        <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+                              <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+                        </div>
+                        <div *ngIf="!showview" id="div_customerdetails"></div>
+                        <div *ngIf="showview" id="div_customerdetails"></div>
+                        <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+                        </div>
+
+
+                        <!--customerid-->
+
+                        <div *ngIf="hidelist.indexOf('customerid')<0" class=" p-float-label  p-col-12 p-md-3">
+                              <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                                    class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
+                                    formControlName="customerid"
+                                    pTooltip="{{'Enter' | translate}} {{'customerid' | translate}}" field="label"
+                                    [suggestions]="customerid_Suggestions" (onSelect)="onSelected_customerid($event)"
+                                    (completeMethod)="onEntered_customerid($event)" [dropdown]="true">
+                                    <ng-template let-customerid pTemplate="item">
+                                          <div>{{customerid.label}}</div>
+                                    </ng-template>
+                              </p-autoComplete>
+                              <label *ngIf="showview"
+                                    class="labelview p-inputwrapper-filled">{{f.customeriddesc?.value}}</label>
+                              <label for="customerid" class="control-label required">{{'Customer' | translate}}</label>
+                              <app-field-error-display [displayError]="f.customerid.errors?.required"
+                                    errorMsg="{{'Enter'| translate}} {{'Customer' | translate}}">
+                              </app-field-error-display>
+                        </div>
+                        <div *ngIf="hidelist.indexOf('type')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                              <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.type?.value}}</label>
+                              <input type="text" pInputText *ngIf="!showview" id="type" required
+                                    pTooltip="{{'Enter' | translate}} {{'type' | translate}}" formControlName="type"
+                                    class="  p-form-control p-inputtext-sm p-field">
+                              <label for="type" class="control-label required">{{'Type' | translate}}</label>
+                              <app-field-error-display [displayError]="f.type.errors?.required"
+                                    errorMsg="{{'Enter'| translate}} {{'Type' | translate}}">
+                              </app-field-error-display>
+                        </div>
+
+
+                        <!--uid-->
+
+                        <div *ngIf="hidelist.indexOf('uid')<0" class=" p-float-label  p-col-12 p-md-3">
+                              <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                                    class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
+                                    formControlName="uid" pTooltip="{{'Enter' | translate}} {{'uid' | translate}}"
+                                    field="label" [suggestions]="uid_Suggestions" (onSelect)="onSelected_uid($event)"
+                                    (completeMethod)="onEntered_uid($event)" [dropdown]="true">
+                                    <ng-template let-uid pTemplate="item">
+                                          <div>{{uid.label}}</div>
+                                    </ng-template>
+                              </p-autoComplete>
+                              <label *ngIf="showview"
+                                    class="labelview p-inputwrapper-filled">{{f.uiddesc?.value}}</label>
+                              <label for="uid" class="control-label required">{{'UID' | translate}}</label>
+                              <app-field-error-display [displayError]="f.uid.errors?.required"
+                                    errorMsg="{{'Enter'| translate}} {{'UID' | translate}}">
+                              </app-field-error-display>
+                        </div>
+                        <div *ngIf="hidelist.indexOf('address')<0" class="  p-col-12 p-md-12">
+                              <label for="address" class="control-label required">{{'Address' | translate}}</label>
+
+                              <label *ngIf="showview"
+                                    class="labelview p-inputwrapper-filled">{{f.address?.value}}</label>
+                              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
+                                    id="address" required pTooltip="{{'Enter' | translate}} {{'address' | translate}}"
+                                    formControlName="address" [rows]="5" [cols]="200" pInputTextarea
+                                    autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                              <app-field-error-display [displayError]="f.address.errors?.required"
+                                    errorMsg="{{'Enter'| translate}} {{'Address' | translate}}">
+                              </app-field-error-display>
+                        </div>
+
+
+                        <!--geoid-->
+
+                        <div *ngIf="hidelist.indexOf('geoid')<0" class=" p-float-label  p-col-12 p-md-3">
+                              <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                                    class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
+                                    formControlName="geoid" pTooltip="{{'Enter' | translate}} {{'geoid' | translate}}"
+                                    field="label" [suggestions]="geoid_Suggestions"
+                                    (onSelect)="onSelected_geoid($event)" (completeMethod)="onEntered_geoid($event)"
+                                    [dropdown]="true">
+                                    <ng-template let-geoid pTemplate="item">
+                                          <div>{{geoid.label}}</div>
+                                    </ng-template>
+                              </p-autoComplete>
+                              <label *ngIf="showview"
+                                    class="labelview p-inputwrapper-filled">{{f.geoiddesc?.value}}</label>
+                              <label for="geoid" class="control-label required">{{'Geo' | translate}}</label>
+                              <app-field-error-display [displayError]="f.geoid.errors?.required"
+                                    errorMsg="{{'Enter'| translate}} {{'Geo' | translate}}">
+                              </app-field-error-display>
+                        </div>
+
+
+                        <!--cityid-->
+
+                        <div *ngIf="hidelist.indexOf('cityid')<0" class=" p-float-label  p-col-12 p-md-3">
+                              <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                                    class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
+                                    formControlName="cityid" pTooltip="{{'Enter' | translate}} {{'cityid' | translate}}"
+                                    field="label" [suggestions]="cityid_Suggestions"
+                                    (onSelect)="onSelected_cityid($event)" (completeMethod)="onEntered_cityid($event)"
+                                    [dropdown]="true">
+                                    <ng-template let-cityid pTemplate="item">
+                                          <div>{{cityid.label}}</div>
+                                    </ng-template>
+                              </p-autoComplete>
+                              <label *ngIf="showview"
+                                    class="labelview p-inputwrapper-filled">{{f.cityiddesc?.value}}</label>
+                              <label for="cityid" class="control-label required">{{'City' | translate}}</label>
+                              <app-field-error-display [displayError]="f.cityid.errors?.required"
+                                    errorMsg="{{'Enter'| translate}} {{'City' | translate}}">
+                              </app-field-error-display>
+                        </div>
+                        <div *ngIf="hidelist.indexOf('postalcode')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                              <label *ngIf="showview"
+                                    class="labelview p-inputwrapper-filled">{{f.postalcode?.value}}</label>
+                              <input type="text" pInputText *ngIf="!showview" id="postalcode"
+                                    pTooltip="{{'Enter' | translate}} {{'postalcode' | translate}}"
+                                    formControlName="postalcode" class="  p-form-control p-inputtext-sm p-field">
+                              <label for="postalcode" class="control-label">{{'Postal Code' | translate}}</label>
+                        </div>
+                        <div *ngIf="hidelist.indexOf('identificationdocumenttype')<0"
+                              class="  p-float-label  p-col-12 p-md-3">
+
+                              <label *ngIf="showview"
+                                    class="labelview p-inputwrapper-filled">{{f.identificationdocumenttype?.value}}</label>
+                              <input type="text" pInputText *ngIf="!showview" id="identificationdocumenttype" required
+                                    pTooltip="{{'Enter' | translate}} {{'identificationdocumenttype' | translate}}"
+                                    formControlName="identificationdocumenttype"
+                                    class="  p-form-control p-inputtext-sm p-field">
+                              <label for="identificationdocumenttype" class="control-label required">{{'Identification
+                                    Document Type' | translate}}</label>
+                              <app-field-error-display [displayError]="f.identificationdocumenttype.errors?.required"
+                                    errorMsg="{{'Enter'| translate}} {{'Identification Document Type' | translate}}">
+                              </app-field-error-display>
+                        </div>
+                        <div *ngIf="hidelist.indexOf('idnumber')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                              <label *ngIf="showview"
+                                    class="labelview p-inputwrapper-filled">{{f.idnumber?.value}}</label>
+                              <input type="text" pInputText *ngIf="!showview" id="idnumber" required
+                                    pTooltip="{{'Enter' | translate}} {{'idnumber' | translate}}"
+                                    formControlName="idnumber" class="  p-form-control p-inputtext-sm p-field">
+                              <label for="idnumber" class="control-label required">{{'I D Number' | translate}}</label>
+                              <app-field-error-display [displayError]="f.idnumber.errors?.required"
+                                    errorMsg="{{'Enter'| translate}} {{'I D Number' | translate}}">
+                              </app-field-error-display>
+                        </div>
+                        <div *ngIf="hidelist.indexOf('idissuedate')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                              <label *ngIf="showview"
+                                    class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.idissuedate?.value)}}</label>
+                              <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
+                                    dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
+                                    pTooltip="{{'Select' | translate}} {{'idissuedate' | translate}}"
+                                    formControlName="idissuedate"></p-calendar><label for="idissuedate"
+                                    class="control-label required">{{'I D Issue Date' | translate}}</label>
+                              <app-field-error-display [displayError]="f.idissuedate.errors?.required"
+                                    errorMsg="{{'Enter'| translate}} {{'I D Issue Date' | translate}}">
+                              </app-field-error-display>
+                        </div>
+                        <div *ngIf="hidelist.indexOf('idexpirydate')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                              <label *ngIf="showview"
+                                    class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.idexpirydate?.value)}}</label>
+                              <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
+                                    dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
+                                    pTooltip="{{'Select' | translate}} {{'idexpirydate' | translate}}"
+                                    formControlName="idexpirydate"></p-calendar><label for="idexpirydate"
+                                    class="control-label required">{{'I D Expiry Date' | translate}}</label>
+                              <app-field-error-display [displayError]="f.idexpirydate.errors?.required"
+                                    errorMsg="{{'Enter'| translate}} {{'I D Expiry Date' | translate}}">
+                              </app-field-error-display>
+                        </div>
+                        <div *ngIf="hidelist.indexOf('livestockphoto')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                              <label *ngIf="showview"
+                                    class="labelview p-inputwrapper-filled">{{f.livestockphoto?.value?.length>0?f.livestockphoto?.value[0]?.name:""}}</label>
+                              <app-attachment #livestockphoto class="p-inputwrapper-filled full-width"
+                                    formControlName="livestockphoto" [showremove]='bmyrecord'
+                                    [SessionData]="sessionData"></app-attachment>
+                              <button type="button" class="btn" *ngIf="livestockphoto?.getAttachmentList()?.length > 0"
+                                    (click)="getlivestockphoto()">Open File</button>
+                              <label for="livestockphoto" class="control-label required">{{'Live Stock Photo' |
+                                    translate}}</label>
+                              <app-field-error-display [displayError]="f.livestockphoto.errors?.required"
+                                    errorMsg="{{'Enter'| translate}} {{'Live Stock Photo' | translate}}">
+                              </app-field-error-display>
+                        </div>
+
+
+                        <!--divmode-->
+
+                        <div *ngIf="hidelist.indexOf('divmode')<0" class=" p-float-label  p-col-12 p-md-3">
+                              <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                                    class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
+                                    formControlName="divmode"
+                                    pTooltip="{{'Enter' | translate}} {{'divmode' | translate}}" field="label"
+                                    [suggestions]="divmode_Suggestions" (onSelect)="onSelected_divmode($event)"
+                                    (completeMethod)="onEntered_divmode($event)" [dropdown]="true">
+                                    <ng-template let-divmode pTemplate="item">
+                                          <div>{{divmode.label}}</div>
+                                    </ng-template>
+                              </p-autoComplete>
+                              <label *ngIf="showview"
+                                    class="labelview p-inputwrapper-filled">{{f.divmodedesc?.value}}</label>
+                              <label for="divmode" class="control-label required">{{'D I V Mode' | translate}}</label>
+                              <app-field-error-display [displayError]="f.divmode.errors?.required"
+                                    errorMsg="{{'Enter'| translate}} {{'D I V Mode' | translate}}">
+                              </app-field-error-display>
+                        </div>
+                        <div *ngIf="hidelist.indexOf('divref')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                              <label *ngIf="showview"
+                                    class="labelview p-inputwrapper-filled">{{f.divref?.value}}</label>
+                              <input type="text" pInputText *ngIf="!showview" id="divref" required
+                                    pTooltip="{{'Enter' | translate}} {{'divref' | translate}}" formControlName="divref"
+                                    class="  p-form-control p-inputtext-sm p-field">
+                              <label for="divref" class="control-label required">{{'D I V Ref' | translate}}</label>
+                              <app-field-error-display [displayError]="f.divref.errors?.required"
+                                    errorMsg="{{'Enter'| translate}} {{'D I V Ref' | translate}}">
+                              </app-field-error-display>
+                        </div>
+                        <div *ngIf="hidelist.indexOf('divsubmissionon')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                              <label *ngIf="showview"
+                                    class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.divsubmissionon?.value)}}</label>
+                              <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
+                                    dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
+                                    pTooltip="{{'Select' | translate}} {{'divsubmissionon' | translate}}"
+                                    formControlName="divsubmissionon"></p-calendar><label for="divsubmissionon"
+                                    class="control-label required">{{'D I V Submission O N' | translate}}</label>
+                              <app-field-error-display [displayError]="f.divsubmissionon.errors?.required"
+                                    errorMsg="{{'Enter'| translate}} {{'D I V Submission O N' | translate}}">
+                              </app-field-error-display>
+                        </div>
+
+
+                        <!--divstatus-->
+
+                        <div *ngIf="hidelist.indexOf('divstatus')<0" class=" p-float-label  p-col-12 p-md-3">
+                              <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                                    class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
+                                    formControlName="divstatus"
+                                    pTooltip="{{'Enter' | translate}} {{'divstatus' | translate}}" field="label"
+                                    [suggestions]="divstatus_Suggestions" (onSelect)="onSelected_divstatus($event)"
+                                    (completeMethod)="onEntered_divstatus($event)" [dropdown]="true">
+                                    <ng-template let-divstatus pTemplate="item">
+                                          <div>{{divstatus.label}}</div>
+                                    </ng-template>
+                              </p-autoComplete>
+                              <label *ngIf="showview"
+                                    class="labelview p-inputwrapper-filled">{{f.divstatusdesc?.value}}</label>
+                              <label for="divstatus" class="control-label">{{'D I V Status' | translate}}</label>
+                        </div>
+                        <div *ngIf="hidelist.indexOf('divremarks')<0" class="  p-col-12 p-md-12">
+                              <label for="divremarks" class="control-label">{{'D I V Remarks' | translate}}</label>
+
+                              <label *ngIf="showview"
+                                    class="labelview p-inputwrapper-filled">{{f.divremarks?.value}}</label>
+                              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
+                                    id="divremarks" pTooltip="{{'Enter' | translate}} {{'divremarks' | translate}}"
+                                    formControlName="divremarks" [rows]="5" [cols]="200" pInputTextarea
+                                    autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                        </div>
+
+
+                        <!--amlcheckstatus-->
+
+                        <div *ngIf="hidelist.indexOf('amlcheckstatus')<0" class=" p-float-label  p-col-12 p-md-3">
+                              <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                                    class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
+                                    formControlName="amlcheckstatus"
+                                    pTooltip="{{'Enter' | translate}} {{'amlcheckstatus' | translate}}" field="label"
+                                    [suggestions]="amlcheckstatus_Suggestions"
+                                    (onSelect)="onSelected_amlcheckstatus($event)"
+                                    (completeMethod)="onEntered_amlcheckstatus($event)" [dropdown]="true">
+                                    <ng-template let-amlcheckstatus pTemplate="item">
+                                          <div>{{amlcheckstatus.label}}</div>
+                                    </ng-template>
+                              </p-autoComplete>
+                              <label *ngIf="showview"
+                                    class="labelview p-inputwrapper-filled">{{f.amlcheckstatusdesc?.value}}</label>
+                              <label for="amlcheckstatus" class="control-label">{{'A M L Check Status' |
+                                    translate}}</label>
+                        </div>
+                        <div *ngIf="hidelist.indexOf('amlremarks')<0" class="  p-col-12 p-md-12">
+                              <label for="amlremarks" class="control-label">{{'A M L Remarks' | translate}}</label>
+
+                              <label *ngIf="showview"
+                                    class="labelview p-inputwrapper-filled">{{f.amlremarks?.value}}</label>
+                              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
+                                    id="amlremarks" pTooltip="{{'Enter' | translate}} {{'amlremarks' | translate}}"
+                                    formControlName="amlremarks" [rows]="5" [cols]="200" pInputTextarea
+                                    autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                        </div>
+                        <div class='full-width'
+                              *ngIf="customFieldVisible  && customFieldServiceList!=null && customFieldServiceList!=undefined  && customFieldServiceList.fields.length>0">
+                              <p-accordion [multiple]='true'>
+                                    <p-accordionTab header='CustomField' [selected]='false'>
+                                          <div class='ui-fluid p-formgrid p-grid '>
+                                                <div class=""
+                                                      *ngIf="customFieldServiceList!=null && customFieldServiceList!=undefined   &&(customFieldServiceList.formhtml!=null || customFieldServiceList.templatehtml!=null || (customFieldServiceList.fields!=[] && customFieldServiceList.fields.length>0))">
+                                                      <dynamic-form-builder [customfields]="customFieldServiceList"
+                                                            #customform></dynamic-form-builder>
+                                                </div>
+                                          </div>
+                                    </p-accordionTab>
+                              </p-accordion>
+                        </div>
+                        <div class='full-width' *ngIf="attachmentVisible">
+                              <p-accordion [multiple]='true'>
+                                    <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'"
+                                          [selected]='false'>
+                                          <div class='ui-fluid p-formgrid p-grid '>
+                                                <app-attachment #fileattachment class="full-width" isAttachment=true
+                                                      formControlName="attachment" [SessionData]="sessionData">
+                                                </app-attachment>
+                                          </div>
+                                    </p-accordionTab>
+                              </p-accordion>
+                        </div>
+                  </div>
+                  <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up">
+                  </p-scrollTop>
+            </p-scrollPanel>
+      </p-panel>
+</form>

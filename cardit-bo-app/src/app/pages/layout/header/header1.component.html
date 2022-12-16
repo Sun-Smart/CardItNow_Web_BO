@@ -1,0 +1,146 @@
+<div class="ng-header" [ngClass]="theme">
+    <div class="ng-header-left left row" style="width:100%;height: 10px!important;">
+        <div class="toggle-menu-button left col-1" style="max-width:2%">
+            <a class="icon" (click)="toggleMenu()"><i class="fa fa-bars"></i></a>
+        </div>
+        <div class="col headertext">
+            SUNSMART
+        </div>
+
+        <div class="col headertext">
+            n-Tire Framework
+        </div>
+        <div class="col" style="padding-right:100px">
+        </div>
+        <div class="col right" style="display:inline-flex;height: 27px;margin-top: 2px;">
+            <!--class="ng-header-right right"-->
+            <span class="rightside" style="background-color:#0bd3f7;padding-left:10px;padding-top:4px"
+                (click)="showReminderDialog()">
+
+                <i style="font-size:16px;color:white" class="fa fa-calendar-plus-o"></i>
+            </span>
+            <span class="rightside"
+                style="background-color:#0bd3f7;padding-left:10px;padding-top:4px;padding-right:5px;margin-right:2px;"
+                (click)="showTaskDialog()">
+
+                <i style="font-size:16px;color:white" class="fa fa-clock-o"></i>
+            </span>
+            <span class="rightside" style="background-color:#0bd3f7;padding-left:10px;padding-top:4px;;margin-left:1px"
+                (click)="_start = 1"><i style='font-size:16px;color:green' class=" fa fa-hourglass-start"></i></span>
+            <span class="right " style="background-color:#0bd3f7;padding-left:10px;padding-top:4px"
+                (click)="_start = 2"><i style='font-size:16px;color:red' class=" fa fa-hourglass-half"></i></span>
+            <span class="rightside" style="background-color:#0bd3f7;padding-left:10px;padding-top:4px;"
+                (click)="_start = 0"><i style='font-size:16px;color:violet' class=" fa fa-hourglass-end"></i></span>
+            <span class="rightside"
+                style="background-color:#0bd3f7;padding-left:10px;padding-top:5px;padding-right:5px;margin-right:2px;">
+
+                <app-timer [start]="_start" [showTimerControls]="true" [displaylaps]="true"></app-timer>
+            </span>
+
+            <span class="right white" style="padding-left:10px;;margin-left:1px" (click)="showNotificationSidebar()">
+                <a class="icon"><i class="fa fa-bell" style="padding-right:2px"></i><span class="blue badge"
+                        style="font-size:8px!important">{{notifications.length}}</span></a>
+            </span>
+            <span class="right white" style="padding-left:10px;width:75px" (click)="userdetails.toggle($event)">
+                <a class="icon"><i class="blue fa fa-user"></i><span style="font-size:8px!important;"
+                        class="user-name">{{user.code}}</span></a>
+            </span>
+            <span class="right white" style="padding-left:10px;">
+                <a class="icon" routerLink='/resetpassword'><i class="blue fa fa-key"></i></a>
+            </span>
+
+            <span class="right white" style="padding-left:10px;margin-left:1px" (click)="themeChooser.toggle($event)">
+                <a class="icon"><i class="blue fa fa-cog"></i></a>
+            </span>
+            <span class="right white" style="padding-left:5px;">
+                <a class="icon" (click)="logout()"><i class="blue fa fa-sign-out"></i></a>
+            </span>
+
+        </div>
+
+    </div>
+    <!--
+
+  -->
+</div>
+
+<!-- user detials overlay panel -->
+<p-overlayPanel #userdetails>
+    <div><b>User Name: </b><i [innerHtml]="user.username"></i></div>
+    <div><b>Code: </b><i [innerHtml]="user.usercode"></i></div>
+    <div><b>Logindate: </b><i [innerHtml]="user.logindate | date:'dd/MM/yyyy'"></i></div>
+</p-overlayPanel>
+
+<!-- notifications sidebar -->
+<p-sidebar [(visible)]="displayNotifications" [(position)]="rightside">
+    <div *ngFor="let notification of notifications; let i=index" class="notification-message">
+        <div><b>Task: </b><i [innerHtml]="notification.processname"></i></div>
+        <div><i>Assigned Date: </i><i [innerHtml]="notification.assigneddatetime"></i></div>
+    </div>
+</p-sidebar>
+
+<!-- theme chooser overlay panel -->
+<p-overlayPanel #themeChooser>
+    Select Theme:
+    <div class="ui-g">
+
+        <select (change)="selectTheme($event.target.value)">
+            <option value="">Select Theme</option>
+            <option value="cruze">cruze</option>
+            <option value="cupertino">cupertino</option>
+            <option value="darkness">darkness</option>
+            <option value="flick">flick</option>
+            <option value="home">home</option>
+            <option value="kasper">kasper</option>
+            <option value="lightness">lightness</option>
+            <option value="ludvig">ludvig</option>
+            <option value="luna-amber">luna-amber</option>
+            <option value="luna-blue">luna-blue</option>
+            <option value="luna-green">luna-green</option>
+            <option value="luna-pink">luna-pink</option>
+            <option value="nova-colored">nova-colored</option>
+            <option value="nova-light">nova-light</option>
+            <option value="omega">omega</option>
+            <option value="pepper-grinder">pepper-grinder</option>
+            <option value="redmond">redmond</option>
+            <option value="rhea">rhea</option>
+            <option value="rocket">rocket</option>
+            <option value="south-street">south-street</option>
+            <option value="start">start</option>
+            <option value="trontastic">trontastic</option>
+            <option value="voclain">voclain</option>
+        </select>
+
+        <!--
+        <div class="ui-g-4">
+            <button pButton type="button" (click)="selectTheme('blue-theme')" style="background-color:#517fa4"></button>
+        </div>
+        <div class="ui-g-4">
+            <button pButton type="button" (click)="selectTheme('grey-theme')" style="background-color:#C0C0C0"></button>
+        </div>
+        <div class="ui-g-4">
+            <button pButton type="button" (click)="selectTheme('pink-theme')" style="background-color:#BD7CB4"></button>
+        </div>
+        <div class="ui-g-4">
+            <button pButton type="button" (click)="selectTheme('green-theme')"
+                style="background-color:#668014"></button>
+        </div>
+        <div class="ui-g-4">
+            <button pButton type="button" (click)="selectTheme('orange-theme')"
+                style="background-color:#D8552E"></button>
+        </div>
+        <div class="ui-g-4">
+            <button pButton type="button" (click)="selectTheme('brown-theme')"
+                style="background-color:#2E0000"></button>
+        </div>
+        <div class="ui-g-4">
+            <button pButton type="button" (click)="selectTheme('cupertino')"
+                style="background-color:#2E0000"></button>
+        </div>
+        <div class="ui-g-4">
+            <button pButton type="button" (click)="selectTheme('cruze')"
+                style="background-color:#2E0000"></button>
+        </div>
+    -->
+    </div>
+</p-overlayPanel>

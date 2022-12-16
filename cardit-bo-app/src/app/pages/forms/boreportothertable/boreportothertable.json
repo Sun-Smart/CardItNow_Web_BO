@@ -1,0 +1,15 @@
+[
+    {
+        "reportid": "1",
+        "createdby": "1",
+        "updatedby": "1",
+        "createddate": "2022-1-1",
+        "updateddate": "2022-1-1",
+        "sequence": "1",
+        "tablename": "1",
+        "tablealias": "1",
+        "jointype": "1",
+        "wherecondition": "1",
+        "status": "1"
+    }
+]

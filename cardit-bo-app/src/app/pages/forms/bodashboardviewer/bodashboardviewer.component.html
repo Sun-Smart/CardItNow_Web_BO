@@ -1,0 +1,150 @@
+<!--(ngSubmit)="onSubmit()"-->
+<p-blockUI [target]="pnl" [blocked]="blockedDocument"><i class="pi pi-lock" style="font-size: 3rem"></i></p-blockUI>
+<p-panel #pnl [showHeader]="false">
+
+  <p-scrollTop></p-scrollTop>
+  <p-scrollPanel #panelscroller [style]="maindata?sharedService.dialogScreenSize:sharedService.mainScreenSize"
+    styleClass="custom">
+
+    <div id="contentArea1" class="main container full-height" onscroll="scrollFunction()" *ngIf="dashboardid>0">
+
+      <form [formGroup]="BODashboardForm">
+        <!--
+    <div class="row" style="padding:0px!important;margin:0px!important;line-height:0px!important;">
+      <div class="col-10">
+        <div class="row"  style="color:darkblue" >
+          <div class="col">{{header.dashboardname}}</div>  |  <div class="col"><a href='#/home/bodashboardviewer/bodashboardviewer/2'>Contract</a></div>  |  <div class="col"><a href='#/home/bodashboardviewer/bodashboardviewer/3'>Content</a></div>  |  <div class="col"><a href='#/home/bodashboardviewer/bodashboardviewer/4'>Company</a></div>  |  <div class="col"><a href='#/home/bodashboardviewer/bodashboardviewer/1'>Legal</a></div>
+        
+        </div>
+      </div>
+
+      <div class="form-group col-2" style="background-color:#F5F7F8!important"><label for="DateFilterType"
+          class="control-label">Date Filter Type</label>
+        <select id="DateFilterType" formControlName="DateFilterType" class="form-control"
+          (change)="ondateChange($event.target.value)" placeholder="DateFilterTypeDesc">
+          <option value="0">-Select-</option>
+          <option *ngFor="let item of DateFilterTypeList" value="{{item.configkey}}">{{item.configtext}}</option>
+        </select>
+      </div>
+
+    </div>
+  -->
+
+
+
+        <div id="divdashboard" style='flex-wrap: nowrap!important;width: 100%!important;' class="divdashboard p-grid"
+          *ngFor='let in of counter(header?.rows) ;let i = index'>
+          <ng-container *ngFor='let in of counter(header?.cols) ;let j = index'>
+            <div class="{{getclass(i,j)}}" *ngIf="hasData(i,j)==true">
+              <div [class]="((GetChartType(i,j)=='R')?'dashboardflex':'dashboardcard')" id="{{'v_'+getname(i,j)}}">
+                <div class="cardheader">{{GetHeader(i,j)}}</div>
+                <div class="body">
+                  <ng-container *ngIf="GetChartType(i,j)=='P'">
+                    <!--
+              <ngx-charts-pie-chart [scheme]="colorScheme" [scheme]="true" [results]="GetResults(i,j)" [legend]="true"
+                [labels]="true">
+              </ngx-charts-pie-chart>
+            -->
+                    <p-chart type="pie" [data]="GetResults(i,j)" [height]="200" [width]="500"></p-chart>
+
+                  </ng-container>
+
+                  <ng-container class="grid" *ngIf="GetChartType(i,j)=='H'">
+                    <!--
+              <ngx-charts-bar-vertical [scheme]="colorScheme" [results]="GetResults(i,j)" [xAxis]="true" [yAxis]="true"
+                [legend]="true" [xAxisLabel]="GetxAxisLabel(i,j)" [yAxisLabel]="GetyAxisLabel(1,j)">
+              </ngx-charts-bar-vertical>
+            -->
+                    <p-chart type="bar" [data]="GetResults(i,j)" [options]="GetOptions(i,j)" [height]="200"
+                      [width]="500">
+                    </p-chart>
+                  </ng-container>
+                  <ng-container class="grid" *ngIf="GetChartType(i,j)=='ML'">
+                    <!--
+              <ngx-charts-bar-vertical [scheme]="colorScheme" [results]="GetResults(i,j)" [xAxis]="true" [yAxis]="true"
+                [legend]="true" [xAxisLabel]="GetxAxisLabel(i,j)" [yAxisLabel]="GetyAxisLabel(1,j)">
+              </ngx-charts-bar-vertical>
+            -->
+                    <p-chart type="line" [data]="GetResults(i,j)" [height]="200" [width]="500"></p-chart>
+                  </ng-container>
+                  <ng-container class="grid" *ngIf="GetChartType(i,j)=='L' ">
+                    <!--
+              <ngx-charts-bar-vertical [scheme]="colorScheme" [results]="GetResults(i,j)" [xAxis]="true" [yAxis]="true"
+                [legend]="true" [xAxisLabel]="GetxAxisLabel(i,j)" [yAxisLabel]="GetyAxisLabel(1,j)">
+              </ngx-charts-bar-vertical>
+            -->
+                    <p-chart type="line" [data]="GetResults(i,j)" [options]="GetOptions(i,j)" [height]="200"
+                      [width]="500">
+                    </p-chart>
+                  </ng-container>
+                  <ng-container class="grid" *ngIf="GetChartType(i,j)=='MB'">
+                    <!--
+              <ngx-charts-bar-vertical [scheme]="colorScheme" [results]="GetResults(i,j)" [xAxis]="true" [yAxis]="true"
+                [legend]="true" [xAxisLabel]="GetxAxisLabel(i,j)" [yAxisLabel]="GetyAxisLabel(1,j)">
+              </ngx-charts-bar-vertical>
+            -->
+                    <p-chart type="bar" [data]="GetResults(i,j)" [height]="200" [width]="500"></p-chart>
+                  </ng-container>
+                  <ng-container class="grid" *ngIf="GetChartType(i,j)=='RD'">
+                    <!--
+              <ngx-charts-bar-vertical [scheme]="colorScheme" [results]="GetResults(i,j)" [xAxis]="true" [yAxis]="true"
+                [legend]="true" [xAxisLabel]="GetxAxisLabel(i,j)" [yAxisLabel]="GetyAxisLabel(1,j)">
+              </ngx-charts-bar-vertical>
+            -->
+                    <p-chart type="radar" [data]="GetResults(i,j)" [height]="200" [width]="500"></p-chart>
+                  </ng-container>
+                  <ng-container class="grid" *ngIf="GetChartType(i,j)=='B'">
+                    <!--
+              <ngx-charts-bar-vertical [scheme]="colorScheme" [results]="GetResults(i,j)" [xAxis]="true" [yAxis]="true"
+                [legend]="true" [xAxisLabel]="GetxAxisLabel(i,j)" [yAxisLabel]="GetyAxisLabel(1,j)">
+              </ngx-charts-bar-vertical>
+            -->
+                    <p-chart type="bar" [data]="GetResults(i,j)" [options]="GetOptions(i,j)" [height]="200"
+                      [width]="500"></p-chart>
+                  </ng-container>
+                  <ng-container *ngIf="GetChartType(i,j)=='AP'">
+                    <!--
+              <ngx-charts-advanced-pie-chart [scheme]="colorScheme" [results]="GetResults(i,j)" >
+              </ngx-charts-advanced-pie-chart>
+            -->
+                    <p-chart type="doughnut" [data]="GetResults(i,j)" [options]="GetOptions(i,j)" [height]="200"
+                      [width]="500">
+                    </p-chart>
+
+                  </ng-container>
+                  <ng-container *ngIf="GetChartType(i,j)=='A'">
+                    <!--
+              <ngx-charts-area-chart [scheme]="colorScheme" [results]="GetResults(i,j)" [xAxis]="true" [yAxis]="true"
+                [legend]="true" [showXAxisLabel]="true" [showYAxisLabel]="true" [xAxisLabel]="GetxAxisLabel(i,j)"
+                [yAxisLabel]="GetxAxisLabel(i,j)" [autoScale]="autoScale">
+              </ngx-charts-area-chart>
+            -->
+                    <p-chart type="line" [data]="GetResults(i,j)" [options]="GetOptions(i,j)" [height]="200"
+                      [width]="500">
+                    </p-chart>
+
+                  </ng-container>
+
+                  <ng-container *ngIf="GetChartType(i,j)=='R'">
+                    <ngx-reportviewer *ngIf="GetReportID(i,j)!=''" class="" viewtype="'1'"
+                      customreportid="{{GetReportID(i,j)}}" custommenuid="{{GetMenuID(i,j)}}">
+                    </ngx-reportviewer>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <!-- <div style="line-height: 10px;"></div>-->
+        </div>
+
+        <!--
+    <ng-container *ngIf="header.design!=''">
+      <div id="divdashboardstyle" style="width:1000px;height:1000px"></div>
+      {{showDashboard()}}
+    </ng-container>
+  -->
+      </form>
+    </div>
+    <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
+  </p-scrollPanel>
+</p-panel>

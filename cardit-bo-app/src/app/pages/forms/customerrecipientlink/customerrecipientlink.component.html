@@ -1,0 +1,78 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<p-blockUI [target]="pnl" [blocked]="blockedDocument"><i class="pi pi-lock" style="font-size: 3rem"></i></p-blockUI>
+<form id="frm_customerrecipientlink" [formGroup]="customerrecipientlink_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <p-panel #pnl [showHeader]="false">
+    <app-title reportcode="" title="Recipient Links" [f]="f" [data]="data" [maindata]="maindata" [p_menuid]="p_menuid"
+      [action]="action" (edit)="edit_customerrecipientlinks()" (first)="first()" (prev)="prev()"
+      (onSelectedpk)="onSelectedpk($event)" (next)="next()" (last)="last()" (resetForm)="resetForm()"
+      (onSubmit)="onSubmit()" (onDelete)="onDelete()" (onCopy)="onCopy()" (onCopyDetails)="onCopyDetails()"
+      (onCopycursive)="onCopyRecursive()" (onClose)="onClose()" (afterAction)="afterAction"
+      (onSubmitAndWait)="onSubmitAndWait()" (onChangeAction)="onChangeAction()"></app-title>
+    <p-scrollTop></p-scrollTop>
+    <p-scrollPanel #panelscroller [style]="maindata?sharedService.dialogScreenSize:sharedService.mainScreenSize"
+      styleClass="custom">
+      <div class="container1  ui-fluid p-grid"
+        id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+        <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+          <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+        </div>
+        <div *ngIf="!showview" id="div_customerrecipientlinks"></div>
+        <div *ngIf="showview" id="div_customerrecipientlinks"></div>
+        <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+        </div>
+
+
+        <!--customerid-->
+
+        <div *ngIf="hidelist.indexOf('customerid')<0" class=" p-float-label  p-col-12 p-md-3">
+          <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+            class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="customerid"
+            pTooltip="{{'Enter' | translate}} {{'customerid' | translate}}" field="label"
+            [suggestions]="customerid_Suggestions" (onSelect)="onSelected_customerid($event)"
+            (completeMethod)="onEntered_customerid($event)" [dropdown]="true">
+            <ng-template let-customerid pTemplate="item">
+              <div>{{customerid.label}}</div>
+            </ng-template>
+          </p-autoComplete>
+          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.customeriddesc?.value}}</label>
+          <label for="customerid" class="control-label">{{'Customer' | translate}}</label>
+        </div>
+
+
+        <!--uid-->
+
+        <div *ngIf="hidelist.indexOf('uid')<0" class=" p-float-label  p-col-12 p-md-3">
+          <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+            class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="uid"
+            pTooltip="{{'Enter' | translate}} {{'uid' | translate}}" field="label" [suggestions]="uid_Suggestions"
+            (onSelect)="onSelected_uid($event)" (completeMethod)="onEntered_uid($event)" [dropdown]="true">
+            <ng-template let-uid pTemplate="item">
+              <div>{{uid.label}}</div>
+            </ng-template>
+          </p-autoComplete>
+          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.uiddesc?.value}}</label>
+          <label for="uid" class="control-label">{{'UID' | translate}}</label>
+        </div>
+
+
+        <!--recipientuid-->
+
+        <div *ngIf="hidelist.indexOf('recipientuid')<0" class=" p-float-label  p-col-12 p-md-3">
+          <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+            class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="recipientuid"
+            pTooltip="{{'Enter' | translate}} {{'recipientuid' | translate}}" field="label"
+            [suggestions]="recipientuid_Suggestions" (onSelect)="onSelected_recipientuid($event)"
+            (completeMethod)="onEntered_recipientuid($event)" [dropdown]="true">
+            <ng-template let-recipientuid pTemplate="item">
+              <div>{{recipientuid.label}}</div>
+            </ng-template>
+          </p-autoComplete>
+          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.recipientuiddesc?.value}}</label>
+          <label for="recipientuid" class="control-label">{{'Recipient UID' | translate}}</label>
+        </div>
+      </div>
+      <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
+    </p-scrollPanel>
+  </p-panel>
+</form>

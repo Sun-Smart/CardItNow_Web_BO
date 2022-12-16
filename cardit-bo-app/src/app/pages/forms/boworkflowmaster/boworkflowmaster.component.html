@@ -1,0 +1,167 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<p-blockUI [target]="pnl" [blocked]="blockedDocument"><i class="pi pi-lock" style="font-size: 3rem"></i></p-blockUI>
+<form id="frm_boworkflowmaster" [formGroup]="boworkflowmaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <p-panel #pnl [showHeader]="false">
+    <app-title reportcode="dh8i3" title="Workflow Masters" [f]="f" [data]="data" [maindata]="maindata"
+      [p_menuid]="p_menuid" [action]="action" (edit)="edit_boworkflowmasters()" (first)="first()" (prev)="prev()"
+      (onSelectedpk)="onSelectedpk($event)" (next)="next()" (last)="last()" (resetForm)="resetForm()"
+      (onSubmit)="onSubmit()" (onDelete)="onDelete()" (onCopy)="onCopy()" (onCopyDetails)="onCopyDetails()"
+      (onClose)="onClose()" (afterAction)="afterAction" (onSubmitAndWait)="onSubmitAndWait()"></app-title>
+    <p-scrollTop></p-scrollTop>
+    <p-scrollPanel #panelscroller [style]="maindata?sharedService.dialogScreenSize:sharedService.mainScreenSize"
+      styleClass="custom">
+      <div class="container1  ui-fluid p-grid"
+        id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+        <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+          <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+        </div>
+        <div *ngIf="!showview" id="div_boworkflowmasters"></div>
+        <div *ngIf="showview" id="div_boworkflowmasters"></div>
+        <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+        </div>
+        <p-tabView class="tabset1" [destroyOnHide]="false">
+          <div *ngIf="!showview" id="div_boworkflowmasters"></div>
+          <div *ngIf="showview" id="div_boworkflowmasters"></div>
+          <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+          </div>
+          <p-tabPanel header="Master">
+            <div class="col-12">
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <div *ngIf="hidelist.indexOf('menuid')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.menuid?.value}}</label>
+                    <input type="text" pInputText *ngIf="!showview" id="menuid" required
+                      pTooltip="{{'Enter' | translate}} {{'menuid' | translate}}" formControlName="menuid"
+                      class="  p-form-control p-inputtext-sm p-field">
+                    <label for="menuid" class="control-label required">{{'Menu' | translate}}</label>
+                    <app-field-error-display [displayError]="f.menuid.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'Menu' | translate}}">
+                    </app-field-error-display>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('pause')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.pause?.value}}</label>
+                    <p-inputSwitch type="checkbox" *ngIf="!showview" id="pause"
+                      pTooltip="{{'Enter' | translate}} {{'pause' | translate}}" formControlName="pause"
+                      class=" p-field p-inputwrapper-filled">
+                    </p-inputSwitch>
+                    <label for="pause" class="control-label">{{'Pause' | translate}}</label>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('description')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.description?.value}}</label>
+                    <input type="text" pInputText *ngIf="!showview" id="description"
+                      pTooltip="{{'Enter' | translate}} {{'description' | translate}}" formControlName="description"
+                      class="  p-form-control p-inputtext-sm p-field">
+                    <label for="description" class="control-label">{{'Description' | translate}}</label>
+                  </div>
+
+
+                  <!--menucode-->
+
+                  <div *ngIf="hidelist.indexOf('menucode')<0" class=" p-float-label  p-col-12 p-md-3">
+                    <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                      class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="menucode"
+                      pTooltip="{{'Enter' | translate}} {{'menucode' | translate}}" field="label"
+                      [suggestions]="menucode_Suggestions" (onSelect)="onSelected_menucode($event)"
+                      (completeMethod)="onEntered_menucode($event)" [dropdown]="true">
+                      <ng-template let-menucode pTemplate="item">
+                        <div>{{menucode.label}}</div>
+                      </ng-template>
+                    </p-autoComplete>
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.menucodedesc?.value}}</label>
+                    <label for="menucode" class="control-label required" (click)="AddOrEdit_menucode(null)">{{'Menu' |
+                      translate}}</label>
+                    <app-field-error-display [displayError]="f.menucode.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'Menu' | translate}}">
+                    </app-field-error-display>
+                  </div>
+
+
+                  <!--tablecode-->
+
+                  <div *ngIf="hidelist.indexOf('tablecode')<0" class=" p-float-label  p-col-12 p-md-3">
+                    <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                      class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="tablecode"
+                      pTooltip="{{'Enter' | translate}} {{'tablecode' | translate}}" field="label"
+                      [suggestions]="tablecode_Suggestions" (onSelect)="onSelected_tablecode($event)"
+                      (completeMethod)="onEntered_tablecode($event)" [dropdown]="true">
+                      <ng-template let-tablecode pTemplate="item">
+                        <div>{{tablecode.label}}</div>
+                      </ng-template>
+                    </p-autoComplete>
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.tablecodedesc?.value}}</label>
+                    <label for="tablecode" class="control-label required" (click)="AddOrEdit_tablecode(null)">{{'Table'
+                      | translate}}</label>
+                    <app-field-error-display [displayError]="f.tablecode.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'Table' | translate}}">
+                    </app-field-error-display>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('workflowhtml')<0" class="  p-col-12 p-md-12">
+                    <label for="workflowhtml" class="control-label required">{{'Work Flow Html' | translate}}</label>
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.workflowhtml?.value}}</label>
+                    <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="workflowhtml"
+                      required pTooltip="{{'Enter' | translate}} {{'workflowhtml' | translate}}"
+                      formControlName="workflowhtml" [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                      class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                    <app-field-error-display [displayError]="f.workflowhtml.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'Work Flow Html' | translate}}">
+                    </app-field-error-display>
+                  </div>
+                </div>
+              </p-accordion>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel [disabled]="formid==''?true:false" header="Workflow">
+            <div class="col-12">
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <!-- child table boworkflows-->
+                  <div>
+                    <!--End-->
+                    <div>
+                      <a *ngIf="formid" class="rightside" [routerLink]=''
+                        (click)="AddOrEdit_boworkflow(null, null, formid)"><i class="fa fa-plus"></i></a>
+                    </div>
+                    <div [ngClass]="maindata?.ScreenType==2?'dialogscreen':'mainscreen'">
+                      <ngx-reportviewer viewtype="'1'" #tbl_boworkflows (onExecute)="onExecute_boworkflows($event)">
+                      </ngx-reportviewer>
+                    </div>
+                  </div>
+                  <!--End of child table boworkflows-->
+                </div>
+              </p-accordion>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel [disabled]="formid==''?true:false" header="Workflow Steps">
+            <div class="col-12">
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <!-- child table boworkflowsteps-->
+                  <div>
+                    <!--End-->
+                    <div>
+                      <a *ngIf="formid" class="rightside" [routerLink]=''
+                        (click)="AddOrEdit_boworkflowstep(null, null, formid)"><i class="fa fa-plus"></i></a>
+                    </div>
+                    <div [ngClass]="maindata?.ScreenType==2?'dialogscreen':'mainscreen'">
+                      <ngx-reportviewer viewtype="'1'" #tbl_boworkflowsteps
+                        (onExecute)="onExecute_boworkflowsteps($event)"></ngx-reportviewer>
+                    </div>
+                  </div>
+                  <!--End of child table boworkflowsteps-->
+                </div>
+              </p-accordion>
+            </div>
+          </p-tabPanel>
+        </p-tabView>
+      </div>
+      <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
+    </p-scrollPanel>
+  </p-panel>
+</form>

@@ -1,0 +1,25 @@
+.navbar-header2 {
+    margin-top: 14px;
+    -webkit-transition: all .3s ease 0s;
+    transition: all .3s ease 0s;
+}
+
+.navbar-header2 {
+    float: left;
+}
+
+.stellarnav.dark,
+.stellarnav.dark ul ul {
+    background: rgba(0, 0, 0, 1);
+}
+
+.stellarnav {
+    width: 100%;
+    z-index: 9900;
+}
+
+.stellarnav,
+.stellarnav li {
+    position: relative;
+    line-height: normal;
+}

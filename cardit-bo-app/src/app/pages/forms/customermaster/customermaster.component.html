@@ -1,0 +1,392 @@
+<i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
+<p-blockUI [target]="pnl" [blocked]="blockedDocument"><i class="pi pi-lock" style="font-size: 3rem"></i></p-blockUI>
+<form id="frm_customermaster" [formGroup]="customermaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
+  <p-panel #pnl [showHeader]="false">
+    <app-title reportcode="" title="Masters" [f]="f" [data]="data" [maindata]="maindata" [p_menuid]="p_menuid"
+      [action]="action" (edit)="edit_customermasters()" (first)="first()" (prev)="prev()"
+      (onSelectedpk)="onSelectedpk($event)" (next)="next()" (last)="last()" (resetForm)="resetForm()"
+      (onSubmit)="onSubmit()" (onDelete)="onDelete()" (onCopy)="onCopy()" (onCopyDetails)="onCopyDetails()"
+      (onCopycursive)="onCopyRecursive()" (onClose)="onClose()" (afterAction)="afterAction"
+      (onSubmitAndWait)="onSubmitAndWait()" (onChangeAction)="onChangeAction()"></app-title>
+    <p-scrollTop></p-scrollTop>
+    <p-scrollPanel #panelscroller [style]="maindata?sharedService.dialogScreenSize:sharedService.mainScreenSize"
+      styleClass="custom">
+      <div class="container1  ui-fluid p-grid"
+        id="{{maindata ==undefined || maindata==null || maindata.ScreenType!=2?'contentAreascroll':'contentArea1'}}">
+        <div class="w-5" *ngIf="showFormType=='1'" style="margin-top:10px!important">
+          <div (click)="PrevForm()"><i title="Form" class="fa fa-file"></i></div>
+        </div>
+        <div *ngIf="!showview" id="div_customermasters"></div>
+        <div *ngIf="showview" id="div_customermasters"></div>
+        <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+        </div>
+        <p-tabView class="tabset1" [destroyOnHide]="false">
+          <div *ngIf="!showview" id="div_customermasters"></div>
+          <div *ngIf="showview" id="div_customermasters"></div>
+          <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
+
+          </div>
+          <p-tabPanel header="Master">
+            <div class="col-12">
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+
+
+                  <!--mode-->
+
+                  <div *ngIf="hidelist.indexOf('mode')<0" class=" p-float-label  p-col-12 p-md-3">
+                    <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                      class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="mode"
+                      pTooltip="{{'Enter' | translate}} {{'mode' | translate}}" field="label"
+                      [suggestions]="mode_Suggestions" (onSelect)="onSelected_mode($event)"
+                      (completeMethod)="onEntered_mode($event)" [dropdown]="true">
+                      <ng-template let-mode pTemplate="item">
+                        <div>{{mode.label}}</div>
+                      </ng-template>
+                    </p-autoComplete>
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.modedesc?.value}}</label>
+                    <label for="mode" class="control-label required">{{'Mode' | translate}}</label>
+                    <app-field-error-display [displayError]="f.mode.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'Mode' | translate}}">
+                    </app-field-error-display>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('uid')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.uid?.value}}</label>
+                    <input type="text" pInputText *ngIf="!showview" id="uid" required
+                      pTooltip="{{'Enter' | translate}} {{'uid' | translate}}" formControlName="uid"
+                      class="  p-form-control p-inputtext-sm p-field">
+                    <label for="uid" class="control-label required">{{'UID' | translate}}</label>
+                    <app-field-error-display [displayError]="f.uid.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'UID' | translate}}">
+                    </app-field-error-display>
+                  </div>
+
+
+                  <!--type-->
+
+                  <div *ngIf="hidelist.indexOf('type')<0" class=" p-float-label  p-col-12 p-md-3">
+                    <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                      class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="type"
+                      pTooltip="{{'Enter' | translate}} {{'type' | translate}}" field="label"
+                      [suggestions]="type_Suggestions" (onSelect)="onSelected_type($event)"
+                      (completeMethod)="onEntered_type($event)" [dropdown]="true">
+                      <ng-template let-type pTemplate="item">
+                        <div>{{type.label}}</div>
+                      </ng-template>
+                    </p-autoComplete>
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.typedesc?.value}}</label>
+                    <label for="type" class="control-label required">{{'Type' | translate}}</label>
+                    <app-field-error-display [displayError]="f.type.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'Type' | translate}}">
+                    </app-field-error-display>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('firstname')<0" class="  p-col-12 p-md-12">
+                    <label for="firstname" class="control-label">{{'First Name' | translate}}</label>
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.firstname?.value}}</label>
+                    <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="firstname"
+                      pTooltip="{{'Enter' | translate}} {{'firstname' | translate}}" formControlName="firstname"
+                      [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                      class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('lastname')<0" class="  p-col-12 p-md-12">
+                    <label for="lastname" class="control-label">{{'Last Name' | translate}}</label>
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.lastname?.value}}</label>
+                    <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="lastname"
+                      pTooltip="{{'Enter' | translate}} {{'lastname' | translate}}" formControlName="lastname"
+                      [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                      class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('email')<0" class="  p-col-12 p-md-12">
+                    <label for="email" class="control-label required">{{'Email' | translate}}</label>
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.email?.value}}</label>
+                    <textarea pKeyFilter="email" autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
+                      id="email" required pTooltip="{{'Enter' | translate}} {{'email' | translate}}"
+                      formControlName="email" [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                      class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                    <app-field-error-display [displayError]="f.email.errors!=null && f.email.errors?.email"
+                      errorMsg="Enter valid email">
+                    </app-field-error-display>
+                    <app-field-error-display [displayError]="f.email.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'Email' | translate}}">
+                    </app-field-error-display>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('mobile')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.mobile?.value}}</label>
+                    <int-phone-prefix *ngIf="!showview" id="mobile" required
+                      pTooltip="{{'Enter' | translate}} {{'mobile' | translate}}" formControlName="mobile"
+                      [locale]="'en'" [defaultCountry]="'ae'"
+                      class="  p-form-control phone p-inputtext-sm p-field telephone p-filled ">
+                    </int-phone-prefix>
+                    <label for="mobile" class="control-label required">{{'Mobile' | translate}}</label>
+                    <app-field-error-display [displayError]="f.mobile.errors?.required"
+                      errorMsg="{{'Enter'| translate}} {{'Mobile' | translate}}">
+                    </app-field-error-display>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('dob')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview"
+                      class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.dob?.value)}}</label>
+                    <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
+                      dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
+                      pTooltip="{{'Select' | translate}} {{'dob' | translate}}" formControlName="dob"></p-calendar>
+                    <label for="dob" class="control-label">{{'D O B' | translate}}</label>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('customerinterests')<0" class="  p-col-12 p-md-12">
+                    <label for="customerinterests" class="control-label">{{'Customer Interests' | translate}}</label>
+
+                    <label *ngIf="showview"
+                      class="labelview p-inputwrapper-filled">{{f.customerinterests?.value}}</label>
+                    <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
+                      id="customerinterests" pTooltip="{{'Enter' | translate}} {{'customerinterests' | translate}}"
+                      formControlName="customerinterests" [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                      class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                  </div>
+
+
+                  <!--defaultavatar-->
+
+                  <div *ngIf="hidelist.indexOf('defaultavatar')<0" class=" p-float-label  p-col-12 p-md-3">
+                    <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+                      class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
+                      formControlName="defaultavatar" pTooltip="{{'Enter' | translate}} {{'defaultavatar' | translate}}"
+                      field="label" [suggestions]="defaultavatar_Suggestions"
+                      (onSelect)="onSelected_defaultavatar($event)" (completeMethod)="onEntered_defaultavatar($event)"
+                      [dropdown]="true">
+                      <ng-template let-defaultavatar pTemplate="item">
+                        <div>{{defaultavatar.label}}</div>
+                      </ng-template>
+                    </p-autoComplete>
+                    <label *ngIf="showview"
+                      class="labelview p-inputwrapper-filled">{{f.defaultavatardesc?.value}}</label>
+                    <label for="defaultavatar" class="control-label">{{'Default Avatar' | translate}}</label>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('customerphoto')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview"
+                      class="labelview p-inputwrapper-filled">{{f.customerphoto?.value?.length>0?f.customerphoto?.value[0]?.name:""}}</label>
+                    <app-attachment #customerphoto class="p-inputwrapper-filled full-width"
+                      formControlName="customerphoto" [showremove]='bmyrecord' [SessionData]="sessionData">
+                    </app-attachment>
+                    <button type="button" class="btn" *ngIf="customerphoto?.getAttachmentList()?.length > 0"
+                      (click)="getcustomerphoto()">Open File</button>
+                    <label for="customerphoto" class="control-label">{{'Customer Photo' | translate}}</label>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('googleid')<0" class="  p-col-12 p-md-12">
+                    <label for="googleid" class="control-label">{{'Google' | translate}}</label>
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.googleid?.value}}</label>
+                    <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="googleid"
+                      pTooltip="{{'Enter' | translate}} {{'googleid' | translate}}" formControlName="googleid"
+                      [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                      class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('facebookid')<0" class="  p-col-12 p-md-12">
+                    <label for="facebookid" class="control-label">{{'Facebook' | translate}}</label>
+
+                    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.facebookid?.value}}</label>
+                    <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="facebookid"
+                      pTooltip="{{'Enter' | translate}} {{'facebookid' | translate}}" formControlName="facebookid"
+                      [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
+                      class=" p-field p-inputwrapper-filled p-md-12">
+</textarea>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('lasttermsaccepted')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview"
+                      class="labelview p-inputwrapper-filled">{{f.lasttermsaccepted?.value}}</label>
+                    <input type="text" pInputText *ngIf="!showview" id="lasttermsaccepted"
+                      pTooltip="{{'Enter' | translate}} {{'lasttermsaccepted' | translate}}"
+                      formControlName="lasttermsaccepted" class="  p-form-control p-inputtext-sm p-field">
+                    <label for="lasttermsaccepted" class="control-label">{{'Last Terms Accepted' | translate}}</label>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('deletionaccountrequestedon')<0"
+                    class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview"
+                      class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.deletionaccountrequestedon?.value)}}</label>
+                    <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
+                      dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
+                      pTooltip="{{'Select' | translate}} {{'deletionaccountrequestedon' | translate}}"
+                      formControlName="deletionaccountrequestedon"></p-calendar><label for="deletionaccountrequestedon"
+                      class="control-label">{{'Deletion Account Requested On' | translate}}</label>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('autodeletedon')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview"
+                      class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.autodeletedon?.value)}}</label>
+                    <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
+                      dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
+                      pTooltip="{{'Select' | translate}} {{'autodeletedon' | translate}}"
+                      formControlName="autodeletedon"></p-calendar><label for="autodeletedon"
+                      class="control-label">{{'Auto Deleted On' | translate}}</label>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('deleterevokedon')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview"
+                      class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.deleterevokedon?.value)}}</label>
+                    <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
+                      dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
+                      pTooltip="{{'Select' | translate}} {{'deleterevokedon' | translate}}"
+                      formControlName="deleterevokedon"></p-calendar><label for="deleterevokedon"
+                      class="control-label">{{'Delete Revoked On' | translate}}</label>
+                  </div>
+                  <div *ngIf="hidelist.indexOf('createdon')<0" class="  p-float-label  p-col-12 p-md-3">
+
+                    <label *ngIf="showview"
+                      class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.createdon?.value)}}</label>
+                    <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
+                      dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
+                      pTooltip="{{'Select' | translate}} {{'createdon' | translate}}" formControlName="createdon">
+                    </p-calendar><label for="createdon" class="control-label">{{'Created On' | translate}}</label>
+                  </div>
+                </div>
+              </p-accordion>
+              <div class='full-width'
+                *ngIf="customFieldVisible  && customFieldServiceList!=null && customFieldServiceList!=undefined  && customFieldServiceList.fields.length>0">
+                <p-accordion [multiple]='true'>
+                  <p-accordionTab header='CustomField' [selected]='false'>
+                    <div class='ui-fluid p-formgrid p-grid '>
+                      <div class=""
+                        *ngIf="customFieldServiceList!=null && customFieldServiceList!=undefined   &&(customFieldServiceList.formhtml!=null || customFieldServiceList.templatehtml!=null || (customFieldServiceList.fields!=[] && customFieldServiceList.fields.length>0))">
+                        <dynamic-form-builder [customfields]="customFieldServiceList" #customform>
+                        </dynamic-form-builder>
+                      </div>
+                    </div>
+                  </p-accordionTab>
+                </p-accordion>
+              </div>
+              <div class='full-width' *ngIf="attachmentVisible">
+                <p-accordion [multiple]='true'>
+                  <p-accordionTab [header]="'Attachment(' + fileattachment.getLength() + ')'" [selected]='false'>
+                    <div class='ui-fluid p-formgrid p-grid '>
+                      <app-attachment #fileattachment class="full-width" isAttachment=true formControlName="attachment"
+                        [SessionData]="sessionData"></app-attachment>
+                    </div>
+                  </p-accordionTab>
+                </p-accordion>
+              </div>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel [disabled]="formid==''?true:false" header="Details">
+            <div class="col-12">
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <!-- child table customerdetails-->
+                  <div>
+                    <!--End-->
+                    <div>
+                      <a *ngIf="formid" class="rightside" [routerLink]=''
+                        (click)="AddOrEdit_customerdetail(null, null, formid)"><i class="fa fa-plus"></i></a>
+                    </div>
+                    <div [ngClass]="maindata?.ScreenType==2?'dialogscreen':'mainscreen'">
+                      <ngx-reportviewer viewtype="'1'" #tbl_customerdetails
+                        (onExecute)="onExecute_customerdetails($event)"></ngx-reportviewer>
+                    </div>
+                  </div>
+                  <!--End of child table customerdetails-->
+                </div>
+              </p-accordion>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel [disabled]="formid==''?true:false" header="Terms Acceptances">
+            <div class="col-12">
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <!-- child table customertermsacceptances-->
+                  <div>
+                    <!--End-->
+                    <div>
+                      <a *ngIf="formid" class="rightside" [routerLink]=''
+                        (click)="AddOrEdit_customertermsacceptance(null, null, formid)"><i class="fa fa-plus"></i></a>
+                    </div>
+                    <div [ngClass]="maindata?.ScreenType==2?'dialogscreen':'mainscreen'">
+                      <ngx-reportviewer viewtype="'1'" #tbl_customertermsacceptances
+                        (onExecute)="onExecute_customertermsacceptances($event)"></ngx-reportviewer>
+                    </div>
+                  </div>
+                  <!--End of child table customertermsacceptances-->
+                </div>
+              </p-accordion>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel [disabled]="formid==''?true:false" header="Pay Modes">
+            <div class="col-12">
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <!-- child table customerpaymodes-->
+                  <div>
+                    <!--End-->
+                    <div>
+                      <a *ngIf="formid" class="rightside" [routerLink]=''
+                        (click)="AddOrEdit_customerpaymode(null, null, formid)"><i class="fa fa-plus"></i></a>
+                    </div>
+                    <div [ngClass]="maindata?.ScreenType==2?'dialogscreen':'mainscreen'">
+                      <ngx-reportviewer viewtype="'1'" #tbl_customerpaymodes
+                        (onExecute)="onExecute_customerpaymodes($event)"></ngx-reportviewer>
+                    </div>
+                  </div>
+                  <!--End of child table customerpaymodes-->
+                </div>
+              </p-accordion>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel [disabled]="formid==''?true:false" header="Security Questions">
+            <div class="col-12">
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <!-- child table customersecurityquestions-->
+                  <div>
+                    <!--End-->
+                    <div>
+                      <a *ngIf="formid" class="rightside" [routerLink]=''
+                        (click)="AddOrEdit_customersecurityquestion(null, null, formid)"><i class="fa fa-plus"></i></a>
+                    </div>
+                    <div [ngClass]="maindata?.ScreenType==2?'dialogscreen':'mainscreen'">
+                      <ngx-reportviewer viewtype="'1'" #tbl_customersecurityquestions
+                        (onExecute)="onExecute_customersecurityquestions($event)"></ngx-reportviewer>
+                    </div>
+                  </div>
+                  <!--End of child table customersecurityquestions-->
+                </div>
+              </p-accordion>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel [disabled]="formid==''?true:false" header="Security Questions Histories">
+            <div class="col-12">
+              <p-accordion [multiple]='true'>
+                <div class='p-grid griddisplay'>
+                  <!-- child table customersecurityquestionshistories-->
+                  <div>
+                    <!--End-->
+                    <div>
+                      <a *ngIf="formid" class="rightside" [routerLink]=''
+                        (click)="AddOrEdit_customersecurityquestionshistory(null, null, formid)"><i
+                          class="fa fa-plus"></i></a>
+                    </div>
+                    <div [ngClass]="maindata?.ScreenType==2?'dialogscreen':'mainscreen'">
+                      <ngx-reportviewer viewtype="'1'" #tbl_customersecurityquestionshistories
+                        (onExecute)="onExecute_customersecurityquestionshistories($event)"></ngx-reportviewer>
+                    </div>
+                  </div>
+                  <!--End of child table customersecurityquestionshistories-->
+                </div>
+              </p-accordion>
+            </div>
+          </p-tabPanel>
+        </p-tabView>
+      </div>
+      <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
+    </p-scrollPanel>
+  </p-panel>
+</form>

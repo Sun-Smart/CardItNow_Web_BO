@@ -1,0 +1,1291 @@
+<!--<form  [formGroup]="boreportviewerForm" [ngClass]="theme" >-->
+<style>
+    .p-sm-1,
+    .p-sm-2,
+    .p-sm-3,
+    .p-sm-4,
+    .p-sm-5,
+    .p-sm-6,
+    .p-sm-7,
+    .p-sm-8,
+    .p-sm-9,
+    .p-sm-10,
+    .p-sm-11,
+    .p-sm-12,
+    .p-md-1,
+    .p-md-2,
+    .p-md-3,
+    .p-md-4,
+    .p-md-5,
+    .p-md-6,
+    .p-md-7,
+    .p-md-8,
+    .p-md-9,
+    .p-md-10,
+    .p-md-11,
+    .p-md-12,
+    .p-lg-1,
+    .p-lg-2,
+    .p-lg-3,
+    .p-lg-4,
+    .p-lg-5,
+    .p-lg-6,
+    .p-lg-7,
+    .p-lg-8,
+    .p-lg-9,
+    .p-lg-10,
+    .p-lg-11,
+    .p-lg-12,
+    .p-xl-1,
+    .p-xl-2,
+    .p-xl-3,
+    .p-xl-4,
+    .p-xl-5,
+    .p-xl-6,
+    .p-xl-7,
+    .p-xl-8,
+    .p-xl-9,
+    .p-xl-10,
+    .p-xl-11,
+    .p-xl-12 {
+        padding-top: 0rem !important;
+        padding: 0rem !important;
+        margin-top: 0rem !important;
+        min-height: 0rem !important;
+    }
+
+    @media (max-width: 992px) {
+
+        .p-button-label,
+        .p-menuitem-text {
+            display: none !important;
+        }
+    }
+</style>
+<div [ngClass]="theme" style="margin-left:2px;width:99%">
+    <ngx-spinner></ngx-spinner>
+    <p-blockUI [target]="pnl" [blocked]="blockedDocument"><i class="pi pi-lock" style="font-size: 3rem"></i></p-blockUI>
+    <p-contextMenu #cm [model]="menuitems" appendTo="body"></p-contextMenu>
+    <!--
+        <p-table [value]="data" sortField="courtid" sortMode="single" [scrollable]="true"
+        scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="courtid">
+        <ng-template pTemplate="groupheader" let-group>
+            <tr pRowGroupHeader>
+                <td >
+                    <span class="p-text-bold p-ml-2"><b>{{group.courtid}}</b></span>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr>
+                <td style="min-width:200px">
+                    {{rowData.casetitle}}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    -->
+
+    <div id="{{contentAreaid}}" style="
+        margin: 0;
+        padding: 0;transform: translate(0px, -40px);">
+
+
+
+
+
+        <div class="" id="maintable" >
+            <span innerHTML="{{configdata?.header}}"></span>
+            <!--
+            <ngx-dashboardviewer *ngIf="dashboardid>0" [customdashboardid]="dashboardid"></ngx-dashboardviewer>
+        -->
+            <!--filters-->
+
+
+            <div *ngIf="showmenu" class="p-grid header" id="header">
+
+
+
+                <div class="reportheader p-col-12 p-md-3 subtitle nomargin nowrap" innerHTML="{{reportheader}}" style=" color: #004751;
+                font-size: 15px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transform: translate(-50px, 0px);
+                ">
+                </div>
+
+
+                <!-- <div class="p-col-12 p-md-2 input-group nomargin nowrap">
+                    <input type="text" class="border form-control" placeholder="Global Filter"
+                        (input)="treeview?dt1.filterGlobal($event.target.value, 'contains'):dt.filterGlobal($event.target.value, 'contains')">
+
+                </div> -->
+                <!-- <div class="p-col-12 p-md-1">Records {{data?.length}}</div> -->
+                <!--<div class="p-col-12 p-md-1" style="" *ngIf="showhideadd">
+                    <a [routerLink]='' (click)="onChangeAction('Add')"><i class="fa fa-plus-circle"></i></a>
+                </div>-->
+                <div class="p-col-12 p-md-3  input-group  nomargin nowrap">
+                    </div>
+                <div class="p-col-12 p-md-6  input-group  nomargin nowrap" style="display: flex;
+                justify-content: flex-end;">
+
+                    <!-- <nav class="right navbar navbar-default"> -->
+                        <div class="container-fluid">
+                            <!-- <ul class="nav navbar-nav1">
+                                    <li class="dropdown">
+                                        <a [routerLink]='' class='dropdown-toggle' data-toggle='dropdown' role='button'
+                                            aria-haspopup='true' aria-expanded='false'> <span class='caret'></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li *ngIf="canadd"><a class="dropdown-item" [routerLink]=''
+                                                    (click)="onChangeAction('Add')"><i class="fa fa-new"
+                                                        aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Add</a></li>
+                                            <ng-container *ngFor="let action of menuactions">
+                                                <li><a class="dropdown-item" [routerLink]=''
+                                                        (click)="onChangeAction(action.actionid)"><i class="fa fa-new"
+                                                            aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a>
+                                                </li>
+                                            </ng-container>
+                                           
+                                        </ul>
+                                    </li>
+                                </ul> -->
+                        </div>
+                    <!-- </nav> -->
+                    <!--   
+                            <select [(ngModel)]="action" class="" (change)="onChangeAction($event.target.value)">
+                                <option value="">Select Action</option>
+                                <option *ngIf="canadd" value="Add">Add</option>
+                                <ng-container *ngFor="let action of menuactions">
+                                    <option value="{{action.actionid}}">{{action.description}}</option>
+                                </ng-container>
+                                <option *ngIf="canedit" value="Edit">Edit</option>
+                                <option *ngIf="checkboxavailable" value="ShowCheckbox">Show Checkbox</option>
+                                <option value="BulkEdit">Bulk Edit</option>
+                                <option value="Upload">Upload</option>
+                                <option value="Print">Print</option>
+                                <option value="Export">Export</option>
+                                <option
+                                    *ngIf="configdata!=null && configdata['alternateview']!=null  && configdata['alternateview']!=undefined && configdata['alternateview']!=''"
+                                    value="List">List</option>
+                                <option
+                                    *ngIf="configdata!=null && configdata['alternateview']!=null  && configdata['alternateview']!=undefined && configdata['alternateview']!=''"
+                                    value="AlternateView">Alternate View</option>
+                                <option value="ShowAll">Show All</option>
+                                <option value="Filter">Filter</option>
+                                <option value="ClearFilter">Clear Filter</option>
+                                <option value="SideFilter">Side Filter</option>
+                                <option value="Email">Email</option>
+                            </select>
+                        -->
+                    <ng-container *ngFor="let action of menuactions">
+                        <button *ngIf="action.actionbutton==true && action.actionbuttonlocation!='B'" type="button"
+                            class="btn-success border" (click)="onChangeAction(action.actionid)"
+                            style="color: #dee2e6!important;"><i
+                                class="fa fa-new"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</button>
+                    </ng-container>
+                    <!--
+                        <button *ngIf="menuactions.length>0" pButton type="button" (click)="ExecuteAction()" icon="fa fa-caret-right"></button>
+                    -->
+
+                    <p-toolbar class="">
+
+                         <ng-template pTemplate="left">
+                            <!-- <select [(ngModel)]="filtertype" class="" (change)="onChangeFilterType($event.target.value)"
+                                class="border">
+                                <option value="undefined" selected>Select FilterType</option>
+                                <option value="FF">Field Filter</option> -->
+                                <!--<option value="T">Top Filter</option>
+                                <option value="S">Side Filter</option>
+                                <option value="TA">Top Advanced</option>
+                                <option value="SA">Side Advanced</option>
+                                
+                                <option value="E">Expanded</option>-->
+                            <!-- </select>
+                            <select [(ngModel)]="recordtype" *ngIf="configdata?.recordtype!=''" class=""
+                                (change)="onChangerecordtype($event.target.value)" class="border">
+                                <option value="undefined" selected>Select Record Type</option>
+                                <option value="M">Mine</option>
+                                <option value="MS">Mine & Team</option>
+                                <option value="S">Team</option>
+
+                            </select> -->
+<!-- <button  style="margin-left: 15px;" pButton type="button" label="" icon="pi pi-plus" class="p-button-outlined" (click)="onChangeAction('Add')"></button> -->
+                            <!-- <button pButton type="button" style="margin-left: 15px;" icon="pi pi-plus" class="p-button-raised p-button-rounded" (click)="onChangeAction('Add')"></button> -->
+                             <button pButton pRipple label="" icon="pi pi-plus" class="p-button-success p-mr-2"
+                                (click)="onChangeAction('Add')"></button>
+                                
+                            <!-- <button style="margin-left: 15px;" pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger"
+                                (click)="onDelete()"
+                                [disabled]="selecteddata?.length > 1 || selecteddata?.length < 1"></button>  -->
+                        </ng-template>  
+
+
+
+                        <ng-template pTemplate="right">
+                            <!-- <p-fileUpload style="margin-left: 15px;" mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import"
+                                chooseLabel="Import" class="p-mr-2 p-d-inline-block"></p-fileUpload> -->
+                                <!-- <button pButton type="button" style="margin: 0 15px 0px 15px;" label="" icon="pi pi-upload" class="p-button-outlined" (click)="export()"></button> -->
+                            <button pButton pRipple  style="    margin-right: 18px;
+                            margin-left: 15px;" (click)="export()" icon="pi pi-upload"
+                                class="p-button-help"></button>
+                            <a class="nav-link active right alert-success" [routerLink]='' (click)="onClose()"
+                                *ngIf="(dialogdata!=undefined && dialogdata!=null && dialogdata.ScreenType!=null)"><i
+                                    class="fa fa-close"></i></a>
+
+                        </ng-template>
+                    </p-toolbar>
+
+                </div>
+
+                <!--
+                    <div class="p-col-12 p-md-2  input-group nomargin nowrap">
+                        <input type="text" class="second border" placeholder="View Name" [(ngModel)]="view" class="">
+                        <button title="Save" type="button" class="nav-link btn-success" (click)="SaveView()"><i
+                                class="fa fa-save"></i></button>
+                    </div>
+                    <div class="p-col-12 p-md-1  input-group nomargin nowrap">
+                        <select [(ngModel)]="savedview" class="" (change)="onChangeView($event.target.value)">
+                            <option value="">Select view</option>
+                            <ng-container *ngFor="let savedview of savedviews">
+                                <option value="{{savedview}}">{{savedview}}</option>
+                            </ng-container>
+                        </select>
+    
+    
+                    </div>
+                -->
+
+                {{viewfilter}}
+                <!--
+        <div class="p-col-12 p-md-5" style="text-align: right" role="toolbar" aria-label="Toolbar with button groups">
+            
+            <div aria-label="third group">
+    
+    
+    
+                <button *ngIf="canadd" title="Add" type="button" class="third btn1 cyan lighten-2"
+                    (click)="route('create')"><i class="fa fa-plus-circle white" aria-hidden="true"></i></button>
+    
+                <button *ngIf="canedit" title="Edit" type="button" class="third btn1 cyan lighten-2"
+                    (click)="route( 'edit')"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                <button title="Show Checkbox" *ngIf="checkboxavailable" type="button"
+                    class="third btn1 cyan lighten-2" (click)="dt.reset();showCheckbox()"><i class="fa fa-check"
+                        aria-hidden="true"></i></button>
+                <span style='color:#0bd3f7'> | </span>
+                <button title="Bulk Edit" type="button" class="third btn1 cyan lighten-2" (click)="BulkEdit()"><i
+                        class="fa fa-arrows" aria-hidden="true"></i></button>
+                <button title="Upload" type="button" class="third btn1 cyan lighten-2" (click)="UploadData()"><i
+                        class="fa fa-cloud-upload" aria-hidden="true"></i></button>
+    
+                <span style='color:#0bd3f7'> | </span>
+    
+                <button title="Print" type="button" class="third btn1 cyan lighten-2" (click)="print()"><i
+                        class="fa fa-print" aria-hidden="true"></i></button>
+                <button title="Export" type="button" class="third btn1 cyan lighten-2" (click)="export()"><i
+                        class="fa fa-download" aria-hidden="true"></i></button>
+                <span style='color:#0bd3f7'> | </span>
+                <ng-container *ngFor="let action of menuactions">
+                    <button type="button" [title]="action.description" class="third btn1 cyan lighten-2"
+                        (click)="processaction(action)"><i [ngClass]="action.actionicon"
+                            aria-hidden="true"></i></button>
+                </ng-container>
+                <button type="button"
+                    *ngIf="configdata!=null && configdata['alternateview']!=null  && configdata['alternateview']!=undefined && configdata['alternateview']!=''"
+                    class="third btn1 cyan lighten-2" (click)="List()"><i class="fa fa-table"
+                        aria-hidden="true"></i></button>
+                <button title="AlternateView" type="button"
+                    *ngIf="configdata!=null && configdata['alternateview']!=null  && configdata['alternateview']!=undefined && configdata['alternateview']!=''"
+                    class="third btn1 cyan lighten-2" (click)="alternateview()"><i class="fa fa-id-card"
+                        aria-hidden="true"></i></button>
+    
+                <button title="Show All" type="button" class="third btn1 cyan lighten-2" (click)="showAll()"><i
+                        class="fa fa-ban" aria-hidden="true"></i></button>
+    
+                <button title="Filter" type="button" class="third btn1 cyan lighten-2" (click)="showFilter()"><i
+                        class="fa fa-filter" aria-hidden="true"></i></button>
+                <button type="button" class="third btn1 cyan lighten-2" (click)="email()"><i class="fa fa-envelope"
+                        aria-hidden="true"></i></button>
+            </div>
+    
+        </div>
+    -->
+            </div>
+            <ng-container *ngIf="false && (configdata?.sidefiltertype=='T'  || configdata?.sidefiltertype=='TA')">
+
+                <div id="dtopfilter" style="display:flex;flex-wrap: wrap;">
+                    <ng-container *ngFor="let itemcol of cols">
+
+                        <ng-container *ngIf="itemcol.field!=groupfield && !itemcol.hide && filterExists(itemcol.field)">
+
+                            <div *ngIf="!itemcol.hide" class="col color1">
+                                <div class="small color1">{{itemcol.header}}</div>
+
+                                <div class="small"><select [(ngModel)]="itemcol.filterMatchMode"
+                                        *ngIf="configdata?.sidefiltertype=='TA' && itemcol.datatype!='n' && itemcol.datatype!='bool' ">
+                                        <option value="contains">contains</option>
+                                        <option value="startsWith">startsWith</option>
+                                        <option value="endsWith">endsWith</option>
+                                        <option value="equals">equals</option>
+                                        <option value="notEquals">notEquals</option>
+                                        <option value="in">in</option>
+                                        <option value="lt">lt</option>
+                                        <option value="lte">lte</option>
+                                        <option value="gt">gt</option>
+                                        <option value="gte">gte</option>
+                                    </select></div>
+                                <!--<p>-->
+                                <input style="height:20px"
+                                    *ngIf="((itemcol.filter == true || itemcol.filter==null|| itemcol.filter=='' )&& itemcol.dropdownItems==null && (itemcol.datatype==null || itemcol.datatype==''))"
+                                    pInputText type="text"
+                                    (input)="dt.filter($event.target.value, itemcol.field, itemcol.filterMatchMode)">
+                                <!--Value > {{numFilter}} {{itemcol.min}} {{itemcol.max}}-->
+                                <div
+                                    *ngIf="((itemcol.filter == true || itemcol.filter==null || itemcol.filter=='' ) && itemcol.dropdownItems==null && (itemcol.datatype=='n'))">
+
+                                    <!--   <i class="fa fa-close"
+                    (click)="itemcol.val=null;dt.filter(null, itemcol.field, itemcol.filterMatchMode)"
+                    style="cursor:pointer" *ngIf="numFilter"></i>-->
+                                    <p-slider [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="itemcol.val"
+                                        [min]="itemcol.min" [max]="itemcol.max"
+                                        (onChange)="onNumChange($event, dt,itemcol.field,itemcol.datatype)">
+                                    </p-slider>
+
+                                </div>
+                                <div
+                                    *ngIf="((itemcol.filter == true || itemcol.filter==null ) && itemcol.dropdownItems==null && (itemcol.datatype=='date'))">
+                                    <p-dropdown showClear="true" editable="true" [options]="filters"
+                                        [style]="{'width':'100%'}"
+                                        (onChange)="dt.filter($event.value, itemcol.field, 'in')"
+                                        styleClass="ui-column-filter"></p-dropdown>
+                                </div>
+                                <p-dropdown showClear="true" editable="true" *ngIf="itemcol.datatype=='dp'"
+                                    [options]="getdropdownItems(itemcol.field)" [style]="{'width':'100%'}"
+                                    (onChange)="dt.filter($event.value, itemcol.field, 'equals')"></p-dropdown>
+                                <p-multiSelect
+                                    *ngIf="((itemcol.filter == true || itemcol.filter==null ) && itemcol.datatype=='ms')"
+                                    [options]="getdropdownItems(itemcol.field)" defaultLabel="All Colors"
+                                    (onChange)="dt.filter($event.value, itemcol.field, 'in')"></p-multiSelect>
+                                <p-checkbox *ngIf="itemcol.datatype=='bool'" value=""
+                                    (onChange)="dt.filter($event.value, itemcol.field, 'eq')"></p-checkbox>
+                                <!--</p>-->
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </div>
+
+
+            </ng-container>
+
+
+
+
+            <ng-container *ngIf="false && (configdata?.sidefiltertype=='S' || configdata?.sidefiltertype=='SA')">
+                <ng-container *ngIf="configdata?.sidefiltertype=='S' || configdata?.sidefiltertype=='SA'">
+                    <div id="dsidefilter" class="p-grid">
+                        <ng-container *ngFor="let itemcol of cols">
+
+                            <ng-container
+                                *ngIf="itemcol.field!=groupfield && !itemcol.hide && filterExists(itemcol.field)">
+
+                                <div *ngIf="!itemcol.hide" class="col color1" style="display:block">
+                                    <p class="small color1">{{itemcol.header}} {{itemcol.datatype}}</p>
+                                    <p class="small"><select [(ngModel)]="itemcol.filterMatchMode"
+                                            *ngIf="configdata?.sidefiltertype=='SA' && itemcol.datatype!='n' && itemcol.datatype!='bool' ">
+                                            <option value="contains">contains</option>
+                                            <option value="startsWith">startsWith</option>
+                                            <option value="endsWith">endsWith</option>
+                                            <option value="equals">equals</option>
+                                            <option value="notEquals">notEquals</option>
+                                            <option value="in">in</option>
+                                            <option value="lt">lt</option>
+                                            <option value="lte">lte</option>
+                                            <option value="gt">gt</option>
+                                            <option value="gte">gte</option>
+                                        </select></p>
+                                    <!--<p>-->
+
+                                    <input style="height:20px"
+                                        *ngIf="((itemcol.filter == true || itemcol.filter==null|| itemcol.filter=='' )&& itemcol.dropdownItems==null && (itemcol.datatype==null || itemcol.datatype==''))"
+                                        pInputText type="text"
+                                        (input)="dt.filter($event.target.value, itemcol.field, itemcol.filterMatchMode)">
+                                    <!--Value > {{numFilter}} {{itemcol.min}} {{itemcol.max}}-->
+                                    <div
+                                        *ngIf="((itemcol.filter == true || itemcol.filter==null || itemcol.filter=='' )  && (itemcol.datatype=='n'))">
+
+                                        <!--   <i class="fa fa-close"
+                        (click)="itemcol.val=null;dt.filter(null, itemcol.field, itemcol.filterMatchMode)"
+                        style="cursor:pointer" *ngIf="numFilter"></i>-->
+                                        <p-slider [style]="{'width':'100%','margin-top':'8px'}"
+                                            [(ngModel)]="itemcol.val" [min]="getmin(itemcol.field)"
+                                            [max]="getmax(itemcol.field)"
+                                            (onChange)="onNumChange($event, dt,itemcol.field,itemcol.datatype)">
+                                        </p-slider>
+
+                                    </div>
+                                    <div
+                                        *ngIf="((itemcol.filter == true || itemcol.filter==null ) && itemcol.dropdownItems==null && (itemcol.datatype=='date'))">
+                                        <p-dropdown showClear="true" editable="true" [options]="filters"
+                                            [style]="{'width':'100%'}"
+                                            (onChange)="dt.filter($event.value, itemcol.field, 'in')"
+                                            styleClass="ui-column-filter"></p-dropdown>
+                                    </div>
+                                    <p-dropdown showClear="true" editable="true" *ngIf="itemcol.datatype=='dp'"
+                                        [options]="getdropdownItems(itemcol.field)" [style]="{'width':'100%'}"
+                                        (onChange)="dt.filter($event.value, itemcol.field, 'equals')">
+                                    </p-dropdown>
+                                    <p-multiSelect
+                                        *ngIf="((itemcol.filter == true || itemcol.filter==null ) && itemcol.datatype=='ms')"
+                                        [options]="getdropdownItems(itemcol.field)" defaultLabel="All Colors"
+                                        (onChange)="dt.filter($event.value, itemcol.field, 'in')">
+                                    </p-multiSelect>
+                                    <p-checkbox *ngIf="itemcol.datatype=='bool'" value=""
+                                        (onChange)="dt.filter($event.value, itemcol.field, 'eq')">
+                                    </p-checkbox>
+                                    <!--</p>-->
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+
+                </ng-container>
+
+            </ng-container>
+
+            <ng-container>
+                <!--filters-->
+                <ng-container *ngIf="cardtype && !kanbanview">
+                    <ng-container *ngFor='let rowData of data'>
+                        <div>
+                            <a [routerLink]='' (click)='opendialog1(null,rowData)'>View</a>
+                            <div class="p-grid autogrow cardclass" [innerHTML]='getHtml(rowData)'></div>
+                            <div class="p-grid">
+                                <div class="col" role='button' (click)='goroute("get",rowData["pk"],rowData)'><i
+                                        class='fa fa-eye' aria-hidden='true'></i></div>
+                                <div class="col" role='button' (click)='goroute("edit",rowData["pk"],rowData)'>
+                                    <i class='fa fa-edit' aria-hidden='true'></i>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="kanbanview">
+                    <div class="table-container" style="display: flex;flex-wrap: wrap;margin: 10px;">
+                        <div class="p-grid">
+                            <ng-container *ngFor='let rowstatusdata of statusdata'>
+                                <div class="p-col-12 p-md-3">
+                                    <div style="display: flex;flex-wrap: wrap;" class="p-grid">
+                                        <!--<div class="p-grid">-->
+                                        <div class="cardclass"><span
+                                                style="white-space:nowrap;color:blueviolet;font-size:16px ;">{{rowstatusdata['configtext']}}</span>
+                                            <!--</div>-->
+                                            <ng-container *ngFor='let rowData of data'>
+                                                <div *ngIf="rowstatusdata['configkey']==rowData[kanbankey]">
+                                                    <!--<div>-->
+                                                    <li role='button' (click)='goroute("edit",rowData["pk"],rowData)'
+                                                        class="autogrow cardclass" [innerHTML]='getHtml(rowData)'>
+                                                        <!--<div class="p-grid">-->
+                                                        <!--    <div role='button'
+                                                        (click)='goroute("create",rowData["pk"],rowData)'><i
+                                                            class='fa fa-eye' aria-hidden='true'></i></div>
+                                                    <div role='button'
+                                                        (click)='goroute("edit",rowData["pk"],rowData)'><i
+                                                            class='fa fa-edit' aria-hidden='true'></i></div>-->
+                                                    </li>
+                                                    <!--</div>-->
+                                                    <!--</div>-->
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <div class="table-container" *ngIf="!kanbanview" style="position: relative;
+                margin-left: 10px;
+                margin-right: 5px;">
+                    <p-treeTable [rowHover]="true" [scrollable]="true" [scrollHeight]="scrollheight" [contextMenu]="cm"
+                        [(contextMenuSelection)]="selecteddata" class="maintable"
+                        *ngIf="treeview && !cardtype && !kanbanview" [value]="data" #dt1 [columns]="cols"
+                        [(selection)]="selecteddata" [selectionMode]="selectionMode" dataKey="{{masterkey}}"
+                        [paginator]="paginator" [pageLinks]="5" [rows]="rowsdisplay"
+                        [rowsPerPageOptions]="[5,10,15,20,50,100,200,500,1000]" [expandedRowKeys]="expandedRows"
+                        (onPage)="paginate($event)" (onNodeSelect)="onRowSelect($event)"
+                        (onNodeUnselect)="onRowUnselect($event)" (onEditComplete)="onEditComplete($event)">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr class="p-grid">
+                                <th class="p-col-12 p-md-1"></th>
+                                <ng-container *ngIf="!showgroupcheckbox   && menuactions.length>0 && showmenu">
+                                    <!---->
+                                </ng-container>
+
+                                <!--
+                    <th *ngIf="showcheckbox">
+                            <input  type="checkbox" (click)="toggleNode()" />Toggle Expand
+                            <span *ngIf="isSelected"><input type="checkbox" [(ngModel)]="isSelect" (click)="selectAll()" />Select All</span>
+                            <span *ngIf="isUnSelect" ><input type="checkbox" [(ngModel)]="isUnSelect" (click)="unSelectAll()" />UnSelect All</span>
+                    </th>
+                -->
+                                <ng-template pTemplate="caption">
+                                    <div style="text-align:left" *ngIf="showcheckbox">
+                                        <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
+                                        <span style="margin-left: .25em; vertical-align: middle">Toggle All</span>
+                                    </div>
+                                </ng-template>
+
+                                <ng-container *ngFor="let col of columns">
+                                    <ng-container *ngIf="!col.hide  && outputtype!='html'">
+
+                                        <th>{{col.header}}</th>
+                                    </ng-container>
+                                </ng-container>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template *ngIf="configdata?.parentid != ''" pTemplate="body" let-rowNode let-rowData>
+                            <tr class="p-grid" [ttContextMenuRow]="rowNode">
+                                <ng-container *ngIf="false && showmenu">
+                                    <!--flex-wrap: wrap!important;-->
+                                    <td class='col'>
+                                        <div class="starred">
+                                            <ng-container *ngIf="dialogdata.ScreenType=='2'">
+                                                <div class="col" role='button'
+                                                    (click)='goroute("get",rowData["pk"],rowData)'><i class='fa fa-eye'
+                                                        aria-hidden='true'></i></div>
+                                            </ng-container>
+                                            <ng-container *ngIf="dialogdata.ScreenType!='2'">
+                                                <ng-container *ngFor="let action of menuactions">
+                                    <td style='background-color: transparent!important'>
+                                        <!--class="btn btn-secondary btn-sm smm active"-->
+
+                                        <button class="actionbutton unstarred"
+                                            style="border:none;background-color: transparent!important;padding:0px!important;margin:0px!important;"
+                                            type="button" (click)="buttonactions(action,rowData)"><i
+                                                [alt]="action.actiondescription" [ngClass]="action.actionicon"
+                                                aria-hidden="true"></i></button>
+
+
+                                        <!-- <button type="button" [title]="action.description" (click)="buttonactions(action,rowData)"><i [ngClass]="action.actionicon"  aria-hidden="true"></i></button>-->
+                                    </td>
+                                </ng-container>
+            </ng-container>
+        </div>
+        </td>
+        </ng-container>
+        <td class="p-col-12 p-md-1">
+            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+
+        </td>
+        <ng-container *ngFor="let col of cols; let i = index">
+
+            <td *ngIf="!col.hide">
+
+                {{rowData.node.data[cols[i].field]}}
+            </td>
+
+        </ng-container>
+        </tr>
+        </ng-template>
+
+
+        <!--
+            <ng-template pTemplate="footer">
+    
+                <div innerHTML="{{GetDetailFooterLast()}}"></div>
+    
+            </ng-template>
+        -->
+
+        <!--<ng-template pTemplate="emptymessage">
+        <tr>
+            <td [attr.colspan]="cols.length">No data found.</td>
+        </tr>
+    </ng-template>-->
+        </p-treeTable>
+    </div>
+
+    <!--
+        <p-table responsive-scrolling  [columns]="cols" [value]="data"  [style]="{width:'90%'}"  [scrollable]="true" scrollHeight="200px">
+        -->
+
+    <div class="table-container" *ngIf="!kanbanview" style="position: relative;
+    margin-left: 10px;
+    margin-right: 5px;">
+
+
+        <!--[rows]="rows"-->
+        <!-- [scrollable]="true" scrollHeight="100%" -->
+        <!--[contextMenu]="cm" [(contextMenuSelection)]="selecteddata" -->
+        <!--sortField="sortField" sortMode="sortMode" rowGroupMode="rowGroupMode"   groupRowsBy="groupRowsBy"-->
+
+        <p-table (onRowReorder)="onRowReorder($event)" [rowHover]="true" [reorderableColumns]="true" [contextMenu]="cm"
+            [(contextMenuSelection)]="selecteddata" responsive-scrolling [scrollable]="true" [style]="style"
+            *ngIf="!treeview  && !cardtype && !kanbanview" class="tbllayout" #dt [sortField]="sortField"
+            [sortMode]="sortMode" [rowGroupMode]="rowGroupMode" [groupRowsBy]="groupRowsBy"
+            (onEditInit)="onEditInit($event, rowIndex)" (onEditComplete)="onEditComplete($event)"
+            (onEditCancel)="onEditCancel($event, rowIndex)" [columns]="cols" [first]="first" class="fit ptable"
+            [value]="data" [selectionMode]="selectionMode" [(selection)]="selecteddata" dataKey="{{masterkey}}"
+            [paginator]="paginator" [alwaysShowPaginator]="false" [pageLinks]="5" [rows]="rowsdisplay"
+            (onRowDblclick)="onRowDblClick($event)" [rowsPerPageOptions]="[5,10,15,20,50,100,200,500,1000]"
+            (onPage)="paginate($event)" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)">
+
+            <!--[scrollHeight]="scrollheight"-->
+
+
+            <!--
+                <ng-template pTemplate="caption">
+    
+                </ng-template>
+            -->
+            <!--|| (configdata['html']=='')-->
+            <ng-template pTemplate="header" class="third" let-columns>
+
+                <ng-container *ngIf="configdata!=null && groupfield=='' && (outputtype=='list'  || showfilter)">
+                    <ng-container *ngIf="configdata?.tableheader!=null">
+                        <tr [innerHTML]="GetValue(undefined,configdata?.tableheader,'')"></tr>
+
+                    </ng-container>
+
+                    <tr class="borderbottomless" *ngIf="groupfield==''">
+                        <th *ngIf="sequence!='' && sequence!=null" class="reportcolumn" style="max-width:10px"></th>
+                        <ng-container *ngIf="dialogdata!=undefined">
+                            <th *ngIf="dialogdata.ScreenType=='2'">Popup</th>
+                            <th *ngIf="dialogdata.ScreenType=='3'">View</th>
+                            <th *ngIf="dialogdata.ScreenType=='4'">Popup</th>
+                        </ng-container>
+                        <th *ngIf="showcheckbox">
+                            <p-tableHeaderCheckbox style="background:white"></p-tableHeaderCheckbox>
+                        </th>
+                        <th *ngIf="false && menuactions && menuactions.length>0 && showmenu"></th><!-- && showmenu-->
+                        <ng-container *ngFor="let itemcol of cols">
+                            <ng-container
+                                *ngIf="itemcol.field!=groupfield &&  itemcol.field!=groupfield+'desc' && !itemcol.hide  && outputtype!='html'">
+
+                                <th class="rightalign" *ngIf="!itemcol.hide && itemcol.datatype=='n'" sortable="true"
+                                    [field]="itemcol.field" [pSortableColumn]="itemcol.field">{{itemcol.header}}
+                                    <!--{{itemcol.datatype}}-{{itemcol.filter}}-{{itemcol.dropdownItems}}-->
+                                    <p-sortIcon [field]="itemcol.field" ariaLabel="Activate to sort"
+                                        ariaLabelDesc="Activate to sort in descending order"
+                                        ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                </th>
+                                <th *ngIf="!itemcol.hide && itemcol.datatype!='n'" sortable="true"
+                                    [field]="itemcol.field" [pSortableColumn]="itemcol.field">{{itemcol.header}}
+                                    <!--{{itemcol.datatype}}-{{itemcol.filter}}-{{itemcol.dropdownItems}}-{{groupfield}}-->
+                                    <p-sortIcon [field]="itemcol.field" ariaLabel="Activate to sort"
+                                        ariaLabelDesc="Activate to sort in descending order"
+                                        ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon><span
+                                        class="small red">{{dt?.filters[itemcol.field]?.matchMode}}
+                                        {{dt?.filters[itemcol.field]?.value}}</span>
+                                </th>
+                            </ng-container>
+                        </ng-container>
+                    </tr>
+                    <tr *ngIf="showfilter && groupfield==''">
+
+                        <th *ngIf="showcheckbox"></th>
+                        <!--<th *ngIf="menuactions && menuactions.length>0 && showmenu"></th>-->
+
+
+                        <ng-container *ngFor="let itemcol of cols">
+
+                            <ng-container
+                                *ngIf="itemcol.field!=groupfield && itemcol.field!=groupfield+'desc' && !itemcol.hide">
+
+                                <th *ngIf="(!itemcol.hide)" [ngSwitch]="itemcol.datatype">
+
+                                    <select *ngIf="itemcol.datatype!='dp' && itemcol.datatype!='ms' "
+                                        [(ngModel)]="itemcol.filterMatchMode"
+                                        (click)="filter(itemcol.datatype,itemcol.field)">
+                                        <option
+                                            *ngIf="itemcol.datatype!='dp' && itemcol.datatype!='ms' && itemcol.datatype!='n'  && itemcol.datatype!='date' "
+                                            value="contains">contains</option>
+                                        <option
+                                            *ngIf="itemcol.datatype!='dp' && itemcol.datatype!='ms' && itemcol.datatype!='n'   && itemcol.datatype!='date'  "
+                                            value="startsWith">startsWith</option>
+                                        <option
+                                            *ngIf="itemcol.datatype!='dp' && itemcol.datatype!='ms' && itemcol.datatype!='n'  && itemcol.datatype!='date'   "
+                                            value="endsWith">endsWith</option>
+                                        <option
+                                            *ngIf="itemcol.datatype!='dp' && itemcol.datatype!='ms'  && itemcol.datatype!='n'   && itemcol.datatype!='date' "
+                                            value="equals">equals</option>
+                                        <option
+                                            *ngIf="itemcol.datatype!='dp' && itemcol.datatype!='ms' && itemcol.datatype!='n'   && itemcol.datatype!='date'  "
+                                            value="notEquals">notEquals</option>
+                                        <option
+                                            *ngIf="itemcol.datatype!='dp' && itemcol.datatype!='ms' && itemcol.datatype!='n'  && itemcol.datatype!='date'   "
+                                            value="in">in</option>
+                                        <option
+                                            *ngIf="itemcol.datatype!='dp' && itemcol.datatype!='ms' && itemcol.datatype!='n'  && itemcol.datatype!='date'   "
+                                            value="lt">lt</option>
+                                        <option
+                                            *ngIf="itemcol.datatype!='dp' && itemcol.datatype!='ms' && itemcol.datatype!='n'  && itemcol.datatype!='date'   "
+                                            value="lte">lte</option>
+                                        <option
+                                            *ngIf="itemcol.datatype!='dp' && itemcol.datatype!='ms'  && itemcol.datatype!='n'  && itemcol.datatype!='date'  "
+                                            value="gt">gt</option>
+                                        <option
+                                            *ngIf="itemcol.datatype!='dp' && itemcol.datatype!='ms'  && itemcol.datatype!='n'   && itemcol.datatype!='date' "
+                                            value="gte">gte</option>
+                                        <option *ngIf="itemcol.datatype=='n' || itemcol.datatype=='date'" value="null">
+                                            Null
+                                        </option>
+                                        <option *ngIf="itemcol.datatype=='n'" value="b">Between</option>
+                                        <option *ngIf="itemcol.datatype=='n' || itemcol.datatype=='date'" value="E">
+                                            Empty
+                                        </option>
+                                    </select>
+
+                                    <input
+                                        *ngIf=" itemcol.datatype!='dp' && itemcol.datatype!='ms'  && ((itemcol.filter == true || itemcol.filter==null|| itemcol.filter=='' )&& itemcol.dropdownItems==null && (itemcol.datatype==null || itemcol.datatype==''))"
+                                        pInputText type="text" style="padding:0"
+                                        (input)="dt.filter($event.target.value, itemcol.field, itemcol.filterMatchMode)">
+                                    <!--Value > {{numFilter}} {{itemcol.min}} {{itemcol.max}}-->
+                                    <div
+                                        *ngIf="((itemcol.filter == true || itemcol.filter==null || itemcol.filter=='' ) && itemcol.dropdownItems==null && (itemcol.datatype=='n'))">
+
+                                        <!--   <i class="fa fa-close"
+                                    (click)="itemcol.val=null;dt.filter(null, itemcol.field, itemcol.filterMatchMode)"
+                                    style="cursor:pointer" *ngIf="numFilter"></i>-->
+
+                                        {{getmin(itemcol.field)}} - {{getmax(itemcol.field)}}<p-slider
+                                            [style]="{'width':'100%','margin-top':'8px'}" [(ngModel)]="itemcol.val"
+                                            [min]="getmin(itemcol.field)" [max]="getmax(itemcol.field)"
+                                            (onChange)="onNumChange($event, dt,itemcol.field,itemcol.datatype)">
+                                        </p-slider>{{itemcol.val}}
+                                    </div>
+                                    <div
+                                        *ngIf="((itemcol.filter == true || itemcol.filter==null ) && itemcol.dropdownItems==null && (itemcol.datatype=='date'))">
+
+
+                                        <p-calendar [(ngModel)]="dateFilters" appendTo="body" selectionMode="range"
+                                            [readonlyInput]="false" dateFormat="dd.mm.yy"
+                                            (onSelect)="onDateSelect($event,itemcol.field)">
+
+                                        </p-calendar>
+                                    </div>
+                                    <!--<p-dropdown showClear="true"   editable="true"  appendTo="body"
+                                            *ngIf="((itemcol.filter == true || itemcol.filter==null ) && itemcol.datatype=='dp')"
+                                            [options]="getdropdownItems(itemcol.field)" [style]="{'width':'100%'}"
+                                            (onChange)="dt.filter($event.value, itemcol.field, 'equals')"></p-dropdown>-->
+                                    <p-multiSelect appendTo="body"
+                                        *ngIf="((itemcol.filter == true || itemcol.filter==null ) && (itemcol.datatype=='dp' || itemcol.datatype=='ms' ))"
+                                        [options]="getdropdownItems(itemcol.field)" defaultLabel="All Colors"
+                                        (onChange)="dt.filter($event.value, itemcol.field, 'in')"></p-multiSelect>
+                                </th>
+                            </ng-container>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
+            </ng-template>
+
+            <!--GetValue(groupdata,this.configdata?.groupbytext)-->
+            <!--<ng-container *ngIf="groupfield!='' && groupfieldtext!=''">-->
+            <ng-template pTemplate="groupheader" let-rowData>
+                <ng-container *ngIf="groupfield!=''">
+
+                    <tr class="p-rowgroup-header" pRowGroupHeader id="{{'groupheader_'+rowgroup}}"
+                        *ngIf="groupfield!=''" [innerHTML]="GetValue(rowData,groupfieldtext,'group')">
+
+                    </tr>
+
+                    <tr class="borderbottomless">
+
+                        <ng-container *ngIf="dialogdata!=undefined">
+                            <td *ngIf="dialogdata.ScreenType=='2'">Popup</td>
+                            <td *ngIf="dialogdata.ScreenType=='3'">View</td>
+                            <td *ngIf="dialogdata.ScreenType=='4'">Popup</td>
+                        </ng-container>
+                        <td *ngIf="showcheckbox">
+                            <p-tableHeaderCheckbox style="background:white"></p-tableHeaderCheckbox>
+                        </td>
+                        <td *ngIf="menuactions && menuactions.length>0 && showmenu"></td><!-- && showmenu-->
+                        <ng-container *ngFor="let itemcol of cols">
+                            <ng-container
+                                *ngIf="itemcol.field!=groupfield &&  itemcol.field!=groupfield+'desc' && !itemcol.hide  && outputtype!='html'">
+
+                                <td *ngIf="!itemcol.hide" [pSortableColumn]="itemcol.field" class="bold">
+                                    {{itemcol.header}}<p-sortIcon [field]="itemcol.field" ariaLabel="Activate to sort"
+                                        ariaLabelDesc="Activate to sort in descending order"
+                                        ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                                </td>
+                            </ng-container>
+                        </ng-container>
+                    </tr>
+
+                </ng-container>
+            </ng-template>
+
+
+            <ng-template pTemplate="groupfooter" let-rowData>
+                <ng-container *ngIf="configdata?.groupbyfooter!=''">
+
+
+                    <tr class="p-rowgroup-footer" *ngIf="groupfield!=''" id="{{'groupfooter_'+rowgroup}}"
+                        [innerHTML]="GetValue(rowData,configdata?.groupbyfooter,'group')">
+
+                    </tr>
+                    <tr class="noborder">
+                        <td></td>
+                    </tr>
+                </ng-container>
+            </ng-template>
+
+            <!--</ng-container>-->
+            <!--   -->
+
+            <!-- class="ng2-smart-p-grid"   <ng-template pTemplate="body" let-item let-columns="columns">-->
+            <!--
+                        <ng-template pTemplate="body" let-user let-columns="columns">
+                            <tr>
+                                <td *ngFor="let col of columns">
+                                    {{user[col.field]}}
+                                </td>
+                            </tr>
+                        </ng-template> 
+                        
+                    <ng-template class="display: flex;flex-wrap: wrap;" pTemplate="body" [pSelectableRow]="rowData"
+                    let-rowData="rowData" let-rowIndex="rowIndex" let-expanded="expanded" let-columns="columns">
+                    -->
+
+
+            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-rowgroup="rowgroup"
+                let-rowspan="rowspan" let-index="rowIndex">
+
+                <tr [pReorderableRow]="index" [pSelectableRow]="rowData" [pContextMenuRow]="rowData"
+                    [ngClass]="{'rowactive':(rowData?.status=='A'),'rowinactive':(rowData?.status!='A')}">
+                    <ng-container *ngIf="outputtype=='list'">
+
+
+
+                        <!-- use it to debug
+            <tr><td>{{rowIndex}}-{{rowData[groupfield]+'p'+page2}}-{{first}}-{{ (rowgroupmetadata[(rowData[groupfield]+'p'+page2)])}}</td></tr>
+        -->
+                        <!--File1-->
+
+
+                        <!---->
+
+                        <td *ngIf="sequence!='' && sequence!=null" class="reportcolumn" style="max-width:10px">
+                            <span class="pi pi-bars" pReorderableRowHandle></span>
+                        </td>
+                        <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
+                            <span class="p-text-bold p-ml-2" innerHTML="{{GetValue(rowData,groupfieldtext)}}"></span>
+                        </td>
+
+
+                        <!--div to td-->
+                        <ng-container *ngIf="dialogdata!=undefined">
+                            <td *ngIf="dialogdata.ScreenType=='3'" class="col" role='button'
+                                (click)='goroute("url",rowData["pk"],rowData)'><i class='fa fa-eye'
+                                    aria-hidden='true'>View</i></td>
+                            <td *ngIf="dialogdata.ScreenType=='4'" class="col" role='button'
+                                (click)='goroute("get",rowData["pk"],rowData)'><i class='fa fa-eye'
+                                    aria-hidden='true'>Popup</i></td>
+                        </ng-container>
+
+
+                        <td *ngIf="showcheckbox && !showgroupcheckbox">
+                            <p-tableCheckbox [value]="rowData" (click)="selectNode(rowData,$event)">
+                            </p-tableCheckbox>
+                        </td>
+
+                        <ng-container
+                            *ngIf="false &&!showgroupcheckbox && menuactions!=undefined && menuactions.length>0 && showmenu">
+                            <!--flex-wrap: wrap!important;-->
+                            <td class='col menuactions'>
+
+                                <!-- Collect the nav links, forms, and other content for toggling -->
+                                <!--
+                                <ul class="nav navbar-nav1 listnone">
+                                    <li class="dropdown">
+                                        <a [routerLink]='' class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                            aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+                                        <ul class="dropdown-menu listnone">
+                                            <ng-container *ngFor="let action of menuactions">
+                                                <li><i class="{{'orangecolor p-element p-button-rounded p-button-success p-mr-2 p-button p-component p-button-icon-only '+action.actionicon}}"></i><a
+                                                        [routerLink]='' (click)="buttonactions(action,rowData)"
+                                                        class='padding5  medium '></a>
+                                                </li>
+                                            </ng-container>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            -->
+                                <button #btn type="button" pButton icon="pi pi-bars" label=""
+                                    (click)="menu.toggle($event)"></button>
+
+                                <!--<p-menu  #menu{{rowIndex}} [popup]="true"   [model]="menuitems"></p-menu>-->
+
+                            </td>
+                        </ng-container>
+
+
+                        <ng-container *ngIf="outputtype=='list' || configdata['html']==''">
+
+
+
+                            <ng-container *ngFor="let itemcol of cols">
+
+                                <!--
+                    <td *ngIf="groupfield!='' && itemcol.field==groupfield && (rowgroupmetadata[rowData[groupfield]+'p'+page].index === rowIndex || rowIndex%rowsdisplay===0)"
+                        [attr.rowspan]="rowgroupmetadata[rowData[groupfield]+'p'+page].size">
+                        <pre>{{GetGroupData(rowData,rowgroupmetadata[rowData[groupfield]+'p'+page])}}</pre>
+                    </td>
+                    -->
+
+
+
+                                <ng-container
+                                    *ngIf="itemcol.field!=groupfield && itemcol.field!=groupfield+'desc' && !itemcol.hide">
+
+                                    <td title="{{getCustomFields(rowData['customfield'])}}"
+                                        class="{{'reportcolumn p-col-12 p-md-lg-'+itemcol.width}}"
+                                        *ngIf="itemcol.field=='customfield'">
+                                        <pre>{{getCustomFields(rowData['customfield'])}}</pre>
+                                    </td>
+                                    <td title="rowData[itemcol.field]"
+                                        class="{{'reportcolumn rightalign p-col-12 p-md-lg-'+itemcol.width}}"
+                                        *ngIf="itemcol.datatype=='n'" [innerHTML]="(rowData[itemcol.field])">
+
+                                    </td>
+                                    <td title="{{rowData[itemcol.field]}}" *ngIf="itemcol.datatype=='PG'">
+                                        <p-knob [(ngModel)]="rowData[itemcol.field]" [size]="50"></p-knob>
+                                    </td>
+                                    <td title="{{getTag(rowData[itemcol.field])}}"
+                                        class="{{'reportcolumn p-col-12 p-md-lg-'+itemcol.width}}"
+                                        *ngIf="itemcol.datatype=='TG'" [innerHTML]="getTag(rowData[itemcol.field])">
+
+                                    </td>
+                                    <td title="{{getAddress(rowData[itemcol.field])}}"
+                                        class="{{'reportcolumn p-col-12 p-md-lg-'+itemcol.width}}"
+                                        *ngIf="itemcol.datatype=='AD'" [innerHTML]="getAddress(rowData[itemcol.field])">
+
+                                    </td>
+                                    <td title="{{rowData[itemcol.field]}}"
+                                        class="{{'reportcolumn p-col-12 p-md-lg-'+itemcol.width}}"
+                                        *ngIf="itemcol.datatype=='SS'" [innerHTML]="(rowData[itemcol.field +'desc'])">
+
+                                    </td>
+                                    <td class="{{'reportcolumn p-col-12 p-md-lg-'+itemcol.width}}"
+                                        *ngIf="itemcol.datatype=='RR'">
+                                        <p-rating [(ngModel)]="rowData[itemcol.field]"></p-rating>
+                                    </td>
+                                    <td class="{{'reportcolumn p-col-12 p-md-lg-'+itemcol.width}}"
+                                        *ngIf="itemcol.datatype=='IM'">
+                                        <ng-container
+                                            *ngIf="rowData[itemcol.field]!=null && rowData[itemcol.field]!=undefined">
+                                            <ng-container *ngFor="let fileobj of getJsonObject(rowData[itemcol.field])">
+                                                <a href="{{fileobj.name}}">{{fileobj.name}}</a> |
+                                            </ng-container>
+                                        </ng-container>
+                                    </td>
+                                    <td class="{{'reportcolumn p-col-12 p-md-lg-'+itemcol.width}}"
+                                        *ngIf="itemcol.field=='attachment'">
+                                        <ng-container *ngFor="let fileobj of getAttachments(rowData['attachment'])">
+                                            <a href="{{fileobj}}">{{fileobj}}</a> |
+                                        </ng-container>
+                                    </td>
+                                    <td title="{{getcolHtml(rowData,itemcol.colhtml)}}"
+                                        class="{{'reportcolumn  p-col-12 p-md-lg-'+itemcol.width}}"
+                                        *ngIf="(itemcol.poptitle=='' || itemcol.poptitle==undefined) && itemcol.colhtml!='' && itemcol.colhtml!=undefined"
+                                        innerHTML="{{getcolHtml(rowData,itemcol.colhtml)}}">
+                                    </td>
+
+                                    <td title="{{rowData[itemcol.field]}}"
+                                        class="{{'reportcolumn  p-col-12 p-md-lg-'+itemcol.width}}"
+                                        *ngIf="itemcol.poptitle!='' && itemcol.poptitle!=undefined && itemcol.colhtml!='' && itemcol.colhtml!=undefined">
+                                        <button type="button" class="btn btn-outline-secondary"
+                                            popoverTitle="{{rowData[itemcol.poptitle]}}" [autoClose]="'inside'"
+                                            ngbPopover="{{getcolHtml(rowData,itemcol.colhtml)}}">
+                                            {{rowData[itemcol.field]}}
+                                        </button>
+                                    </td>
+                                    <td title="{{rowData[itemcol.field]}}"
+                                        class="{{'reportcolumn  p-col-12 p-md-lg-'+itemcol.width}}"
+                                        *ngIf="itemcol.link"><a
+                                            href="{{evaluate(itemcol.linkurl,rowData)}}">{{rowData[itemcol.field]}}</a>
+                                        <!--   <span *ngIf="!itemcol.Link">{{rowData[itemcol.field]}}</span>-->
+                                    </td>
+                                    <td title="{{rowData[itemcol.field]}}"
+                                        class="{{'reportcolumn  p-col-12 p-md-lg-'+itemcol.width}}" *ngIf="itemcol.sp">
+                                        <button type="button" class="btn"
+                                            (click)="runsp(itemcol.spname,rowData)">{{rowData[itemcol.field]}}</button>
+                                        <!--   <span *ngIf="!itemcol.Link">{{rowData[itemcol.field]}}</span>-->
+                                    </td>
+
+                                    <td title="{{rowData[itemcol.field]}}" [ngStyle]="setcolor(itemcol,rowData)"
+                                        class="{{' reportcolumn p-col-12 p-md-lg-'+itemcol.width}}"
+                                        *ngIf="!editable &&  itemcol.datatype!='PG'  && itemcol.datatype!='n'  && itemcol.datatype!='IM'  && itemcol.datatype!='SS'  && itemcol.datatype!='TG' && itemcol.datatype!='AD'  && itemcol.field!='customfield' && (itemcol.colhtml=='' || itemcol.colhtml==undefined) && itemcol.field!='attachment' && !itemcol.link && !itemcol.sp"
+                                        innerHTML="{{getData(itemcol,rowData,itemcol.field)}}">
+                                    </td>
+
+                                    <td title="{{rowData[itemcol.field]}}" class="reportcolumn "
+                                        *ngIf="editable &&  itemcol.datatype!='PG'  &&  itemcol.datatype!='n' && itemcol.datatype!='IM'  && itemcol.datatype!='TG'  && itemcol.datatype!='AD' && itemcol.field!='customfield' && (itemcol.colhtml=='' || itemcol.colhtml==undefined) && itemcol.field!='attachment' && !itemcol.link && !itemcol.sp"
+                                        [pEditableColumn]="rowData" [pEditableColumnField]="itemcol.field"
+                                        id="{{'col'+itemcol.field+rowIndex}}">
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input id="{{itemcol.field + rowIndex}}" pInputText type="text"
+                                                    [(ngModel)]="rowData[itemcol.field]"
+                                                    (keydown.shift.z)="goNextRow($event,itemcol.field, rowIndex)">
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{rowData[itemcol.field]}}
+                                            </ng-template>
+                                        </p-cellEditor>
+                                    </td>
+
+                                </ng-container>
+
+                            </ng-container>
+                        </ng-container>
+                        <!--class="card"-->
+                        <ng-container *ngIf="outputtype=='html' && configdata['html']!=''">
+
+                            <!--
+                    <td class='col'  style="display: flex!important; flex-wrap: wrap!important;">
+                    <ng-container *ngFor="let action of menuactions">
+                        <td>
+                        <button type="button" (click)="buttonactions(action,rowData)"><i [ngClass]="action.actionicon" [alt]="action.description" aria-hidden="true"></i></button>
+                    </td>
+                    </ng-container>
+                    </td>
+                -->
+                            <td><a [routerLink]='' (click)='opendialog1(null,rowData)'>View</a></td>
+                            <td class="cardclass" [innerHTML]="getHtml(rowData)">
+                            </td>
+
+
+                        </ng-container>
+
+
+
+
+
+                        <!-- rowgroupmetadata[rowData[groupfield]+'p'+page]!=null && rowgroupmetadata[rowData[groupfield]+'p'+page].index === rowIndex"-->
+                        <!--+ rowgroupmetadata[rowData[groupfield]+'p'+page].size -1-->
+
+
+
+                        <!--widget footer-->
+                    </ng-container>
+
+
+
+                    <ng-container *ngIf="outputtype=='html' && configdata['html']!=''">
+
+                        <!--
+            <td class='col'  style="display: flex!important; flex-wrap: wrap!important;">
+            <ng-container *ngFor="let action of menuactions">
+                <td>
+                <button type="button" (click)="buttonactions(action,rowData)"><i [ngClass]="action.actionicon" [alt]="action.description" aria-hidden="true"></i></button>
+            </td>
+            </ng-container>
+            </td>
+        -->
+                        <td><a [routerLink]='' (click)='opendialog1(null,rowData)'>View</a></td>
+                        <td class="cardclass">
+                            {{getHtml(rowData)}}
+                        </td>
+
+
+                    </ng-container>
+
+
+
+                    <!--  </ng-template>-->
+                    <ng-container *ngIf="outputtype=='html1'">
+                        <div style="display:inline-block;width:fit-content!important;border:none!important"
+                            class="cardclass p-col-12 p-md-3 ui-widget-content">
+                            <!-- p-col-12 p-md-3-->
+
+                            <ng-container *ngIf="!showgroupcheckbox && menuactions.length>0 && showmenu">
+                                <!--flex-wrap: wrap!important;-->
+                                <td class='col'>
+                                    <div class="starred">
+
+                                <td style='background-color: transparent!important'>
+                                    <!--class="btn btn-secondary btn-sm smm active"-->
+
+                                    <div class='moredrop' appendTo="body" id="{{'divrow'+rowIndex}}"
+                                        style="display:none">
+                                        <ul class="listnone">
+                                            <ng-container *ngFor="let action of menuactions">
+
+
+                                                <li (mousedown)="buttonactions(action,rowData)"><i
+                                                        [alt]="action.actiondescription"
+                                                        [ngClass]="action.actionicon"></i><span
+                                                        class='label'>{{action.description}}</span></li>
+                                            </ng-container>
+                                        </ul>
+                                    </div>
+
+
+                                    <button style="border:none;background-color: transparent!important;display:none"
+                                        type="button" (click)="moreclick(rowIndex)" (blur)="bgclick(rowIndex)"
+                                        class="more"><i class='fa fa-ellipsis-v' aria-hidden="true"></i></button>
+
+                                    <!--
+                        <button *ngIf="condition(action,rowData)" class="actionbutton unstarred"
+                            style="border:none;background-color: transparent!important;padding:0px!important;margin:0px!important;"
+                            type="button" (click)="buttonactions(action,rowData)"><i [alt]="action.actiondescription"
+                                [ngClass]="action.actionicon" aria-hidden="true"></i></button>-->
+                                    <!-- <button type="button" [title]="action.description" (click)="buttonactions(action,rowData)"><i [ngClass]="action.actionicon"  aria-hidden="true"></i></button>-->
+                                </td>
+
+
+                        </div>
+                        </td>
+                    </ng-container>
+                    <!--
+                <ul class="dropdown-menu">
+                    <ng-container *ngFor="let action of menuactions">
+                        <li><a class="dropdown-item" [routerLink]='' (click)="buttonactions(action,rowData)"><i [alt]="action.actiondescription" [ngClass]="action.actionicon"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</a></li>
+                    </ng-container>
+                </ul>
+            -->
+                    <ng-container *ngIf="showcheckbox && !showgroupcheckbox">
+                        <p-checkbox [value]="rowData" [(ngModel)]="selecteddata"
+                            (click)="CheckboxSelect(rowData,$event)">
+                        </p-checkbox>
+                    </ng-container>
+                    <a [routerLink]='' (click)='opendialog1(null,rowData)'>View</a>
+                    <div style='width:fit-content;' [innerHTML]="getHtml(rowData)"></div>
+
+                    <div *ngIf="configdata?.rowoutputype!='B' && rowData.header1!=''"
+                        style="white-space: pre-wrap; background-color: transparent;line-height: 2px;">
+                        {{rowData.header1}}
+                    </div>
+
+
+
+                    <p-table [contextMenu]="cm" responsive-scrolling [scrollable]="true" scrollHeight="100%"
+                        *ngIf="header1cols.length>0" [value]="rowData.header1results">
+                        <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of header1cols">
+                        <font style="color:blue">{{col.header}}</font>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr style="height:30px">
+                    <td *ngFor="let col of header1cols">
+                        <font style="color:#000">{{rowData[col.field]}}</font>
+                    </td>
+                </tr>
+            </ng-template>
+            <!--<ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td [attr.colspan]="cols.length">No data found.</td>
+                    </tr>
+                </ng-template>-->
+        </p-table>
+
+
+    </div>
+
+
+
+    </ng-container>
+
+
+
+
+    </tr>
+
+    </ng-template>
+
+
+
+
+    <ng-template pTemplate="footer" let-rowData>
+
+        <tr [innerHTML]="GetValue(rowData,configdata?.footer,'footer')">
+
+        </tr>
+
+    </ng-template>
+
+    <!--
+    <ng-template pTemplate="footer" *ngIf="configdata?.reportoutputtype!='B'">
+    
+        <tr>
+            <td></td>
+            <ng-container *ngFor="let itemcol of columns">
+                <ng-container *ngIf="!itemcol.hide">
+                    <td style="border:0px">
+                        {{getColTotal(itemcol.field)}}
+                    </td>
+                </ng-container>
+            </ng-container>
+        </tr>
+    
+    </ng-template>
+    -->
+    </p-table>
+    <!--</ng-scrollbar>-->
+</div>
+
+
+</ng-container>
+
+
+<!--
+    <div *ngIf="configdata!=undefined && configdata?.SQL!=undefined && contentAreaid =='reportmaincontent'">
+        SQL:{{configdata?.SQL}}</div>
+    <div *ngIf="configdata!=undefined && configdata?.headerquery1!=undefined && contentAreaid =='reportmaincontent' ">
+        headerquery1:{{configdata?.headerquery1}}</div>
+    <div *ngIf="configdata!=undefined && configdata?.headerSQL!=undefined && contentAreaid =='reportmaincontent'">
+        headerSQL:{{configdata?.headerSQL}}</div>
+    <div *ngIf="configdata!=undefined && configdata?.footerSQL!=undefined && contentAreaid =='reportmaincontent' ">
+        footerSQL:{{configdata?.footerSQL}}</div>
+    <div *ngIf="configdata!=undefined && configdata?.kanbanSQL!=undefined && contentAreaid =='reportmaincontent' ">
+        kanbanSQL:{{configdata?.kanbanSQL}}</div>
+    
+    <div style="white-space: pre-wrap;" *ngIf="configdata?.reportoutputtype!='B' && configdata?.footer!=''">
+        {{configdata?.footer}}
+    </div>
+    -->
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+<ng-container *ngFor="let action of menuactions">
+    <button *ngIf="action.actionbutton==true && action.actionbuttonlocation=='B'" type="button" class="btn-success"
+        (click)="onChangeAction(action.actionid)"><i
+            class="fa fa-new"></i>&nbsp;&nbsp;&nbsp;{{action.description}}</button>
+
+</ng-container>
+
+<button *ngIf="sequence!='' && sequence!=null" type="button" class="btn-success" (click)="UpdateSequence()"><i
+        class="fa fa-new"></i>Update Sequence</button>
+<div class='full-width'
+    *ngIf="customfieldvisible  && customfieldservicelist!=null && customfieldservicelist!=undefined  && customfieldservicelist.fields.length>0 && data.length>0">
+
+    <div class="form-group p-grid"
+        *ngIf="customfieldservicelist!=null && customfieldservicelist!=undefined   &&(customfieldservicelist.formhtml!=null || customfieldservicelist.templatehtml!=null || (customfieldservicelist.fields!=[] && customfieldservicelist.fields.length>0))">
+        <dynamic-form-builder [customfields]="customfieldservicelist" #customform></dynamic-form-builder>
+    </div>
+
+</div>
+
+
+</div>
+
+
+
+<!--</form>-->

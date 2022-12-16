@@ -1,0 +1,43 @@
+
+
+.vertical {
+    border-left: 2px solid rgb(130, 133, 130);
+    height: 2px;
+  }
+  .headercolumn1{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  hr {
+    margin: 0;
+    color: inherit;
+    border: 0;
+    border-left: 2px solid;
+    opacity: .25;
+    height: 30px;
+}
+.profile{
+    height: 40px;
+    border-radius: 20px;
+}
+.profileimage{
+    align-items: center;
+    /* vertical-align: middle; */
+    right: 4px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.headermenu{
+    display: flex;
+    justify-content: center;
+    line-height: 4;
+    /* margin: 13px; */
+    text-align: center;
+}
+.headermain{
+display: flex;
+}
+ 
