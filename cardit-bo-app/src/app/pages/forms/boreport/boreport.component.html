@@ -26,7 +26,8 @@
           <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
 
           </div>
-          <p-tabPanel header="Master">
+          <p-tabPanel header="Master" style="position: relative;
+          top: 10px;">
             <div class="col-12">
               <p-accordion [multiple]='true'>
                 <div class='p-grid griddisplay'>

@@ -90,6 +90,7 @@ html {
 
 #contentAreascroll {
   margin-left: 1em !important;
+  margin-top: 2em !important;
 }
 
 .ngb-tp {
@@ -171,7 +172,7 @@ html {
 .p-float-label textarea.p-filled~label,
 .p-float-label .p-inputwrapper-focus~label,
 .p-float-label .p-inputwrapper-filled~label {
-  font-size: 0.75rem !important;
+  font-size: 12px !important;
 }
 
 .ngb-tp-input .btn {
@@ -273,6 +274,16 @@ p-inputnumber.ng-invalid .ui-inputtext {
   //background: rgba(255, 0, 0, 0.35);
   //box-shadow: 0 0 5px 1px rgba(255, 0, 0, 0.2) inset !important;
 }
+button.p-element.p-splitbutton-menubutton.p-button.p-component.p-button-icon-only {
+  height: 25px;
+}
+.p-splitbutton .p-splitbutton-defaultbutton {
+  flex: 1 1 auto;
+  height: 25px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 0 none;
+}
 .p-panelMenu{
   background: #004751 !important;
 }
@@ -312,12 +323,14 @@ p-inputnumber.ng-invalid .ui-inputtext {
 
 .labelview,
 .control-label {
-  font-size: x-small;
+  font-size: 12px;
   margin: 0;
 }
 
 .control-label {
   text-transform: capitalize;
+  display: flex;
+  justify-content: start;
 }
 
 .pi-sort-alt:before {
@@ -372,7 +385,7 @@ p-inputnumber.ng-invalid .ui-inputtext {
 
 .p-float-label>label {
   color: #5AA9C2;
-  font-size: x-small;
+  font-size: 12px;
 }
 
 .p-datatable table {
@@ -498,6 +511,13 @@ ngb-timepicker fieldset {
   border-color: var(--surface-ground) !important;
 }
 
+.titlemenu{
+  display: flex;
+  justify-content: start;
+  position: relative;
+  left: 20px;
+}
+
 .reportcolumn {
   overflow-wrap: anywhere;
 }
@@ -527,8 +547,6 @@ p-panel>.p-panel>.p-panel-header {
 .p-megamenu {
   padding: 0 !important;
   margin: 0 !important;
-  display: flex;
-  justify-content: center;
   align-items: center;
 }
 
@@ -687,7 +705,8 @@ p-scrollpanel-content>.p-grid>.p-float-label,
 
 .p-float-label label:not(.p-float-label input:focus ~ label, .p-float-label input.p-filled ~ label, .p-float-label textarea:focus ~ label, .p-float-label textarea.p-filled ~ label, .p-float-label .p-inputwrapper-focus ~ label, .p-float-label .p-inputwrapper-filled ~ label, .p-float-label .labelview) {
   // top:30%;
-  margin-top: -0.75rem;
+
+  margin-top: -1.5rem;
 }
 
 .p-tabview .p-tabview-panels,
@@ -741,7 +760,7 @@ p-scrollpanel-content>.p-grid>.p-float-label,
 
   font-weight: 700;
   padding: 3px 0px !important;
-  margin: 20px -5px;
+  margin: 18px -5px 2px -5px;
   background-color: #cee812;
 }
 
@@ -774,7 +793,7 @@ p-scrollpanel-content>.p-grid>.p-float-label,
 }
 
 .p-splitbutton {
-  margin-right: 0.25rem;
+  margin-left: 45rem;
 }
 
 .ng-invalid>.p-component {
@@ -848,7 +867,7 @@ p-calendar .p-inputtext,
   padding-bottom:0.3rem!important;
   margin-bottom:1rem!important;*/
 
-  padding-top: 0.3rem !important;
+  padding-top: 1.3rem !important;
   margin-top: 0.3rem !important;
   min-height: 3rem !important;
 
@@ -857,7 +876,12 @@ p-calendar .p-inputtext,
   // padding-bottom:0.3rem!important;
   // margin-bottom:.5rem!important;
 }
-
+.p-calendar {
+  position: relative;
+  display: inline-flex;
+  max-width: 100%;
+  margin: 0 10em 0 0;
+}
 .p-float-label label,
 .labelview {
   //left: 1.5em;

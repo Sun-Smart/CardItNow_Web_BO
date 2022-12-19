@@ -117,21 +117,34 @@
                 <label class="dropdown">
 
                     <div class="">
-                        <img src="assets/images/profile.jpg" style="height: 30px;border-radius: 15px;">
+                      
+                            <img src="assets/images/profile.jpg" style="height: 30px;border-radius: 15px;" (click)="showProfile()">
+                        
                     </div>
                   
                     <input type="checkbox" class="dd-input" id="test">
                   
-                    <ul class="dd-menu">
-                      <li  class="p-col listnone " style="    display: flex;
+                    <ul class="dd-menu" *ngIf="viewProfileList">
+                      <li  class="p-col listnone " style="display: flex;
                       justify-content: center;">
-                        <img src="assets/images/profile.jpg" style="height: 30px;">
+                      <div class="close">
+                        <span class="fa fa-close" (click)="closeFun()"></span>
+                      </div>
+                      
+                        <img src="assets/images/profile.jpg" style="height: 75px;">
                        
                         
                       
                       </li>
-                      <li>my@carditnow.com</li>
-                      <li  class="p-col listnone "> <div class="ui-g">
+                      <li class="userMenu">
+                        <label>UserName :</label>
+                        <label>&nbsp;{{this.UserName}}</label>
+                      </li>
+                      <li class="userMenu">
+                        <label>Email :</label>
+                        <label>&nbsp;{{this.email}}</label>
+                      </li>
+                      <!-- <li  class="p-col listnone "> <div class="ui-g">
 
                         <select (change)="selectTheme($event.target.value)">
                             <option value="">Select Theme</option>
@@ -192,12 +205,18 @@
                         </div>
                     -->
                     
-                    </div></li>
+                    <!-- </div></li> --> 
+                    <li  class="p-col listnone userMenu">
+                        <label>Mobile No : 9838646823</label> 
+                     </li>
                     <li class="p-col listnone " style="    display: flex;
                     justify-content: center;
                     align-items: center;
                     vertical-align: middle;
-                " (click)="logout()">Logout <span class="fa fa-sign-out"></span></li>
+                    background-color: red;
+                    color: white;
+                " (click)="logout()">Logout &nbsp; &nbsp;<span class="fa fa-sign-out"></span></li>
+              
                     </ul>
                     
                   </label>

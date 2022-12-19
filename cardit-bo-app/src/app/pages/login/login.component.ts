@@ -72,7 +72,7 @@ console.log(this.password);
         this.passvalidation = false
     }
     onSubmit() {
-        ////debugger;
+        debugger;
 
         //let user: bousermaster = this.userService.getUserByUserNameAndPassword(this.bologinForm.get('username').value, this.bologinForm.get('password').value);
         this.userService.login(this.bologinForm.get('email').value, this.bologinForm.get('password').value, window.location.host).then((res: any) => {
@@ -101,6 +101,10 @@ console.log(this.password);
                 this.sessionService.setItem("selected-theme", this.theme);
                 this.sessionService.setItem("selected-layout", loginuser.layoutpage);
                 this.themeService.selectTheme(loginuser.theme);
+                this.sessionService.setItem("Email",loginuser.email[0]);
+                this.sessionService.setItem("userId",loginuser.userid);
+                this.sessionService.setItem("userName",loginuser.username);
+                
                 if (loginuser.defaultpage == null || !loginuser.defaultpage)
                     //this.routeStateService.add("Home", '/home/showdashboard/1', null, true);
                     this.router.navigate(['/home']);

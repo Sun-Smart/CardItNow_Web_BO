@@ -164,7 +164,7 @@
                               <input type="text" pInputText *ngIf="!showview" id="idnumber" required
                                     pTooltip="{{'Enter' | translate}} {{'idnumber' | translate}}"
                                     formControlName="idnumber" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="idnumber" class="control-label required">{{'I D Number' | translate}}</label>
+                              <!-- <label for="idnumber" class="control-label required">{{'I D Number' | translate}}</label> -->
                               <app-field-error-display [displayError]="f.idnumber.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'I D Number' | translate}}">
                               </app-field-error-display>
@@ -176,8 +176,9 @@
                               <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
                                     dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
                                     pTooltip="{{'Select' | translate}} {{'idissuedate' | translate}}"
-                                    formControlName="idissuedate"></p-calendar><label for="idissuedate"
-                                    class="control-label required">{{'I D Issue Date' | translate}}</label>
+                                    formControlName="idissuedate"></p-calendar>
+                                    <!-- <label for="idissuedate"
+                                    class="control-label required">{{'I D Issue Date' | translate}}</label> -->
                               <app-field-error-display [displayError]="f.idissuedate.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'I D Issue Date' | translate}}">
                               </app-field-error-display>
@@ -189,8 +190,9 @@
                               <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
                                     dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
                                     pTooltip="{{'Select' | translate}} {{'idexpirydate' | translate}}"
-                                    formControlName="idexpirydate"></p-calendar><label for="idexpirydate"
-                                    class="control-label required">{{'I D Expiry Date' | translate}}</label>
+                                    formControlName="idexpirydate"></p-calendar>
+                                    <!-- <label for="idexpirydate"
+                                    class="control-label required">{{'I D Expiry Date' | translate}}</label> -->
                               <app-field-error-display [displayError]="f.idexpirydate.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'I D Expiry Date' | translate}}">
                               </app-field-error-display>
@@ -227,7 +229,7 @@
                               </p-autoComplete>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.divmodedesc?.value}}</label>
-                              <label for="divmode" class="control-label required">{{'D I V Mode' | translate}}</label>
+                              <!-- <label for="divmode" class="control-label required">{{'D I V Mode' | translate}}</label> -->
                               <app-field-error-display [displayError]="f.divmode.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'D I V Mode' | translate}}">
                               </app-field-error-display>
@@ -239,7 +241,7 @@
                               <input type="text" pInputText *ngIf="!showview" id="divref" required
                                     pTooltip="{{'Enter' | translate}} {{'divref' | translate}}" formControlName="divref"
                                     class="  p-form-control p-inputtext-sm p-field">
-                              <label for="divref" class="control-label required">{{'D I V Ref' | translate}}</label>
+                              <!-- <label for="divref" class="control-label required">{{'D I V Ref' | translate}}</label> -->
                               <app-field-error-display [displayError]="f.divref.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'D I V Ref' | translate}}">
                               </app-field-error-display>
@@ -251,8 +253,9 @@
                               <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
                                     dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
                                     pTooltip="{{'Select' | translate}} {{'divsubmissionon' | translate}}"
-                                    formControlName="divsubmissionon"></p-calendar><label for="divsubmissionon"
-                                    class="control-label required">{{'D I V Submission O N' | translate}}</label>
+                                    formControlName="divsubmissionon" style="padding: 0 10em 0 0;"></p-calendar>
+                                    <!-- <label for="divsubmissionon"
+                                    class="control-label required">{{'D I V Submission O N' | translate}}</label> --> -->
                               <app-field-error-display [displayError]="f.divsubmissionon.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'D I V Submission O N' | translate}}">
                               </app-field-error-display>

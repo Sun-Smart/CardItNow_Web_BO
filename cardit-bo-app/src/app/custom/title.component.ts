@@ -8,19 +8,17 @@ import { TranslateService } from "@ngx-translate/core";
   selector: 'app-title',
   template: `  
     
-    <div class="p-grid zero"  [ngClass]="novo"  >
-    <div class="p-col zero  left">
-    <a href='#/{{p_currenturl}}'>{{title | translate}}</a>
-    </div>
-    <div class="p-col zero" style="">
-    
-    <p-splitButton   icon="pi pi-save" (onClick)="action_onSubmitAndWait()" [model]="saveitems"></p-splitButton>
-    <p-slideMenu  appendTo="body"  [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" [viewportHeight]="225"   #menu [popup]="true" [model]="items" ></p-slideMenu>
-          <button type="button"  pButton icon="pi pi-list" (click)="menu.toggle($event)"></button>
-          
-          <p-button id='closebutton' *ngIf="maindata?.ScreenType==2"  icon="pi pi-times" (click)="action_onClose($event)"></p-button>
-          </div>
-    </div>
+  <div class="p-grid zero"  [ngClass]="novo" style="background-color: #cee812;height: 30px;" >
+  <div class="p-col zero titlemenu">
+  <a href='#/{{p_currenturl}}'>{{title | translate}}</a>
+  </div>
+  <div class="p-col zero">
+  
+  <p-splitButton icon="pi pi-save" (onClick)="action_onSubmitAndWait()" [model]="saveitems" ></p-splitButton>
+      
+        <p-button id='closebutton' *ngIf="maindata?.ScreenType==2"  icon="pi pi-times" (click)="action_onClose($event)" ></p-button>
+        </div>
+  </div>
     
                 `,
 
@@ -31,7 +29,10 @@ import { TranslateService } from "@ngx-translate/core";
   }]
 
 })
-
+// <button type="button"  pButton icon="pi pi-list" (click)="menu.toggle($event)"></button>
+          
+// <p-slideMenu  appendTo="body"  [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" [viewportHeight]="225"   #menu [popup]="true" [model]="items" ></p-slideMenu>
+   
 export class titleComponent implements ControlValueAccessor, OnInit {
   @Input() title: string;
   @Input() f: any;

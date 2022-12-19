@@ -1,7 +1,19 @@
 .error-msg {
   color: #a94442;
+  display: flex;
+  justify-content: start;
+  font-size: 12px;
+}
+.error-msg1{
+  color: #a94442;
+  display: flex;
+  justify-content: start;
+  font-size: 10px;
+  margin-top: -4.5rem;
+  margin-left: 5rem;
 }
 
 .fix-error-icon {
-  top: 27px;
+  /* top: 27px; */
+  display: none;
 }

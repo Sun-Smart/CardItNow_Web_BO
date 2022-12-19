@@ -19,11 +19,18 @@ a:hover {
 }
 
 /* Dropdown */
-
+.userMenu{
+  display: flex;
+  justify-content: start;
+}
 .dropdown {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.close{
+  position: relative;
+  left: 7em;
 }
 
 .dd-button {

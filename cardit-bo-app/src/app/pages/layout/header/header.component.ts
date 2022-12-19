@@ -21,9 +21,13 @@ export class HeaderComponent implements OnInit {
 
     user: any;
     items: any[];
-
+    UserName:any;
+    email:any;
+    UserId:any;
+    closebtn:boolean;
+    viewProfile:boolean=true;
     displayNotifications: boolean;
-
+    viewProfileList:boolean;
     notifications: any = [];
 
     @Output() toggleMenubar: EventEmitter<any> = new EventEmitter();
@@ -51,7 +55,12 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit() {
         ////debugger;
-
+        this.email = this.sessionService.getItem('Email');
+        console.log(this.email);
+        this.UserId = this.sessionService.getItem('userId');
+        console.log(this.UserId)
+        this.UserName= this.sessionService.getItem('userName');
+        console.log(this.UserName)
         this.user = this.sessionService.getSession();
         this.theme = this.sessionService.getItem('selected-theme');
 
@@ -133,9 +142,18 @@ export class HeaderComponent implements OnInit {
         this.sessionService.removeItem('active-menu');
         this.router.navigate(['/login']);
     }
-
+    closeFun(){
+      
+       this.viewProfileList = false;
+    }
+    showProfile(){
+        debugger;
+       
+        this.viewProfileList = true;
+    }
     showNotificationSidebar() {
         this.displayNotifications = true;
+       
     }
 
     toggleMenu() {
