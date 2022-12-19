@@ -117,8 +117,14 @@ html {
   background: #004751;
   color: #fff;
 }
+
 .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
   color: #fff;
+}
+
+.p-datatable .p-sortable-column.p-highlight:hover {
+  background: #cee812 !important;
+  color: #004751;
 }
 
 .p-datatable .p-datatable-thead>tr>th {
@@ -560,6 +566,7 @@ p-panel>.p-panel>.p-panel-header {
 
 .p-toolbar {
   padding: 0;
+  background-color: transparent !important;
 }
 
 textarea {
@@ -733,8 +740,9 @@ p-scrollpanel-content>.p-grid>.p-float-label,
   border-width: 1px 1px 0 1px;
 
   font-weight: 700;
-  padding: 0 !important;
+  padding: 3px 0px !important;
   margin: 20px -5px;
+  background-color: #cee812;
 }
 
 .p-3 {
