@@ -80,7 +80,7 @@ export class bodashboardComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
+    action:any;
     bfilterPopulate_bodashboards: boolean = false;
     bfilterPopulate_bodashboarddetails: boolean = false;
     bodashboard_menuactions: any = []

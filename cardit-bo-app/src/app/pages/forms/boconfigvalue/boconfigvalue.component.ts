@@ -77,7 +77,7 @@ export class boconfigvalueComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
+    action:any;
     bfilterPopulate_boconfigvalues: boolean = false;
     boconfigvalue_menuactions: any = []
 
@@ -109,7 +109,7 @@ export class boconfigvalueComponent implements OnInit {
         public dialog: DialogService,
         private boconfigvalue_service: boconfigvalueService,
         private fb: FormBuilder,
-        private sharedService: SharedService,
+        public sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
@@ -304,8 +304,8 @@ export class boconfigvalueComponent implements OnInit {
             this.sharedService.error(e);
         }
     }
-
-
+    onCopyRecursive(){}
+    onChangeAction(){}
 
     resetForm() {
         this.formid = "";
@@ -617,6 +617,14 @@ export class boconfigvalueComponent implements OnInit {
             this.blockedDocument = false;
             this.boconfigvalue_Form.markAsUntouched();
             this.boconfigvalue_Form.markAsPristine();
+            if(bclear == true){
+              
+                this.router.navigateByUrl['home/boreportviewer/cv'];
+            this.router.navigate(['home/' + 'boreportviewer' + '/' + 'cv' ]);
+            }else if(bclear == false){
+                this.clearList();
+            }
+           
             return new Promise(resolve => {
                 resolve(res);
             });
@@ -633,8 +641,9 @@ export class boconfigvalueComponent implements OnInit {
 
     //dropdown edit from the screen itself -> One screen like Reportviewer
     clearList() {
+        this.resetForm();
+        this.boconfigvalue_Form.reset() ;
     }
-
 
     PrevForm() {
         let formid = this.sessionService.getItem("key");

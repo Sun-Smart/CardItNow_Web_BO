@@ -1,7 +1,8 @@
 import { NgCommonModule } from './appcommon.module';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { Injectable } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Injectable } from '@angular/core';
+
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -66,6 +67,11 @@ import { transactionitemdetailComponent } from './pages/forms/transactionitemdet
 import { transactionmasterComponent } from './pages/forms/transactionmaster/transactionmaster.component';
 import { usermasterComponent } from './pages/forms/usermaster/usermaster.component';
 import { userrolemasterComponent } from './pages/forms/userrolemaster/userrolemaster.component';
+import { FieldBuilderComponent } from './custom/dynamic-form-builder/field-builder/field-builder.component';
+import { DynamicFormBuilderComponent } from './custom/dynamic-form-builder/dynamic-form-builder.component';
+import { TextBoxComponent } from './pages/forms/dynamic-form-builder/atoms/textbox';
+import { RadioComponent } from './pages/forms/dynamic-form-builder/atoms/radio';
+import { FileComponent } from './pages/forms/dynamic-form-builder/atoms/file';
 
 
 export const ENTRY_COMPONENTS = [];
@@ -97,6 +103,10 @@ export const paths = [
                     { path: 'boworkflowmasters', component: boworkflowmasterComponent, }, // loadChildren: () => import('../../../n-tire-bo-app/src/app/pages/forms/boworkflowmaster/boworkflowmaster.module').then(m => m.boworkflowmasterModule) },
                     { path: 'boworkflows', component: boworkflowComponent, }, // loadChildren: () => import('../../../n-tire-bo-app/src/app/pages/forms/boworkflow/boworkflow.module').then(m => m.boworkflowModule) },
                     { path: 'boreports', component: boreportComponent, }, // loadChildren: () => import('../../../n-tire-bo-app/src/app/pages/forms/boreport/boreport.module').then(m => m.boreportModule) },
+                    { path: 'boreports/edit/:id', pathMatch: 'partial', component: boreportComponent, },
+                    { path: 'boreports/view/:id', pathMatch: 'partial', component: boreportComponent, },
+                   
+                    
                     { path: 'bodashboards', component: bodashboardComponent, }, // loadChildren: () => import('../../../n-tire-bo-app/src/app/pages/forms/bodashboard/bodashboard.module').then(m => m.bodashboardModule) },
                     { path: 'showdashboard/:id', component: showdashboardComponent },
 
@@ -216,24 +226,32 @@ const config: ExtraOptions = {
         customerrecipientlinkComponent,
         customersecurityquestionComponent,
         customersecurityquestionshistoryComponent,
-        customertermsacceptanceComponent,
-        geoaccessComponent,
-        geographymasterComponent,
-        initiatorrecipientmappingComponent,
-        initiatorrecipientprivateComponent,
-        masterdataComponent,
-        masterdatatypeComponent,
-        menuaccessComponent,
-        menumasterComponent,
-        recipientdiscountComponent,
-        termsmasterComponent,
-        transactiondetailComponent,
-        transactionitemdetailComponent,
-        transactionmasterComponent,
-        usermasterComponent,
-        userrolemasterComponent,
+        // customertermsacceptanceComponent,
+        // geoaccessComponent,
+        // geographymasterComponent,
+        // initiatorrecipientmappingComponent,
+        // initiatorrecipientprivateComponent,
+        // masterdataComponent,
+        // masterdatatypeComponent,
+        // menuaccessComponent,
+        // menumasterComponent,
+        // recipientdiscountComponent,
+        // termsmasterComponent,
+        // transactiondetailComponent,
+        // transactionitemdetailComponent,
+        // transactionmasterComponent,
+        // usermasterComponent,
+        // userrolemasterComponent,
         boreportComponent,
-        pagenotfoundComponent
+        pagenotfoundComponent,
+        FieldBuilderComponent,
+        DynamicFormBuilderComponent,
+        DynamicFormBuilderComponent,
+        TextBoxComponent,
+        RadioComponent,
+        FileComponent,
+        FileComponent,
+        FieldBuilderComponent,
 
     ],
     imports: [
@@ -243,7 +261,7 @@ const config: ExtraOptions = {
         FormsModule, ReactiveFormsModule,
         CommonModule,
     ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],
     entryComponents: [
         ...ENTRY_COMPONENTS
     ],

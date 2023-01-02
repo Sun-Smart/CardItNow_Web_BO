@@ -75,7 +75,7 @@ export class AttachmentComponent implements ControlValueAccessor {
     color: string = "#30e4c3";
     _value: any;
     src: any;
-    private uploadedFiles: any[] = [];
+    public uploadedFiles: any[] = [];
     private attachedfiles: any[] = [];
     private AllFiles: any[] = [];
     readonly URL = AppConstants.UploadURL;

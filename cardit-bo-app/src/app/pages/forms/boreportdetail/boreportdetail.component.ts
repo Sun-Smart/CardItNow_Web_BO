@@ -77,7 +77,7 @@ export class boreportdetailComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
+    action:any;
     bfilterPopulate_boreportdetails: boolean = false;
     boreportdetail_menuactions: any = []
 

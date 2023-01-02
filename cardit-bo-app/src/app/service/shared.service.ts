@@ -218,6 +218,7 @@ export class SharedService {
     //alert(message);
     // this.messageService.add({ severity: 'success', summary: message, detail: message });
     this.messageService.add({ severity: 'error', summary: "Errorlist", detail: message, life: 3000 });
+  alert(message);
   }
   async FillData() {
     await this.bousermasterservice.get_bousermasters_List().then((res: any) => {

@@ -43,13 +43,13 @@
                                     errorMsg="{{'Enter'| translate}} {{'Customer' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('type')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('type')<0" class="titleText col-3">
+                              <label for="type" class="commonlabel control-label required">{{'Type' | translate}}</label>
                               <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.type?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="type" required
                                     pTooltip="{{'Enter' | translate}} {{'type' | translate}}" formControlName="type"
                                     class="  p-form-control p-inputtext-sm p-field">
-                              <label for="type" class="control-label required">{{'Type' | translate}}</label>
+
                               <app-field-error-display [displayError]="f.type.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Type' | translate}}">
                               </app-field-error-display>
@@ -76,13 +76,13 @@
                               </app-field-error-display>
                         </div>
                         <div *ngIf="hidelist.indexOf('address')<0" class="  p-col-12 p-md-12">
-                              <label for="address" class="control-label required">{{'Address' | translate}}</label>
+                              <label for="address" class="commonlabel control-label required">{{'Address' | translate}}</label>
 
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.address?.value}}</label>
                               <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
                                     id="address" required pTooltip="{{'Enter' | translate}} {{'address' | translate}}"
-                                    formControlName="address" [rows]="5" [cols]="200" pInputTextarea
+                                    formControlName="address" [rows]="2" [cols]="100" pInputTextarea
                                     autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
 </textarea>
                               <app-field-error-display [displayError]="f.address.errors?.required"
@@ -133,81 +133,80 @@
                                     errorMsg="{{'Enter'| translate}} {{'City' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('postalcode')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('postalcode')<0" class="col-3">
+                              <label for="postalcode" class="commonlabel control-label">{{'Postal Code' | translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.postalcode?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="postalcode"
                                     pTooltip="{{'Enter' | translate}} {{'postalcode' | translate}}"
                                     formControlName="postalcode" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="postalcode" class="control-label">{{'Postal Code' | translate}}</label>
+                              
                         </div>
                         <div *ngIf="hidelist.indexOf('identificationdocumenttype')<0"
-                              class="  p-float-label  p-col-12 p-md-3">
-
+                              class="titleText col-3">
+                              <label for="identificationdocumenttype" class="commonlabel control-label required">{{'Identification
+                                    Document Type' | translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.identificationdocumenttype?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="identificationdocumenttype" required
                                     pTooltip="{{'Enter' | translate}} {{'identificationdocumenttype' | translate}}"
                                     formControlName="identificationdocumenttype"
                                     class="  p-form-control p-inputtext-sm p-field">
-                              <label for="identificationdocumenttype" class="control-label required">{{'Identification
-                                    Document Type' | translate}}</label>
+                             
                               <app-field-error-display [displayError]="f.identificationdocumenttype.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Identification Document Type' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('idnumber')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('idnumber')<0" class="col-3">
+                              <label for="idnumber" class="commonlabel control-label required">{{'I D Number' | translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.idnumber?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="idnumber" required
                                     pTooltip="{{'Enter' | translate}} {{'idnumber' | translate}}"
                                     formControlName="idnumber" class="  p-form-control p-inputtext-sm p-field">
-                              <!-- <label for="idnumber" class="control-label required">{{'I D Number' | translate}}</label> -->
+                              
                               <app-field-error-display [displayError]="f.idnumber.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'I D Number' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('idissuedate')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('idissuedate')<0" class="col-3">
+                              <label for="idissuedate"
+                              class="commonlabel control-label required">{{'I D Issue Date' | translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.idissuedate?.value)}}</label>
                               <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
                                     dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
                                     pTooltip="{{'Select' | translate}} {{'idissuedate' | translate}}"
                                     formControlName="idissuedate"></p-calendar>
-                                    <!-- <label for="idissuedate"
-                                    class="control-label required">{{'I D Issue Date' | translate}}</label> -->
+                                    
                               <app-field-error-display [displayError]="f.idissuedate.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'I D Issue Date' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('idexpirydate')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('idexpirydate')<0" class="col-3">
+                              <label for="idexpirydate"
+                              class="commonlabel control-label required">{{'I D Expiry Date' | translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.idexpirydate?.value)}}</label>
                               <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
                                     dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
                                     pTooltip="{{'Select' | translate}} {{'idexpirydate' | translate}}"
                                     formControlName="idexpirydate"></p-calendar>
-                                    <!-- <label for="idexpirydate"
-                                    class="control-label required">{{'I D Expiry Date' | translate}}</label> -->
+                                    
                               <app-field-error-display [displayError]="f.idexpirydate.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'I D Expiry Date' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('livestockphoto')<0" class="  p-float-label  p-col-12 p-md-3">
-
-                              <label *ngIf="showview"
+                        <div  class="col-3">
+                              <label for="livestockphoto" class="commonlabel control-label required">{{'Live Stock Photo' |
+                                    translate}}</label>
+                              <label 
                                     class="labelview p-inputwrapper-filled">{{f.livestockphoto?.value?.length>0?f.livestockphoto?.value[0]?.name:""}}</label>
-                              <app-attachment #livestockphoto class="p-inputwrapper-filled full-width"
+                              <app-attachment class="p-inputwrapper-filled full-width"
                                     formControlName="livestockphoto" [showremove]='bmyrecord'
                                     [SessionData]="sessionData"></app-attachment>
-                              <button type="button" class="btn" *ngIf="livestockphoto?.getAttachmentList()?.length > 0"
-                                    (click)="getlivestockphoto()">Open File</button>
-                              <label for="livestockphoto" class="control-label required">{{'Live Stock Photo' |
-                                    translate}}</label>
+                              <button type="button" class="btn">Open File</button>
+                             
                               <app-field-error-display [displayError]="f.livestockphoto.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Live Stock Photo' | translate}}">
                               </app-field-error-display>
@@ -234,28 +233,28 @@
                                     errorMsg="{{'Enter'| translate}} {{'D I V Mode' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('divref')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('divref')<0" class="titleText col-3">
+                              <label for="divref" class="commonlabel control-label required">{{'D I V Ref' | translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.divref?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="divref" required
                                     pTooltip="{{'Enter' | translate}} {{'divref' | translate}}" formControlName="divref"
                                     class="  p-form-control p-inputtext-sm p-field">
-                              <!-- <label for="divref" class="control-label required">{{'D I V Ref' | translate}}</label> -->
+                             
                               <app-field-error-display [displayError]="f.divref.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'D I V Ref' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('divsubmissionon')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('divsubmissionon')<0" class="col-3">
+                              <label for="divsubmissionon"
+                              class="commonlabel control-label required">{{'D I V Submission O N' | translate}}</label> 
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.divsubmissionon?.value)}}</label>
                               <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
                                     dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
                                     pTooltip="{{'Select' | translate}} {{'divsubmissionon' | translate}}"
                                     formControlName="divsubmissionon" style="padding: 0 10em 0 0;"></p-calendar>
-                                    <!-- <label for="divsubmissionon"
-                                    class="control-label required">{{'D I V Submission O N' | translate}}</label> --> -->
+                                   
                               <app-field-error-display [displayError]="f.divsubmissionon.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'D I V Submission O N' | translate}}">
                               </app-field-error-display>
@@ -264,7 +263,8 @@
 
                         <!--divstatus-->
 
-                        <div *ngIf="hidelist.indexOf('divstatus')<0" class=" p-float-label  p-col-12 p-md-3">
+                        <div *ngIf="hidelist.indexOf('divstatus')<0" class="titleText col-3">
+                              <label for="divstatus" class="commonlabel control-label">{{'D I V Status' | translate}}</label>
                               <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
                                     class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
                                     formControlName="divstatus"
@@ -277,10 +277,10 @@
                               </p-autoComplete>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.divstatusdesc?.value}}</label>
-                              <label for="divstatus" class="control-label">{{'D I V Status' | translate}}</label>
+ 
                         </div>
                         <div *ngIf="hidelist.indexOf('divremarks')<0" class="  p-col-12 p-md-12">
-                              <label for="divremarks" class="control-label">{{'D I V Remarks' | translate}}</label>
+                              <label for="divremarks" class="commonlabel control-label">{{'D I V Remarks' | translate}}</label>
 
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.divremarks?.value}}</label>
@@ -312,7 +312,7 @@
                                     translate}}</label>
                         </div>
                         <div *ngIf="hidelist.indexOf('amlremarks')<0" class="  p-col-12 p-md-12">
-                              <label for="amlremarks" class="control-label">{{'A M L Remarks' | translate}}</label>
+                              <label for="amlremarks" class="commonlabel control-label">{{'A M L Remarks' | translate}}</label>
 
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.amlremarks?.value}}</label>

@@ -25,7 +25,9 @@
 
                         <!--transactionid-->
 
-                        <div *ngIf="hidelist.indexOf('transactionid')<0" class=" p-float-label  p-col-12 p-md-3">
+                        <div *ngIf="hidelist.indexOf('transactionid')<0" class="titleText col-3">
+                              <label for="transactionid" class="commonlabel control-label required">{{'Transaction' |
+                                    translate}}</label>
                               <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
                                     class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
                                     formControlName="transactionid"
@@ -39,8 +41,7 @@
                               </p-autoComplete>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.transactioniddesc?.value}}</label>
-                              <label for="transactionid" class="control-label required">{{'Transaction' |
-                                    translate}}</label>
+                           
                               <app-field-error-display [displayError]="f.transactionid.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Transaction' | translate}}">
                               </app-field-error-display>
@@ -49,7 +50,9 @@
 
                         <!--uid-->
 
-                        <div *ngIf="hidelist.indexOf('uid')<0" class=" p-float-label  p-col-12 p-md-3">
+                        <div *ngIf="hidelist.indexOf('uid')<0" class="titleText col-3">
+                              <label for="uid" class="commonlabel control-label required">{{'UID' | translate}}</label>
+                        
                               <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
                                     class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
                                     formControlName="uid" pTooltip="{{'Enter' | translate}} {{'uid' | translate}}"
@@ -61,8 +64,7 @@
                               </p-autoComplete>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.uiddesc?.value}}</label>
-                              <label for="uid" class="control-label required">{{'UID' | translate}}</label>
-                              <app-field-error-display [displayError]="f.uid.errors?.required"
+                                   <app-field-error-display [displayError]="f.uid.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'UID' | translate}}">
                               </app-field-error-display>
                         </div>
@@ -70,7 +72,9 @@
 
                         <!--recipientuid-->
 
-                        <div *ngIf="hidelist.indexOf('recipientuid')<0" class=" p-float-label  p-col-12 p-md-3">
+                        <div *ngIf="hidelist.indexOf('recipientuid')<0" class="titleText col-3">
+                              <label for="recipientuid" class="commonlabel control-label required">{{'Recipient UID' |
+                                    translate}}</label>
                               <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
                                     class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
                                     formControlName="recipientuid"
@@ -84,21 +88,20 @@
                               </p-autoComplete>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.recipientuiddesc?.value}}</label>
-                              <label for="recipientuid" class="control-label required">{{'Recipient UID' |
-                                    translate}}</label>
+                            
                               <app-field-error-display [displayError]="f.recipientuid.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Recipient UID' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('recipientid')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('recipientid')<0" class=" titleText col-3">
+                              <label for="recipientid" class="commonlabel control-label required">{{'Recipient' |
+                                    translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.recipientid?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="recipientid" required
                                     pTooltip="{{'Enter' | translate}} {{'recipientid' | translate}}"
                                     formControlName="recipientid" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="recipientid" class="control-label required">{{'Recipient' |
-                                    translate}}</label>
+                           
                               <app-field-error-display [displayError]="f.recipientid.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Recipient' | translate}}">
                               </app-field-error-display>
@@ -107,7 +110,8 @@
 
                         <!--payid-->
 
-                        <div *ngIf="hidelist.indexOf('payid')<0" class=" p-float-label  p-col-12 p-md-3">
+                        <div *ngIf="hidelist.indexOf('payid')<0" class="titleText col-3">
+                              <label for="payid" class="commonlabel control-label required">{{'Pay' | translate}}</label>
                               <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
                                     class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
                                     formControlName="payid" pTooltip="{{'Enter' | translate}} {{'payid' | translate}}"
@@ -120,39 +124,39 @@
                               </p-autoComplete>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.payiddesc?.value}}</label>
-                              <label for="payid" class="control-label required">{{'Pay' | translate}}</label>
+                             
                               <app-field-error-display [displayError]="f.payid.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Pay' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('transactiondate')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('transactiondate')<0" class=" titleText col-3">
+                              <label for="transactiondate"
+                              class="commonlabel control-label required">{{'Transaction Date' | translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.transactiondate?.value)}}</label>
                               <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
                                     dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
                                     pTooltip="{{'Select' | translate}} {{'transactiondate' | translate}}"
-                                    formControlName="transactiondate"></p-calendar><label for="transactiondate"
-                                    class="control-label required">{{'Transaction Date' | translate}}</label>
+                                    formControlName="transactiondate"></p-calendar>
                               <app-field-error-display [displayError]="f.transactiondate.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Transaction Date' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('transactionamount')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('transactionamount')<0" class=" titleText col-3">
+                              <label for="transactionamount" class="commonlabel control-label required">{{'Transaction Amount' |
+                                    translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.transactionamount?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="transactionamount" required
                                     pTooltip="{{'Enter' | translate}} {{'transactionamount' | translate}}"
                                     formControlName="transactionamount" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="transactionamount" class="control-label required">{{'Transaction Amount' |
-                                    translate}}</label>
+                            
                               <app-field-error-display [displayError]="f.transactionamount.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Transaction Amount' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('remarks')<0" class="  p-col-12 p-md-12">
-                              <label for="remarks" class="control-label">{{'Remarks' | translate}}</label>
+                        <div *ngIf="hidelist.indexOf('remarks')<0" class="titleText col-12">
+                              <label for="remarks" class="commonlabel control-label">{{'Remarks' | translate}}</label>
 
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.remarks?.value}}</label>
@@ -162,8 +166,8 @@
                                     autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
 </textarea>
                         </div>
-                        <div *ngIf="hidelist.indexOf('acquirername')<0" class="  p-col-12 p-md-12">
-                              <label for="acquirername" class="control-label">{{'Acquirer Name' | translate}}</label>
+                        <div *ngIf="hidelist.indexOf('acquirername')<0" class="titleText col-12">
+                              <label for="acquirername" class="commonlabel control-label">{{'Acquirer Name' | translate}}</label>
 
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.acquirername?.value}}</label>
@@ -173,8 +177,8 @@
                                     autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
 </textarea>
                         </div>
-                        <div *ngIf="hidelist.indexOf('transactionconfirmnumber')<0" class="  p-col-12 p-md-12">
-                              <label for="transactionconfirmnumber" class="control-label">{{'Transaction Confirm Number'
+                        <div *ngIf="hidelist.indexOf('transactionconfirmnumber')<0" class="titleText col-12">
+                              <label for="transactionconfirmnumber" class="commonlabel control-label">{{'Transaction Confirm Number'
                                     | translate}}</label>
 
                               <label *ngIf="showview"
@@ -186,69 +190,69 @@
                                     autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
 </textarea>
                         </div>
-                        <div *ngIf="hidelist.indexOf('processedon')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('processedon')<0" class=" titleText col-3">
+                              <label for="processedon"
+                              class="commonlabel control-label">{{'Processed On' | translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.processedon?.value)}}</label>
                               <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
                                     dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
                                     pTooltip="{{'Select' | translate}} {{'processedon' | translate}}"
-                                    formControlName="processedon"></p-calendar><label for="processedon"
-                                    class="control-label">{{'Processed On' | translate}}</label>
+                                    formControlName="processedon"></p-calendar>
                         </div>
-                        <div *ngIf="hidelist.indexOf('processedamount')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('processedamount')<0" class=" titleText col-3">
+                              <label for="processedamount" class="commonlabel control-label">{{'Processed Amount' |
+                                    translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.processedamount?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="processedamount"
                                     pTooltip="{{'Enter' | translate}} {{'processedamount' | translate}}"
                                     formControlName="processedamount" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="processedamount" class="control-label">{{'Processed Amount' |
-                                    translate}}</label>
+                             
                         </div>
-                        <div *ngIf="hidelist.indexOf('acquirercharges')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('acquirercharges')<0" class=" titleText col-3">
+                              <label for="acquirercharges" class="commonlabel control-label">{{'Acquirer Charges' |
+                                    translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.acquirercharges?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="acquirercharges"
                                     pTooltip="{{'Enter' | translate}} {{'acquirercharges' | translate}}"
                                     formControlName="acquirercharges" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="acquirercharges" class="control-label">{{'Acquirer Charges' |
-                                    translate}}</label>
+                            
                         </div>
-                        <div *ngIf="hidelist.indexOf('amountrecipient')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('amountrecipient')<0" class=" titleText col-3">
+                              <label for="amountrecipient" class="commonlabel control-label">{{'Amount Recipient' |
+                                    translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.amountrecipient?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="amountrecipient"
                                     pTooltip="{{'Enter' | translate}} {{'amountrecipient' | translate}}"
                                     formControlName="amountrecipient" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="amountrecipient" class="control-label">{{'Amount Recipient' |
-                                    translate}}</label>
+                             
                         </div>
-                        <div *ngIf="hidelist.indexOf('carditcharges')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('carditcharges')<0" class=" titleText col-3">
+                              <label for="carditcharges" class="commonlabel control-label">{{'Cardit Charges' | translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.carditcharges?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="carditcharges"
                                     pTooltip="{{'Enter' | translate}} {{'carditcharges' | translate}}"
                                     formControlName="carditcharges" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="carditcharges" class="control-label">{{'Cardit Charges' | translate}}</label>
+                             
                         </div>
                         <div *ngIf="hidelist.indexOf('recipientprocessdate')<0"
-                              class="  p-float-label  p-col-12 p-md-3">
-
+                              class=" titleText col-3">
+                              <label
+                              for="recipientprocessdate" class="commonlabel control-label">{{'Recipient Process Date' |
+                              translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.recipientprocessdate?.value)}}</label>
                               <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
                                     dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
                                     pTooltip="{{'Select' | translate}} {{'recipientprocessdate' | translate}}"
-                                    formControlName="recipientprocessdate"></p-calendar><label
-                                    for="recipientprocessdate" class="control-label">{{'Recipient Process Date' |
-                                    translate}}</label>
+                                    formControlName="recipientprocessdate"></p-calendar>
                         </div>
-                        <div *ngIf="hidelist.indexOf('recipientprocesscode')<0" class="  p-col-12 p-md-12">
-                              <label for="recipientprocesscode" class="control-label">{{'Recipient Process Code' |
+                        <div *ngIf="hidelist.indexOf('recipientprocesscode')<0" class=" titleText col-12">
+                              <label for="recipientprocesscode" class="commonlabel control-label">{{'Recipient Process Code' |
                                     translate}}</label>
 
                               <label *ngIf="showview"
@@ -260,25 +264,25 @@
                                     autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
 </textarea>
                         </div>
-                        <div *ngIf="hidelist.indexOf('carditprocessdate')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('carditprocessdate')<0" class=" titleText col-3">
+                              <label for="carditprocessdate"
+                              class="commonlabel control-label">{{'Cardit Process Date' | translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.carditprocessdate?.value)}}</label>
                               <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
                                     dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
                                     pTooltip="{{'Select' | translate}} {{'carditprocessdate' | translate}}"
-                                    formControlName="carditprocessdate"></p-calendar><label for="carditprocessdate"
-                                    class="control-label">{{'Cardit Process Date' | translate}}</label>
+                                    formControlName="carditprocessdate"></p-calendar>
                         </div>
-                        <div *ngIf="hidelist.indexOf('carditprocesscode')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('carditprocesscode')<0" class=" titleText col-3">
+                              <label for="carditprocesscode" class="commonlabel control-label">{{'Cardit Process Code' |
+                                    translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.carditprocesscode?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="carditprocesscode"
                                     pTooltip="{{'Enter' | translate}} {{'carditprocesscode' | translate}}"
                                     formControlName="carditprocesscode" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="carditprocesscode" class="control-label">{{'Cardit Process Code' |
-                                    translate}}</label>
+                           
                         </div>
                         <div class='full-width'
                               *ngIf="customFieldVisible  && customFieldServiceList!=null && customFieldServiceList!=undefined  && customFieldServiceList.fields.length>0">

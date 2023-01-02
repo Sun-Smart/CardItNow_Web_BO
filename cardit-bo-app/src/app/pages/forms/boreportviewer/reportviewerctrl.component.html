@@ -63,7 +63,7 @@
     }
 </style>
 <div [ngClass]="theme" style="margin-left:2px;width:99%">
-    <ngx-spinner></ngx-spinner>
+    <ngx-spinner ></ngx-spinner>
     <p-blockUI [target]="pnl" [blocked]="blockedDocument"><i class="pi pi-lock" style="font-size: 3rem"></i></p-blockUI>
     <p-contextMenu #cm [model]="menuitems" appendTo="body"></p-contextMenu>
     <!--
@@ -125,9 +125,9 @@
                 <!--<div class="p-col-12 p-md-1" style="" *ngIf="showhideadd">
                     <a [routerLink]='' (click)="onChangeAction('Add')"><i class="fa fa-plus-circle"></i></a>
                 </div>-->
-                <div class="p-col-12 p-md-3  input-group  nomargin nowrap">
+                <div class="p-col-12 p-md-6  input-group  nomargin nowrap">
                     </div>
-                <div class="p-col-12 p-md-6  input-group  nomargin nowrap" style="display: flex;
+                <div class="p-col-12 p-md-3  input-group  nomargin nowrap" style="display: flex;
                 justify-content: flex-end;">
 
                     <!-- <nav class="right navbar navbar-default"> -->
@@ -665,7 +665,7 @@
                             <ng-container
                                 *ngIf="itemcol.field!=groupfield &&  itemcol.field!=groupfield+'desc' && !itemcol.hide  && outputtype!='html'">
 
-                                <th class="rightalign" *ngIf="!itemcol.hide && itemcol.datatype=='n'" sortable="true"
+                                <th class="rightalign" *ngIf="!itemcol.hide && itemcol.datatype=='n'" style="white-space:pre-line" sortable="true"
                                     [field]="itemcol.field" [pSortableColumn]="itemcol.field">{{itemcol.header}}
                                     <!--{{itemcol.datatype}}-{{itemcol.filter}}-{{itemcol.dropdownItems}}-->
                                     <p-sortIcon [field]="itemcol.field" ariaLabel="Activate to sort"

@@ -58,6 +58,7 @@ import { AppConstants, DropDownValues } from '../../../shared/helper';
 
 
 export class boreportComponent implements OnInit {
+    action:any;
     blockedDocument: boolean = false;
     formData: boreport;
     list: boreport[];
@@ -660,8 +661,8 @@ export class boreportComponent implements OnInit {
 
         }
     }
-
-
+    boreportcolumnsmoveUp(){}
+    boreportcolumnsmoveDown(){}
 
 
     resetForm() {

@@ -14,6 +14,9 @@ import { FormBuilder, FormGroup, FormControl, Validators, EmailValidator } from 
 import { TranslateService } from '@ngx-translate/core';
 import { SharedService } from '../../service/shared.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+
 declare var window: any;
 @Component({
     selector: 'app-login',
@@ -21,6 +24,7 @@ declare var window: any;
     styleUrls: ['./style.css']
 })
 export class LoginComponent implements OnInit {
+    loadingspinner:boolean=false;
     bologinForm: FormGroup;
     private readonly minlengthPassword = 10;
     locale: string;
@@ -34,6 +38,7 @@ export class LoginComponent implements OnInit {
     fieldTextType: boolean;
     passvalidation:boolean;
     constructor(public sharedService: SharedService, private translate: TranslateService,
+        private spinner: NgxSpinnerService,
         private fb: FormBuilder,
         private userService: bousermasterService,
         private toastService: ToastService,
@@ -73,11 +78,12 @@ console.log(this.password);
     }
     onSubmit() {
         debugger;
-
+        this.loadingspinner=true;
         //let user: bousermaster = this.userService.getUserByUserNameAndPassword(this.bologinForm.get('username').value, this.bologinForm.get('password').value);
         this.userService.login(this.bologinForm.get('email').value, this.bologinForm.get('password').value, window.location.host).then((res: any) => {
             debugger;
             console.log(res);
+            this.loadingspinner=false;
             this.toastService.addSingle("success", "", "Login successfully.");
             let user: any = res;
             if (user) {

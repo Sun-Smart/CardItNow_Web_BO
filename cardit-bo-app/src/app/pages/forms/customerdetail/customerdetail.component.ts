@@ -56,6 +56,7 @@ import { DynamicFormBuilderComponent } from '../../../custom/dynamic-form-builde
 
 
 export class customerdetailComponent implements OnInit {
+    action:any;
     blockedDocument: boolean = false;
     formData: customerdetail;
     list: customerdetail[];
@@ -146,7 +147,7 @@ export class customerdetailComponent implements OnInit {
         public dialog: DialogService,
         private customerdetail_service: customerdetailService,
         private fb: FormBuilder,
-        private sharedService: SharedService,
+        public sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private customfieldservice: customfieldconfigurationService,
@@ -493,6 +494,10 @@ export class customerdetailComponent implements OnInit {
             this.sharedService.geturl(file.filekey, file.type);
         }
     }
+
+    onCopyRecursive(){}
+    onChangeAction(){}
+
     resetForm() {
         this.formid = "";
         this.showview = false;
@@ -628,6 +633,7 @@ export class customerdetailComponent implements OnInit {
         let e = this.f.amlcheckstatus.value as any;
     }
     attachmentuploader(e: any) {
+        debugger;
         for (let i = 0; i < e.files.length; i++) {
             this.fileAttachmentList.push(e.files[i]);
             let max = 0;
@@ -910,6 +916,14 @@ export class customerdetailComponent implements OnInit {
             this.blockedDocument = false;
             this.customerdetail_Form.markAsUntouched();
             this.customerdetail_Form.markAsPristine();
+            if(bclear == true){
+              
+                this.router.navigateByUrl['home/boreportviewer/cstdt'];
+                this.router.navigate(['home/' + 'boreportviewer' + '/' + 'cstdt' ]);
+            }else if(bclear == false){
+                this.clearList();
+            }
+          
             return new Promise(resolve => {
                 resolve(res);
             });
@@ -926,8 +940,9 @@ export class customerdetailComponent implements OnInit {
 
     //dropdown edit from the screen itself -> One screen like Reportviewer
     clearList() {
+        this.resetForm();
+        this.customerdetail_Form.reset() ;
     }
-
 
     PrevForm() {
         let formid = this.sessionService.getItem("key");

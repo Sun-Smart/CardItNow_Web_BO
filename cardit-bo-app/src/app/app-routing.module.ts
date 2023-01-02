@@ -17,8 +17,7 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { ResendEmailVerificationComponent } from './pages/resend-email-verification/resend-email-verification.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { NewheaderComponent } from './pages/layout/newheader/newheader.component';
-import { HeadernewComponent } from './pages/headernew/headernew.component';
-import { ContentlayoutComponent } from './pages/layout/contentlayout/contentlayout.component';
+
 
 
 
@@ -48,9 +47,7 @@ const routes: Routes = [
     { path: 'resendemail', component: ResendEmailVerificationComponent, },
     { path: 'resetpassword', component: ResetPasswordComponent, },
     { path: 'emailverify', component: EmailVerificationComponent, },
-    {path:'contentlayout',component:ContentlayoutComponent},
     {path:'newheader',component:NewheaderComponent},
-    {path:'headernew',component:HeadernewComponent},
     { path: 'register', component: RegisterUserComponent, },
 
 

@@ -7,16 +7,22 @@ import { TranslateService } from "@ngx-translate/core";
 
   selector: 'app-title',
   template: `  
-    
+
   <div class="p-grid zero"  [ngClass]="novo" style="background-color: #cee812;height: 30px;" >
-  <div class="p-col zero titlemenu">
+  <div class="p-col zero col-4" style="text-align: initial; margin-left: 10px !important;">
   <a href='#/{{p_currenturl}}'>{{title | translate}}</a>
   </div>
-  <div class="p-col zero">
+  <div class="p-col zero col-4"></div>
+  <div class="p-col zero col-4" style="display:flex; justify-content: end;margin-right: 15px !important;">
+ 
   
-  <p-splitButton icon="pi pi-save" (onClick)="action_onSubmitAndWait()" [model]="saveitems" ></p-splitButton>
-      
-        <p-button id='closebutton' *ngIf="maindata?.ScreenType==2"  icon="pi pi-times" (click)="action_onClose($event)" ></p-button>
+  <p-button   icon="pi pi-save" pTooltip="save" tooltipPosition ="bottom" (onClick)="action_onSubmit()" [model]="saveitems"></p-button
+  >
+  <p-button   icon="pi pi-file" pTooltip="Submit & Clear" tooltipPosition ="bottom" (onClick)="action_onSubmitAndWait()" [model]="items"></p-button
+  >
+
+        
+        <p-button id='closebutton' class="popupclose" *ngIf="maindata?.ScreenType==2"  icon="pi pi-times" (click)="action_onClose($event)"></p-button>
         </div>
   </div>
     
@@ -34,6 +40,7 @@ import { TranslateService } from "@ngx-translate/core";
 // <p-slideMenu  appendTo="body"  [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" [viewportHeight]="225"   #menu [popup]="true" [model]="items" ></p-slideMenu>
    
 export class titleComponent implements ControlValueAccessor, OnInit {
+  @Input() novo:boolean;
   @Input() title: string;
   @Input() f: any;
   @Input() data: any;
@@ -86,61 +93,63 @@ export class titleComponent implements ControlValueAccessor, OnInit {
     this.p_currenturl = this.sharedService.currenturl
     if (this.p_currenturl == undefined) this.p_currenturl = "home/boreportviewer/" + this.reportcode;
     //alert(this.sharedService.currenturl)
+    debugger;
     this.saveitems = [
       { label: 'Submit & Clear', icon: 'pi pi-fw pi-user-plus', command: () => this.action_onSubmitAndWait() }
     ];
     this.items = [
-      {
-        label: 'Activity',
-        items: [
-          { label: 'New', icon: 'pi pi-fw pi-user-plus', command: () => this.action_resetform() },
-          { label: 'Save', icon: 'pi pi-fw pi-user-minus', command: () => this.action_onSubmit() },
+      { label: 'Save', icon: 'pi pi-fw pi-user-minus', command: () => this.action_onSubmit() },
+      // {
+      //   label: 'Activity',
+        // items: [
+          // { label: 'New', icon: 'pi pi-fw pi-user-plus', command: () => this.action_resetform() },
+        
 
 
-          { label: 'Submit & Clear', icon: 'pi pi-fw pi-user-plus', command: () => this.action_onSubmitAndWait() },
-          { label: 'Delete', icon: 'pi pi-fw pi-user-plus', command: () => this.action_onDelete() },
-          { label: 'Close', icon: 'pi pi-fw pi-user-plus', command: () => this.action_onClose() },
+          // { label: 'Submit & Clear', icon: 'pi pi-fw pi-user-plus', command: () => this.action_onSubmitAndWait() },
+          // { label: 'Delete', icon: 'pi pi-fw pi-user-plus', command: () => this.action_onDelete() },
+          // { label: 'Close', icon: 'pi pi-fw pi-user-plus', command: () => this.action_onClose() },
         ]
-      },
+      // },
 
-      {
-        label: 'Copy',
-        items: [
+      // {
+      //   label: 'Copy',
+      //   items: [
 
-          { label: 'Copy', icon: 'pi pi-fw pi-user-plus', command: () => this.action_onCopy() },
-          { label: 'Copy Details', icon: 'pi pi-fw pi-user-plus', command: () => this.action_onCopyDetails() },
-          { label: 'Copy Recursive', icon: 'pi pi-fw pi-user-plus', command: () => this.action_onCopyRecursive() },
-        ]
-      },
-      {
-        label: 'Navigation',
-        items: [
+      //     { label: 'Copy', icon: 'pi pi-fw pi-user-plus', command: () => this.action_onCopy() },
+      //     { label: 'Copy Details', icon: 'pi pi-fw pi-user-plus', command: () => this.action_onCopyDetails() },
+      //     { label: 'Copy Recursive', icon: 'pi pi-fw pi-user-plus', command: () => this.action_onCopyRecursive() },
+      //   ]
+      // },
+      // {
+      //   label: 'Navigation',
+      //   items: [
 
-          { label: 'Edit', icon: 'pi pi-fw pi-plus', command: () => this.action_edit() },
-          { label: 'first', icon: 'pi pi-fw pi-download', command: () => this.action_first() },
-          { label: 'prev', icon: 'pi pi-fw pi-download', command: () => this.action_prev() },
-          { label: 'next', icon: 'pi pi-fw pi-download', command: () => this.action_next() },
-          { label: 'last', icon: 'pi pi-fw pi-download', command: () => this.action_last() },
-        ]
-      },
-      {
-        label: 'Others',
-        items: [
-          { label: 'Clipboard', icon: 'pi pi-fw pi-user-minus' },
-          { label: 'Print', icon: 'pi pi-fw pi-user-plus' },
-          { label: 'Mail', icon: 'pi pi-fw pi-user-plus' },
-        ]
-      },
-      {
-        label: 'Actions',
-        items: [
-          { label: 'New', icon: 'pi pi-fw pi-user-plus' },
-          { label: 'Save', icon: 'pi pi-fw pi-user-minus' },
-          { label: 'Delete', icon: 'pi pi-fw pi-user-plus' },
-        ]
-      },
+      //     { label: 'Edit', icon: 'pi pi-fw pi-plus', command: () => this.action_edit() },
+      //     { label: 'first', icon: 'pi pi-fw pi-download', command: () => this.action_first() },
+      //     { label: 'prev', icon: 'pi pi-fw pi-download', command: () => this.action_prev() },
+      //     { label: 'next', icon: 'pi pi-fw pi-download', command: () => this.action_next() },
+      //     { label: 'last', icon: 'pi pi-fw pi-download', command: () => this.action_last() },
+      //   ]
+      // },
+      // {
+      //   label: 'Others',
+      //   items: [
+      //     { label: 'Clipboard', icon: 'pi pi-fw pi-user-minus' },
+      //     { label: 'Print', icon: 'pi pi-fw pi-user-plus' },
+      //     { label: 'Mail', icon: 'pi pi-fw pi-user-plus' },
+      //   ]
+      // },
+      // {
+      //   label: 'Actions',
+      //   items: [
+      //     { label: 'New', icon: 'pi pi-fw pi-user-plus' },
+      //     { label: 'Save', icon: 'pi pi-fw pi-user-minus' },
+      //     { label: 'Delete', icon: 'pi pi-fw pi-user-plus' },
+      //   ]
+      // },
 
-    ];
+    // ];
   }
 
   get value() {
@@ -174,7 +183,7 @@ export class titleComponent implements ControlValueAccessor, OnInit {
     this.resetForm.emit();
   }
   action_onSubmit() {
-    //debugger;
+    debugger;
     if (this.maindata == undefined) {
       this.onSubmit.emit();
     }
@@ -210,7 +219,7 @@ export class titleComponent implements ControlValueAccessor, OnInit {
   }
 
   action_onSubmitAndWait() {
-    //debugger;
+    debugger;
 
     this.onSubmitAndWait.emit();
   }

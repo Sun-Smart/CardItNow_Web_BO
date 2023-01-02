@@ -26,7 +26,9 @@
 
                         <!--recipientuid-->
 
-                        <div *ngIf="hidelist.indexOf('recipientuid')<0" class=" p-float-label  p-col-12 p-md-3">
+                        <div *ngIf="hidelist.indexOf('recipientuid')<0" class="titleText col-3">
+                              <label for="recipientuid" class="commonlabel control-label required">{{'Recipient UID' |
+                                    translate}}</label>
                               <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
                                     class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
                                     formControlName="recipientuid"
@@ -40,34 +42,34 @@
                               </p-autoComplete>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.recipientuiddesc?.value}}</label>
-                              <label for="recipientuid" class="control-label required">{{'Recipient UID' |
-                                    translate}}</label>
+                           
                               <app-field-error-display [displayError]="f.recipientuid.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Recipient UID' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('chargepercent')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('chargepercent')<0" class="col-3">
+                              <label for="chargepercent" class=" commonlabel control-label required">{{'Charge Percent' |
+                                    translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.chargepercent?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="chargepercent" required
                                     pTooltip="{{'Enter' | translate}} {{'chargepercent' | translate}}"
                                     formControlName="chargepercent" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="chargepercent" class="control-label required">{{'Charge Percent' |
-                                    translate}}</label>
+                             
                               <app-field-error-display [displayError]="f.chargepercent.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Charge Percent' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('validtill')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('validtill')<0" class="col-3">
+<label for="validtill"
+                                    class="commonlabel control-label required">{{'Validtill' | translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.validtill?.value)}}</label>
                               <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
                                     dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
                                     pTooltip="{{'Select' | translate}} {{'validtill' | translate}}"
-                                    formControlName="validtill"></p-calendar><label for="validtill"
-                                    class="control-label required">{{'Validtill' | translate}}</label>
+                                    formControlName="validtill"></p-calendar>
+                                    
                               <app-field-error-display [displayError]="f.validtill.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Validtill' | translate}}">
                               </app-field-error-display>

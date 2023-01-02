@@ -18,7 +18,7 @@ import { DialogService } from 'primeng/dynamicdialog';
     styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
+    rightside:any;
     user: any;
     items: any[];
     UserName:any;

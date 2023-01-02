@@ -217,7 +217,7 @@ export class ReportViewerCtrlComponent implements ControlValueAccessor, OnInit, 
     theme: string;
     contentAreaid: string = "reportmaincontent";
     filtercols: any = [];
-
+    pnl:any;
     modulename: any;
     modulepkcol: any;
     scrollheight = "450px";
@@ -343,7 +343,7 @@ export class ReportViewerCtrlComponent implements ControlValueAccessor, OnInit, 
         ////console.log(this.view, this.dt.filters);
     }
     onChangeView(val) {
-
+debugger;
 
         //debugger;
         let filters = this.configdata?.filters;
@@ -830,10 +830,11 @@ export class ReportViewerCtrlComponent implements ControlValueAccessor, OnInit, 
         }
     }
     route(action, recordid = null) {
-        //debugger;
+        debugger;
         //document.getElementById("contentArea1").scrollTop = 0;
         if (this.bsameform) {
             if (action == 'create') {
+                debugger;
                 this.componentRef.instance.parameterid = null;
             }
             return;
@@ -2049,7 +2050,7 @@ export class ReportViewerCtrlComponent implements ControlValueAccessor, OnInit, 
     }
 
     onChangeAction(val) {
-        //debugger;
+        debugger;
         if (val == "") return;
         if (this.menuactions != null) {
             for (let i = 0; i < this.menuactions?.length; i++) {

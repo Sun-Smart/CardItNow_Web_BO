@@ -49,10 +49,11 @@ import { DatacontainerDirective } from './comments/comments/comments.component';
   ]
 })
 export class commentComponent implements ControlValueAccessor {
+  
   @Input() label: any;
   @Input() user: any;
   count: number;
-  private comments: any;
+  public comments: any;
   // Allow the input to be disabled, and when it is make it somewhat transparent.
   @Input() disabled = false;
   @HostBinding('style.opacity')

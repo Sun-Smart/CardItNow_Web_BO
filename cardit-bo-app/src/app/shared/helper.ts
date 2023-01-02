@@ -10,7 +10,11 @@ export class AppConstants {//localhost:5000
   public static get baseURL(): string { return "http://localhost:5000/carditnowapi"; }
   public static get UploadURL(): string { return "http://localhost:7002/ntireboapi/file/upload"; }
   public static get AttachmentURL(): string { return "http://localhost:5002/"; }
-
+  // public static get carditnowURL(): string { return "https://demo.herbie.ai/CardItNowAPI/carditnowapi"; }
+  // public static get ntireboURL(): string { return "https://demo.herbie.ai/CardItNowAPI/carditnowapi"; }
+  // public static get baseURL(): string { return "https://demo.herbie.ai/CardItNowAPI/carditnowapi"; }
+  // public static get UploadURL(): string { return "https://localhost:7002/ntireboapi/file/upload"; }
+  // public static get AttachmentURL(): string { return "https://demo.herbie.ai/CardItNowAPI/carditnowapi"; }
 
 }
 

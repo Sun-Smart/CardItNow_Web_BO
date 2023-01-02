@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { KeyValuePair } from '../../../../shared/general.validator';
+import { KeyValuePair } from '../../../shared/general.validator';
 
 // text,email,tel,textarea,password, 
 @Component({

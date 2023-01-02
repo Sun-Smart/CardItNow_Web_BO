@@ -83,7 +83,7 @@ export class boworkflowmasterComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
+    action:any;
     bfilterPopulate_boworkflowmasters: boolean = false;
     bfilterPopulate_boworkflows: boolean = false;
     bfilterPopulate_boworkflowsteps: boolean = false;

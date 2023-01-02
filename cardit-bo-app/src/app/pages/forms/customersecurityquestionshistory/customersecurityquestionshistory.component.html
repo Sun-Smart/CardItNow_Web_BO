@@ -26,7 +26,8 @@
 
         <!--customerid-->
 
-        <div *ngIf="hidelist.indexOf('customerid')<0" class=" p-float-label  p-col-12 p-md-3">
+        <div *ngIf="hidelist.indexOf('customerid')<0" class="titleText col-3">
+          <label for="customerid" class="commonlabel control-label required">{{'Customer' | translate}}</label>
           <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
             class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="customerid"
             pTooltip="{{'Enter' | translate}} {{'customerid' | translate}}" field="label"
@@ -37,7 +38,7 @@
             </ng-template>
           </p-autoComplete>
           <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.customeriddesc?.value}}</label>
-          <label for="customerid" class="control-label required">{{'Customer' | translate}}</label>
+         
           <app-field-error-display [displayError]="f.customerid.errors?.required"
             errorMsg="{{'Enter'| translate}} {{'Customer' | translate}}">
           </app-field-error-display>
@@ -46,7 +47,9 @@
 
         <!--securityquestionid-->
 
-        <div *ngIf="hidelist.indexOf('securityquestionid')<0" class=" p-float-label  p-col-12 p-md-3">
+        <div *ngIf="hidelist.indexOf('securityquestionid')<0" class="titleText col-3">
+          <label for="securityquestionid" class="commonlabel control-label" (click)="AddOrEdit_securityquestionid(null)">{{'Security
+            Question' | translate}}</label>
           <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
             class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="securityquestionid"
             pTooltip="{{'Enter' | translate}} {{'securityquestionid' | translate}}" field="label"
@@ -57,19 +60,18 @@
             </ng-template>
           </p-autoComplete>
           <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.securityquestioniddesc?.value}}</label>
-          <label for="securityquestionid" class="control-label" (click)="AddOrEdit_securityquestionid(null)">{{'Security
-            Question' | translate}}</label>
+         
         </div>
-        <div *ngIf="hidelist.indexOf('questionid')<0" class="  p-float-label  p-col-12 p-md-3">
-
+        <div *ngIf="hidelist.indexOf('questionid')<0" class="titleText col-3">
+          <label for="questionid" class="commonlabel control-label">{{'Question' | translate}}</label>
+       
           <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.questionid?.value}}</label>
           <input type="text" pInputText *ngIf="!showview" id="questionid"
             pTooltip="{{'Enter' | translate}} {{'questionid' | translate}}" formControlName="questionid"
             class="  p-form-control p-inputtext-sm p-field">
-          <label for="questionid" class="control-label">{{'Question' | translate}}</label>
-        </div>
-        <div *ngIf="hidelist.indexOf('oldanswer')<0" class="  p-col-12 p-md-12">
-          <label for="oldanswer" class="control-label">{{'Old Answer' | translate}}</label>
+           </div>
+        <div *ngIf="hidelist.indexOf('oldanswer')<0" class="titleText col-12">
+          <label for="oldanswer" class="commonlabel control-label">{{'Old Answer' | translate}}</label>
 
           <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.oldanswer?.value}}</label>
           <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="oldanswer"
@@ -77,8 +79,8 @@
             [cols]="200" pInputTextarea autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
 </textarea>
         </div>
-        <div *ngIf="hidelist.indexOf('newanswer')<0" class="  p-col-12 p-md-12">
-          <label for="newanswer" class="control-label">{{'New Answer' | translate}}</label>
+        <div *ngIf="hidelist.indexOf('newanswer')<0" class="titleText col-12">
+          <label for="newanswer" class="commonlabel control-label">{{'New Answer' | translate}}</label>
 
           <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.newanswer?.value}}</label>
           <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="newanswer"

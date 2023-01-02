@@ -77,7 +77,7 @@ export class bodashboarddetailComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
+    action:any;
     bfilterPopulate_bodashboarddetails: boolean = false;
     bodashboarddetail_menuactions: any = []
 

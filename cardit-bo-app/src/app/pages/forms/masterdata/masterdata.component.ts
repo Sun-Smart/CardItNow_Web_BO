@@ -77,7 +77,7 @@ export class masterdataComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
+    action:any;
     bfilterPopulate_masterdatas: boolean = false;
     masterdata_menuactions: any = []
 
@@ -112,7 +112,7 @@ export class masterdataComponent implements OnInit {
         public dialog: DialogService,
         private masterdata_service: masterdataService,
         private fb: FormBuilder,
-        private sharedService: SharedService,
+        public sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
@@ -344,8 +344,8 @@ export class masterdataComponent implements OnInit {
         }
     }
 
-
-
+    onCopyRecursive(){}
+    onChangeAction(){}
 
     resetForm() {
         this.formid = "";
@@ -655,6 +655,13 @@ export class masterdataComponent implements OnInit {
             this.blockedDocument = false;
             this.masterdata_Form.markAsUntouched();
             this.masterdata_Form.markAsPristine();
+            if(bclear == true){
+              
+                this.router.navigateByUrl['home/boreportviewer/mdata'];
+                this.router.navigate(['home/' + 'boreportviewer' + '/' + 'mdata' ]);
+            }else if(bclear == false){
+                this.clearList();
+            }
             return new Promise(resolve => {
                 resolve(res);
             });
@@ -671,6 +678,8 @@ export class masterdataComponent implements OnInit {
 
     //dropdown edit from the screen itself -> One screen like Reportviewer
     clearList() {
+        this.resetForm();
+        this.masterdata_Form.reset() ;
     }
 
 

@@ -23,6 +23,7 @@ export class carditchargesdiscountService {
 
   }
   async save_carditchargesdiscounts(formData): Promise<any> {
+    debugger;
     if (this.valid()) {
       var body = {
         data: formData
@@ -34,6 +35,7 @@ export class carditchargesdiscountService {
   }
 
   async getDefaultData(): Promise<any> {
+    debugger;
     if (this.valid()) {
       let res = await this.http.get(AppConstants.carditnowURL + '/carditchargesdiscount/getdefaultdata', this.sessionService.headeroptions()).toPromise();
       return res;

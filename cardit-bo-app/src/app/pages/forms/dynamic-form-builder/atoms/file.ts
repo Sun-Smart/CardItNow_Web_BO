@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input ,NgModule} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { KeyValuePair } from '../../../../shared/general.validator';
+// import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 // text,email,tel,textarea,password, 
 @Component({

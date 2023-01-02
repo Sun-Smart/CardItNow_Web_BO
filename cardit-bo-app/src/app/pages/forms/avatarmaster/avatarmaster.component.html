@@ -22,47 +22,68 @@
                         <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
 
                         </div>
-                        <div *ngIf="hidelist.indexOf('orderid')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('orderid')<0" class="titleText col-3">
+                              <label for="orderid" class="commonlabel control-label required">{{'Order' | translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.orderid?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="orderid" required
                                     pTooltip="{{'Enter' | translate}} {{'orderid' | translate}}"
                                     formControlName="orderid" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="orderid" class="control-label required">{{'Order' | translate}}</label>
+                             
                               <app-field-error-display [displayError]="f.orderid.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Order' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('avatarname')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('avatarname')<0" class="titleText col-3">
+                              <label for="avatarname" class="commonlabel control-label required">{{'Avatar Name' |
+                                    translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.avatarname?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="avatarname" required
                                     pTooltip="{{'Enter' | translate}} {{'avatarname' | translate}}"
                                     formControlName="avatarname" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="avatarname" class="control-label required">{{'Avatar Name' |
-                                    translate}}</label>
+                             
                               <app-field-error-display [displayError]="f.avatarname.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Avatar Name' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('avatarurl')<0" class="  p-col-12 p-md-12">
-                              <label for="avatarurl" class="control-label required">{{'Avatar U R L' |
+                        <!-- <div class="col-1"></div> -->
+                        <!-- <div class="col-6 ">
+                              <label for="profilephoto" class="control-label">Photo</label>
+                              <!-- <label *ngIf="showview" class="labelview">{{f.profilephoto?.value[0]?.name}}</label> -->
+                              <!-- <app-attachment isAttachment="true" #fileattachment formControlName="attachment" [SessionData]="">
+                              </app-attachment>
+                              <a [routerLink]='' 
+                                ></a>
+                            </div> --> 
+                        <div class="col-3">
+                              <label for="imagefile" class="control-label required">{{'Image Upload' |
                                     translate}}</label>
-
-                              <label *ngIf="showview"
-                                    class="labelview p-inputwrapper-filled">{{f.avatarurl?.value}}</label>
-                              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
-                                    id="avatarurl" required
-                                    pTooltip="{{'Enter' | translate}} {{'avatarurl' | translate}}"
-                                    formControlName="avatarurl" [rows]="5" [cols]="200" pInputTextarea
-                                    autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
-</textarea>
-                              <app-field-error-display [displayError]="f.avatarurl.errors?.required"
-                                    errorMsg="{{'Enter'| translate}} {{'Avatar U R L' | translate}}">
-                              </app-field-error-display>
+                                    <input style="
+                                    height: 30px !important;
+                                " class="form-control" type="file" id="formFile" (change)="onFileChanged($event)">
+                        
                         </div>
+                        <!-- <div class="row"> -->
+                              <!-- <div *ngIf="hidelist.indexOf('avatarurl')<0" style="margin-left: 10px;" class="col-6">
+                                    <label for="avatarurl" class="control-label required">{{'Avatar U R L' |
+                                          translate}}</label>
+      
+                                    <label *ngIf="showview"
+                                          class="labelview p-inputwrapper-filled">{{f.avatarurl?.value}}</label>
+                                    <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
+                                          id="avatarurl" required
+                                          pTooltip="{{'Enter' | translate}} {{'avatarurl' | translate}}"
+                                          formControlName="avatarurl" [rows]="5" [cols]="200" pInputTextarea
+                                          autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
+      </textarea>
+                                    <app-field-error-display [displayError]="f.avatarurl.errors?.required"
+                                          errorMsg="{{'Enter'| translate}} {{'Avatar U R L' | translate}}">
+                                    </app-field-error-display>
+                              </div>
+                          
+                        </div> -->
+                   
                   </div>
                   <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up">
                   </p-scrollTop>

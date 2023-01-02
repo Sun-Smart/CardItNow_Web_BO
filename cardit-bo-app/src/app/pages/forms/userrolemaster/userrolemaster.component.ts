@@ -77,7 +77,7 @@ export class userrolemasterComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
+    action:any;
     bfilterPopulate_userrolemasters: boolean = false;
     userrolemaster_menuactions: any = []
 
@@ -109,7 +109,7 @@ export class userrolemasterComponent implements OnInit {
         public dialog: DialogService,
         private userrolemaster_service: userrolemasterService,
         private fb: FormBuilder,
-        private sharedService: SharedService,
+        public sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
@@ -324,7 +324,8 @@ export class userrolemasterComponent implements OnInit {
         }
     }
 
-
+    onCopyRecursive(){}
+    onChangeAction(){}
 
     resetForm() {
         this.formid = "";
@@ -628,6 +629,13 @@ export class userrolemasterComponent implements OnInit {
             this.blockedDocument = false;
             this.userrolemaster_Form.markAsUntouched();
             this.userrolemaster_Form.markAsPristine();
+            if(bclear == true){
+              
+                this.router.navigateByUrl['home/boreportviewer/urm'];
+                this.router.navigate(['home/' + 'boreportviewer' + '/' + 'urm' ]);
+            }else if(bclear == false){
+                this.clearList();
+            }
             return new Promise(resolve => {
                 resolve(res);
             });
@@ -644,8 +652,9 @@ export class userrolemasterComponent implements OnInit {
 
     //dropdown edit from the screen itself -> One screen like Reportviewer
     clearList() {
+        this.resetForm();
+        this.userrolemaster_Form.reset() ;
     }
-
 
     PrevForm() {
         let formid = this.sessionService.getItem("key");

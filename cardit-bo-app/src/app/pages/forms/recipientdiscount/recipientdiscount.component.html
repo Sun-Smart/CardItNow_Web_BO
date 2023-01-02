@@ -69,8 +69,8 @@
                                     errorMsg="{{'Enter'| translate}} {{'Initiator UID' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('contractnumber')<0" class="  p-col-12 p-md-12">
-                              <label for="contractnumber" class="control-label required">{{'Contract Number' |
+                        <div *ngIf="hidelist.indexOf('contractnumber')<0" class="titleText col-12">
+                              <label for="contractnumber" class="commonlabel control-label required">{{'Contract Number' |
                                     translate}}</label>
 
                               <label *ngIf="showview"
@@ -85,16 +85,16 @@
                                     errorMsg="{{'Enter'| translate}} {{'Contract Number' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('discountpercentage')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('discountpercentage')<0" class="titleText col-3">
+                              <label for="discountpercentage" class="commonlabel control-label required">{{'Discount Percentage' |
+                                    translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.discountpercentage?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="discountpercentage" required
                                     pTooltip="{{'Enter' | translate}} {{'discountpercentage' | translate}}"
                                     formControlName="discountpercentage"
                                     class="  p-form-control p-inputtext-sm p-field">
-                              <label for="discountpercentage" class="control-label required">{{'Discount Percentage' |
-                                    translate}}</label>
+                             
                               <app-field-error-display [displayError]="f.discountpercentage.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Discount Percentage' | translate}}">
                               </app-field-error-display>

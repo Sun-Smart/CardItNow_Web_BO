@@ -26,7 +26,9 @@
 
         <!--termid-->
 
-        <div *ngIf="hidelist.indexOf('termid')<0" class=" p-float-label  p-col-12 p-md-3">
+        <div *ngIf="hidelist.indexOf('termid')<0" class="titleText col-3">
+          <label for="termid" class="commonlabel control-label">{{'Term' | translate}}</label>
+    
           <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
             class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="termid"
             pTooltip="{{'Enter' | translate}} {{'termid' | translate}}" field="label" [suggestions]="termid_Suggestions"
@@ -36,21 +38,22 @@
             </ng-template>
           </p-autoComplete>
           <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.termiddesc?.value}}</label>
-          <label for="termid" class="control-label">{{'Term' | translate}}</label>
-        </div>
-        <div *ngIf="hidelist.indexOf('version')<0" class="  p-float-label  p-col-12 p-md-3">
-
+              </div>
+        <div *ngIf="hidelist.indexOf('version')<0" class="titleText col-3">
+          <label for="version" class="commonlabel control-label">{{'Version' | translate}}</label>
           <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.version?.value}}</label>
           <input type="text" pInputText *ngIf="!showview" id="version"
             pTooltip="{{'Enter' | translate}} {{'version' | translate}}" formControlName="version"
             class="  p-form-control p-inputtext-sm p-field">
-          <label for="version" class="control-label">{{'Version' | translate}}</label>
+      
         </div>
 
 
         <!--customerid-->
 
-        <div *ngIf="hidelist.indexOf('customerid')<0" class=" p-float-label  p-col-12 p-md-3">
+        <div *ngIf="hidelist.indexOf('customerid')<0" class="titleText col-3">
+          <label for="customerid" class="commonlabel control-label">{{'Customer' | translate}}</label>
+      
           <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
             class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="customerid"
             pTooltip="{{'Enter' | translate}} {{'customerid' | translate}}" field="label"
@@ -61,16 +64,15 @@
             </ng-template>
           </p-autoComplete>
           <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.customeriddesc?.value}}</label>
-          <label for="customerid" class="control-label">{{'Customer' | translate}}</label>
-        </div>
-        <div *ngIf="hidelist.indexOf('dateofacceptance')<0" class="  p-float-label  p-col-12 p-md-3">
-
+            </div>
+        <div *ngIf="hidelist.indexOf('dateofacceptance')<0" class="titleText col-3">
+          <label for="dateofacceptance" class="commonlabel control-label">{{'Dateof Acceptance' | translate}}</label>
           <label *ngIf="showview"
             class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.dateofacceptance?.value)}}</label>
           <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview" dateFormat="d/M/y"
             class="p-form-control p-inputtext-sm p-field"
             pTooltip="{{'Select' | translate}} {{'dateofacceptance' | translate}}" formControlName="dateofacceptance">
-          </p-calendar><label for="dateofacceptance" class="control-label">{{'Dateof Acceptance' | translate}}</label>
+          </p-calendar>
         </div>
       </div>
       <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>

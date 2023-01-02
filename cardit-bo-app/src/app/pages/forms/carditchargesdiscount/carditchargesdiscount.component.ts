@@ -77,7 +77,7 @@ export class carditchargesdiscountComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
+    action:any;
     bfilterPopulate_carditchargesdiscounts: boolean = false;
     carditchargesdiscount_menuactions: any = []
 
@@ -112,7 +112,7 @@ export class carditchargesdiscountComponent implements OnInit {
         public dialog: DialogService,
         private carditchargesdiscount_service: carditchargesdiscountService,
         private fb: FormBuilder,
-        private sharedService: SharedService,
+        public sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
@@ -321,8 +321,8 @@ export class carditchargesdiscountComponent implements OnInit {
         }
     }
 
-
-
+    onCopyRecursive(){}
+    onChangeAction(){}
 
     resetForm() {
         this.formid = "";
@@ -580,6 +580,7 @@ export class carditchargesdiscountComponent implements OnInit {
 
 
     async onSubmitData(bclear: any): Promise<any> {
+        debugger;
         try {
             //debugger;
             this.SetFormValues();
@@ -610,6 +611,7 @@ export class carditchargesdiscountComponent implements OnInit {
             this.blockedDocument = false;
             //debugger;
             this.toastr.addSingle("success", "", "Successfully saved");
+        
             this.objvalues.push((res as any).carditchargesdiscount);
             if (!bclear && (this.formid != null && this.formid != "")) this.showview = true;
             if (this.panelscroller != undefined) (this.panelscroller as any)?.scrollTop(0);
@@ -620,9 +622,10 @@ export class carditchargesdiscountComponent implements OnInit {
             else {
                 if (this.panelscroller != undefined) (this.panelscroller as any)?.scrollTop(0);
             }
-            this.clearList();
+            
             if (bclear) {
                 this.resetForm();
+                this.clearList();
             }
             else {
                 if (this.maindata != null && (this.maindata.ScreenType == 1 || this.maindata.ScreenType == 2)) {
@@ -636,6 +639,14 @@ export class carditchargesdiscountComponent implements OnInit {
             this.blockedDocument = false;
             this.carditchargesdiscount_Form.markAsUntouched();
             this.carditchargesdiscount_Form.markAsPristine();
+      
+            if(bclear == true){
+              
+                this.router.navigateByUrl['home/boreportviewer/ccd'];
+                this.router.navigate(['home/' + 'boreportviewer' + '/' + 'ccd' ]);
+            }else if(bclear == false){
+                this.clearList();
+            }
             return new Promise(resolve => {
                 resolve(res);
             });
@@ -652,6 +663,8 @@ export class carditchargesdiscountComponent implements OnInit {
 
     //dropdown edit from the screen itself -> One screen like Reportviewer
     clearList() {
+        this.resetForm();
+        this.carditchargesdiscount_Form.reset() ;
     }
 
 

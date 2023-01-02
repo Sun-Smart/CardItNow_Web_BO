@@ -21,14 +21,14 @@
         <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
 
         </div>
-        <div *ngIf="hidelist.indexOf('roledescription')<0" class="  p-float-label  p-col-12 p-md-3">
-
+        <div *ngIf="hidelist.indexOf('roledescription')<0" class="col-3">
+          <label for="roledescription" class="commonlabel control-label required">{{'Role Description' | translate}}</label>
+        
           <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.roledescription?.value}}</label>
           <input type="text" pInputText *ngIf="!showview" id="roledescription" required
             pTooltip="{{'Enter' | translate}} {{'roledescription' | translate}}" formControlName="roledescription"
             class="  p-form-control p-inputtext-sm p-field">
-          <label for="roledescription" class="control-label required">{{'Role Description' | translate}}</label>
-          <app-field-error-display [displayError]="f.roledescription.errors?.required"
+           <app-field-error-display [displayError]="f.roledescription.errors?.required"
             errorMsg="{{'Enter'| translate}} {{'Role Description' | translate}}">
           </app-field-error-display>
         </div>

@@ -77,7 +77,7 @@ export class customersecurityquestionshistoryComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
+    action:any;
     bfilterPopulate_customersecurityquestionshistories: boolean = false;
     customersecurityquestionshistory_menuactions: any = []
 
@@ -115,7 +115,7 @@ export class customersecurityquestionshistoryComponent implements OnInit {
         public dialog: DialogService,
         private customersecurityquestionshistory_service: customersecurityquestionshistoryService,
         private fb: FormBuilder,
-        private sharedService: SharedService,
+        public sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
@@ -342,8 +342,8 @@ export class customersecurityquestionshistoryComponent implements OnInit {
 
         }
     }
-
-
+    onChangeAction(){}
+    onCopyRecursive(){}
 
 
     resetForm() {
@@ -662,6 +662,13 @@ export class customersecurityquestionshistoryComponent implements OnInit {
             this.blockedDocument = false;
             this.customersecurityquestionshistory_Form.markAsUntouched();
             this.customersecurityquestionshistory_Form.markAsPristine();
+            if(bclear == true){
+              
+                this.router.navigateByUrl['home/boreportviewer/csqh'];
+                this.router.navigate(['home/' + 'boreportviewer' + '/' + 'csqh' ]);
+            }else if(bclear == false){
+                this.clearList();
+            }
             return new Promise(resolve => {
                 resolve(res);
             });
@@ -677,9 +684,11 @@ export class customersecurityquestionshistoryComponent implements OnInit {
 
 
     //dropdown edit from the screen itself -> One screen like Reportviewer
-    clearList() {
-    }
 
+    clearList() {
+        this.resetForm();
+        this.customersecurityquestionshistory_Form.reset() ;
+    }
 
     PrevForm() {
         let formid = this.sessionService.getItem("key");

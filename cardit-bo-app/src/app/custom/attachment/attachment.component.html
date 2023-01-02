@@ -1,8 +1,8 @@
-<ng-container *ngIf="UIDesign=='primeNG'">
+<ng-container>
     <p-fileUpload #fileInput name="files" multiple="multiple" accept="image/*" showUploadButton="false"
         (onSelect)="addFiles($event)"></p-fileUpload>
 </ng-container>
-<ng-container *ngIf="UIDesign!='primeNG'">
+<ng-container>
     <form [formGroup]="attachmentForm">
         <div class="container">
 
@@ -20,10 +20,10 @@
                     <label for="description"></label>
                 </div>
                 <div class="p-col-12 p-md-5">
-                    <input type="file" appImgCompressor [uploader]="uploader" multiple
+                    <input type="file" appImgCompressor (uploader)="uploader" multiple
                         (onFileSelected)="onFileSelected($event)" />
                     <div ng2FileDrop [ngClass]="{'another-file-over-class': hasAnotherDropZoneOver}"
-                        (fileOver)="fileOverAnother($event)" [uploader]="uploader" (onFileDrop)="onFileSelected($event)"
+                        (fileOver)="fileOverAnother($event)" (uploader)="uploader" (onFileDrop)="onFileSelected($event)"
                         class="well my-drop-zone">
                     </div>
                     <div class="p-col" *ngIf="!isAttachment && uploadedFiles.length>0"><img

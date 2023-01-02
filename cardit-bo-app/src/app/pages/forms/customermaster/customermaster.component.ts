@@ -100,7 +100,7 @@ export class customermasterComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
+    action:any;
     bfilterPopulate_customermasters: boolean = false;
     bfilterPopulate_customerdetails: boolean = false;
     bfilterPopulate_customertermsacceptances: boolean = false;
@@ -199,7 +199,7 @@ export class customermasterComponent implements OnInit {
         public dialog: DialogService,
         private customermaster_service: customermasterService,
         private fb: FormBuilder,
-        private sharedService: SharedService,
+        public sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private customfieldservice: customfieldconfigurationService,
@@ -542,6 +542,11 @@ export class customermasterComponent implements OnInit {
             this.sharedService.geturl(file.filekey, file.type);
         }
     }
+
+    onCopyRecursive(){}
+    onChangeAction(){
+    }
+
     resetForm() {
         this.formid = "";
         this.showview = false;

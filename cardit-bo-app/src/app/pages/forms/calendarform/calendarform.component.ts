@@ -27,6 +27,7 @@ import {
 } from 'angular-calendar';
 import { CalendarModule, DateAdapter } from 'angular-calendar';//as CalendarAGModule
 import { BOReportViewerService } from '../../../service/boreportviewer.service';
+import { CommonModule } from '@angular/common';
 
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SessionService } from '../../../pages/core/services/session.service';
@@ -63,6 +64,7 @@ interface CalendarFormEvent extends CalendarEvent {
   ]
 })
 export class CalendarFormComponent implements OnInit, ControlValueAccessor {
+  maindata:any;
   theme: string = "";//current theme
   @Input() value: any;
   @Input() reportid: any;

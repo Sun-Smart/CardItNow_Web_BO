@@ -77,7 +77,7 @@ export class boworkflowstepComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
+    action:any;
     bfilterPopulate_boworkflowsteps: boolean = false;
     boworkflowstep_menuactions: any = []
 
@@ -127,7 +127,7 @@ export class boworkflowstepComponent implements OnInit {
         public dialog: DialogService,
         private boworkflowstep_service: boworkflowstepService,
         private fb: FormBuilder,
-        private sharedService: SharedService,
+        public sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
@@ -440,8 +440,8 @@ export class boworkflowstepComponent implements OnInit {
 
         }
     }
-
-
+    onCopyRecursive(){}
+    onChangeAction(){}
 
 
     resetForm() {

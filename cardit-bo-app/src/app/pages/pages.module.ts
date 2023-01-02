@@ -1,6 +1,6 @@
 
 
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -8,8 +8,8 @@ import { PagesComponent } from './pages.component';
 
 import { PagesRoutingModule } from './pages-routing.module';
 import { NewheaderComponent } from './layout/newheader/newheader.component';
-import { HeadernewComponent } from './headernew/headernew.component';
-import { ContentlayoutComponent } from './layout/contentlayout/contentlayout.component';
+
+
 
 
 
@@ -31,10 +31,10 @@ const PAGES_COMPONENTS = [
     declarations: [
         ...PAGES_COMPONENTS,
         NewheaderComponent,
-        HeadernewComponent,
-        ContentlayoutComponent
+        
+     
     ],
-    schemas: [NO_ERRORS_SCHEMA]
+    schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PagesModule {
 }

@@ -49,6 +49,7 @@ import { AppConstants, DropDownValues } from '../../../shared/helper';
 
 
 export class boreportothertableComponent implements OnInit {
+    action:any;
     blockedDocument: boolean = false;
     formData: boreportothertable;
     list: boreportothertable[];

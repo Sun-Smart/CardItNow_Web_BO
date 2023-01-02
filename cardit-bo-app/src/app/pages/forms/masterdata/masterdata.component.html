@@ -2,8 +2,10 @@
 <p-blockUI [target]="pnl" [blocked]="blockedDocument"><i class="pi pi-lock" style="font-size: 3rem"></i></p-blockUI>
 <form id="frm_masterdata" [formGroup]="masterdata_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
   <p-panel #pnl [showHeader]="false">
+    
     <app-title reportcode="" title="Datas" [f]="f" [data]="data" [maindata]="maindata" [p_menuid]="p_menuid"
       [action]="action" (edit)="edit_masterdatas()" (first)="first()" (prev)="prev()"
+      
       (onSelectedpk)="onSelectedpk($event)" (next)="next()" (last)="last()" (resetForm)="resetForm()"
       (onSubmit)="onSubmit()" (onDelete)="onDelete()" (onCopy)="onCopy()" (onCopyDetails)="onCopyDetails()"
       (onCopycursive)="onCopyRecursive()" (onClose)="onClose()" (afterAction)="afterAction"
@@ -24,35 +26,39 @@
 
 
         <!--masterdatatypeid-->
-
-        <div *ngIf="hidelist.indexOf('masterdatatypeid')<0" class=" p-float-label  p-col-12 p-md-3">
-          <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
-            class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="masterdatatypeid"
-            pTooltip="{{'Enter' | translate}} {{'masterdatatypeid' | translate}}" field="label"
-            [suggestions]="masterdatatypeid_Suggestions" (onSelect)="onSelected_masterdatatypeid($event)"
-            (completeMethod)="onEntered_masterdatatypeid($event)" [dropdown]="true">
-            <ng-template let-masterdatatypeid pTemplate="item">
-              <div>{{masterdatatypeid.label}}</div>
-            </ng-template>
-          </p-autoComplete>
-          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.masterdatatypeiddesc?.value}}</label>
-          <label for="masterdatatypeid" class="control-label required">{{'Master Data Type' | translate}}</label>
-          <app-field-error-display [displayError]="f.masterdatatypeid.errors?.required"
-            errorMsg="{{'Enter'| translate}} {{'Master Data Type' | translate}}">
-          </app-field-error-display>
-        </div>
-        <div *ngIf="hidelist.indexOf('masterdatadescription')<0" class="  p-float-label  p-col-12 p-md-3">
-
-          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.masterdatadescription?.value}}</label>
-          <input type="text" pInputText *ngIf="!showview" id="masterdatadescription" required
-            pTooltip="{{'Enter' | translate}} {{'masterdatadescription' | translate}}"
-            formControlName="masterdatadescription" class="  p-form-control p-inputtext-sm p-field">
-          <label for="masterdatadescription" class="control-label required">{{'Master Data Description' |
-            translate}}</label>
-          <app-field-error-display [displayError]="f.masterdatadescription.errors?.required"
-            errorMsg="{{'Enter'| translate}} {{'Master Data Description' | translate}}">
-          </app-field-error-display>
-        </div>
+<div class="row" style="    display: flex;
+justify-content: space-evenly;    margin: 2rem auto;">
+  <div *ngIf="hidelist.indexOf('masterdatatypeid')<0" class="titleText col-5">
+    <label for="masterdatatypeid" class="commonlabel control-label required">{{'Master Data Type' | translate}}</label>
+   
+    <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
+      class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="masterdatatypeid"
+      pTooltip="{{'Enter' | translate}} {{'masterdatatypeid' | translate}}" field="label"
+      [suggestions]="masterdatatypeid_Suggestions" (onSelect)="onSelected_masterdatatypeid($event)"
+      (completeMethod)="onEntered_masterdatatypeid($event)" [dropdown]="true">
+      <ng-template let-masterdatatypeid pTemplate="item">
+        <div>{{masterdatatypeid.label}}</div>
+      </ng-template>
+    </p-autoComplete>
+    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.masterdatatypeiddesc?.value}}</label>
+     <app-field-error-display [displayError]="f.masterdatatypeid.errors?.required"
+      errorMsg="{{'Enter'| translate}} {{'Master Data Type' | translate}}">
+    </app-field-error-display>
+  </div>
+  <div *ngIf="hidelist.indexOf('masterdatadescription')<0" class="col-5">
+    <label for="masterdatadescription" class="commonlabel control-label required">{{'Master Data Description' |
+      translate}}</label>
+    <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.masterdatadescription?.value}}</label>
+    <input type="text" pInputText *ngIf="!showview" id="masterdatadescription" required
+      pTooltip="{{'Enter' | translate}} {{'masterdatadescription' | translate}}"
+      formControlName="masterdatadescription" class="  p-form-control p-inputtext-sm p-field">
+  
+    <app-field-error-display [displayError]="f.masterdatadescription.errors?.required"
+      errorMsg="{{'Enter'| translate}} {{'Master Data Description' | translate}}">
+    </app-field-error-display>
+  </div>
+</div>
+   
       </div>
       <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
     </p-scrollPanel>

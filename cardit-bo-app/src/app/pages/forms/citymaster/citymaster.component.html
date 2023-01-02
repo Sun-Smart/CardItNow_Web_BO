@@ -25,7 +25,8 @@
 
         <!--geoid-->
 
-        <div *ngIf="hidelist.indexOf('geoid')<0" class=" p-float-label  p-col-12 p-md-3">
+        <div *ngIf="hidelist.indexOf('geoid')<0" class="titleText col-3">
+          <label for="geoid" class="commonlabel control-label required">{{'Geo' | translate}}</label>
           <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
             class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="geoid"
             pTooltip="{{'Enter' | translate}} {{'geoid' | translate}}" field="label" [suggestions]="geoid_Suggestions"
@@ -35,18 +36,18 @@
             </ng-template>
           </p-autoComplete>
           <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.geoiddesc?.value}}</label>
-          <label for="geoid" class="control-label required">{{'Geo' | translate}}</label>
+          
           <app-field-error-display [displayError]="f.geoid.errors?.required"
             errorMsg="{{'Enter'| translate}} {{'Geo' | translate}}">
           </app-field-error-display>
         </div>
-        <div *ngIf="hidelist.indexOf('cityname')<0" class="  p-float-label  p-col-12 p-md-3">
-
+        <div *ngIf="hidelist.indexOf('cityname')<0" class="col-3">
+          <label for="cityname" class="commonlabel control-label required">{{'City Name' | translate}}</label>
           <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.cityname?.value}}</label>
           <input type="text" pInputText *ngIf="!showview" id="cityname" required
             pTooltip="{{'Enter' | translate}} {{'cityname' | translate}}" formControlName="cityname"
             class="  p-form-control p-inputtext-sm p-field">
-          <label for="cityname" class="control-label required">{{'City Name' | translate}}</label>
+          
           <app-field-error-display [displayError]="f.cityname.errors?.required"
             errorMsg="{{'Enter'| translate}} {{'City Name' | translate}}">
           </app-field-error-display>

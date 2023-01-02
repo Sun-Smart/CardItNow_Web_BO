@@ -56,14 +56,15 @@
 }
 .labeltext{
   font-weight: 400;
-  font-family: 'poppins';
+  font-family: "poppins";
+  font-size: 12px;
 }
 #removeunderline{
   text-decoration: none !important;
   color: #004751;
-  line-height: 40px;
   font-weight: 700;
   font-size: 15px;
+  line-height: 40px;
   vertical-align: baseline;
 }
 

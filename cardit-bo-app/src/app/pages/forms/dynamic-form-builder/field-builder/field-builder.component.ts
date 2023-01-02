@@ -1,5 +1,5 @@
 import { Component, Input, AfterViewInit, OnInit } from '@angular/core';
-
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'field-builder',

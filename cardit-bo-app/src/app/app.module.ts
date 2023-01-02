@@ -1,6 +1,7 @@
 import { NgCommonModule } from './appcommon.module';;
 //import { HTTP_INTERCEPTORS } from '@angular/common/http';
 //import { TokenInterceptor } from './auth/token.interceptor';
+
 import { AuthService } from './auth/auth.service';
 import {MatTabsModule} from '@angular/material/tabs';
 import {SidebarModule} from 'primeng/sidebar';
@@ -9,7 +10,7 @@ import { Injectable } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgbDate, NgbModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { APP_ROUTER_PROVIDERS } from './app-routing.module';
@@ -87,15 +88,59 @@ import { DialogService } from 'primeng/dynamicdialog';
 //import { InternationalPhoneModule  } from 'ng4-intl-phone';
 import { NgxCurrencyModule } from "ngx-currency";
 import { SharedService } from './service/shared.service';
-
+import { ProgressSpinnerModule } 
+    from 'primeng/progressspinner';
 //import { NgCommonModule } from './appcommon.module';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { JwtModule } from "@auth0/angular-jwt";
 //import { KeyboardShortcutsModule }     from 'ng-keyboard-shortcuts';
-
+import { NgxSpinnerModule } from "ngx-spinner";
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
+import { CommonModule } from '@angular/common';
+import { FieldBuilderComponent } from './pages/forms/dynamic-form-builder/field-builder/field-builder.component';
+import { DynamicFormBuilderComponent } from './pages/forms/dynamic-form-builder/dynamic-form-builder.component';
+// import { TextBoxComponent } from './pages/forms/dynamic-form-builder/atoms/textbox';
+import { TextBoxComponent } from './custom/dynamic-form-builder/atoms/textbox';
+import { RadioComponent } from './custom/dynamic-form-builder/atoms/radio';
+import { FileComponent } from '../app/custom/dynamic-form-builder/atoms/file';
+
+import { CheckBoxComponent } from './pages/forms/dynamic-form-builder/atoms/checkbox';
+import { CalendarFormComponent } from './pages/forms/calendarform/calendarform.component';
+import { DropDownComponent } from './pages/forms/dynamic-form-builder/atoms/dropdown';
+import { boworkflowComponent } from './pages/forms/boworkflow/boworkflow.component';
+import { boworkflowstepComponent } from './pages/forms/boworkflowstep/boworkflowstep.component';
+import { boworkflowmasterComponent } from './pages/forms/boworkflowmaster/boworkflowmaster.component';
+import { boworkflowactionComponent } from './pages/forms/boworkflowaction/boworkflowaction.component';
+import { boreportcolumn } from './model/boreportcolumn.model';
+import { dataComponent } from './pages/forms/boreportdata/data.component';
+import { boreportdetailComponent } from './pages/forms/boreportdetail/boreportdetail.component';
+import { boreportothertable } from './model/boreportothertable.model';
+import { boreportothertableComponent } from './pages/forms/boreportothertable/boreportothertable.component';
+import { ReportViewerCtrlComponent } from './pages/forms/boreportviewer/reportviewerctrl.component';
+import { bodashboardComponent } from './pages/forms/bodashboard/bodashboard.component';
+import { bodashboarddetailComponent } from './pages/forms/bodashboarddetail/bodashboarddetail.component';
+import { boreportcolumnComponent } from './pages/forms/boreportcolumn/boreportcolumn.component';
+import { appmultipleentryComponent } from './custom/appmultipleentry.component';
+import { CalendarHeaderComponent } from '../app/custom/calendarview.component';
+import { commentComponent } from '../app/custom/comment.component';
+import { ChildboxComponent } from './custom/comments/childbox/childbox.component';
+import { CommentboxComponent } from './custom/comments/commentbox/commentbox.component';
+import { durationComponent } from './custom/duration.component';
+import { showdashboardComponent } from './pages/forms/bodashboardviewer/showdashboard.component';
+import { BODashboardViewerComponent } from './pages/forms/bodashboardviewer/bodashboardviewer.component';
+import { workflowComponent } from './custom/workflow/workflow.component';
+import { titleComponent } from './custom/title.component';
+import { stringlistComponent } from './custom/stringlist.component';
+import { SignatureFieldComponent } from './custom/signature-field/signature-field.component';
+import { PopupSelectComponent } from './custom/popupselect.component';
+import { openfileComponent } from './custom/openfile.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import { CarditImgCompressorDirective } from './service/cardit-img-compressor.directive';
+
+
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -108,7 +153,7 @@ export function tokenGetter() {
 }
 @NgModule({
     declarations: [
-
+       
         AppComponent,
         LoginComponent,
         mainComponent,
@@ -116,13 +161,61 @@ export function tokenGetter() {
         EmailVerificationComponent, ForgotPasswordComponent, ResendEmailVerificationComponent, ResetPasswordComponent,
 
         //bokbmasterComponent,
-        HeaderComponent, FooterComponent,
+        HeaderComponent,
+         FooterComponent,
         LayoutComponent,
         MenuComponent,
+       
+        // FieldBuilderComponent,
+        // DynamicFormBuilderComponent,
+        // DynamicFormBuilderComponent,
+        // TextBoxComponent,
+        // RadioComponent,
+        // FileComponent,
+        // FileComponent,
+        // FieldBuilderComponent,
+        // CheckBoxComponent,
+        // CheckBoxComponent,
+        // CalendarFormComponent,
+        // DropDownComponent,
+        boworkflowComponent,
+        boworkflowstepComponent,
+        boworkflowmasterComponent,
+        boworkflowactionComponent,
+        dataComponent,
+        boreportcolumnComponent,
+        bodashboarddetailComponent,
+        bodashboardComponent,
+        // ReportViewerCtrlComponent,
+        boreportothertableComponent,
+        boreportdetailComponent,
+        // CalendarHeaderComponent,
+// commentComponent,
+// ChildboxComponent,
+// CommentboxComponent,
+// durationComponent,
+// showdashboardComponent,
+// BODashboardViewerComponent,
+// BODashboardViewerComponent,
+// workflowComponent,
+// titleComponent,
+// stringlistComponent,
+// SignatureFieldComponent,
+// PopupSelectComponent, 
+// FieldBuilderComponent,
+openfileComponent,
+// DynamicFormBuilderComponent,
+TextBoxComponent,
+RadioComponent,
+FileComponent,
+CarditImgCompressorDirective
+
         //routedComponents
     ],
     exports: [
-        //NgCommonModule
+       
+      ProgressSpinnerModule ,
+       NgxSpinnerModule,
         SidebarModule,
         TranslateModule,
         NgScrollbarModule,
@@ -135,17 +228,21 @@ export function tokenGetter() {
         MatIconModule,
         MatMenuModule,
         MatToolbarModule,
+        CommonModule
 
     ],
     imports: [
         //layoutModule,
         //
         //WebcamModule,
+        FileUploadModule,
         NgCommonModule.forRoot(),
         NgbModule,
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule, ReactiveFormsModule,
+     
+        HttpClientModule,
         //,
         //NgxIntlTelInputModule,BsDropdownModule.forRoot(),
         //InternationalPhoneModule ,
@@ -179,7 +276,7 @@ export function tokenGetter() {
             }
         })
     ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],
     //
     providers: [
         /* {
@@ -189,6 +286,7 @@ export function tokenGetter() {
          },*/
         Auth,
         AuthService,
+       
         MessageService, DatePipe,
         AuthGuard,
         LoaderService,

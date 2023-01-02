@@ -25,7 +25,7 @@ export class boreportcolumnService {
   async save_boreportcolumns(formData): Promise<any> {
     if (this.valid()) {
       var body = {
-        data: formData
+        formData
       };
       let filearray: any = [];
       let res = await this.http.post(AppConstants.ntireboURL + '/boreportcolumn', this.sessionService.getFormData(body, filearray), this.sessionService.saveoptions()).toPromise();

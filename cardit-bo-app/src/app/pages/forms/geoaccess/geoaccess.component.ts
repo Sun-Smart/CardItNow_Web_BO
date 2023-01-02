@@ -99,7 +99,7 @@ export class geoaccessComponent implements OnInit {
     sessionData: any;
     sourceKey: any;
 
-
+    action:any;
 
 
 
@@ -115,7 +115,7 @@ export class geoaccessComponent implements OnInit {
         public dialog: DialogService,
         private geoaccess_service: geoaccessService,
         private fb: FormBuilder,
-        private sharedService: SharedService,
+        public sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
@@ -656,6 +656,13 @@ export class geoaccessComponent implements OnInit {
             this.blockedDocument = false;
             this.geoaccess_Form.markAsUntouched();
             this.geoaccess_Form.markAsPristine();
+            if(bclear == true){
+              
+                this.router.navigateByUrl['home/boreportviewer/geoa'];
+                this.router.navigate(['home/' + 'boreportviewer' + '/' + 'geoa' ]);
+            }else if(bclear == false){
+                this.clearList();
+            }
             return new Promise(resolve => {
                 resolve(res);
             });
@@ -667,13 +674,18 @@ export class geoaccessComponent implements OnInit {
 
     }
 
+    onChangeAction(){
 
-
-
-    //dropdown edit from the screen itself -> One screen like Reportviewer
-    clearList() {
     }
 
+    onCopyRecursive(){
+
+    }
+    //dropdown edit from the screen itself -> One screen like Reportviewer
+    clearList() {
+        this.resetForm();
+        this.geoaccess_Form.reset() ;
+    }
 
     PrevForm() {
         let formid = this.sessionService.getItem("key");

@@ -31,13 +31,13 @@
             <div class="col-12">
               <p-accordion [multiple]='true'>
                 <div class='p-grid griddisplay'>
-                  <div *ngIf="hidelist.indexOf('username')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                  <div *ngIf="hidelist.indexOf('username')<0" class="titleText col-3">
+                    <label for="username" class="commonlabel control-label required">{{'User Name' | translate}}</label>
                     <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.username?.value}}</label>
                     <input type="text" pInputText *ngIf="!showview" id="username" required
                       pTooltip="{{'Enter' | translate}} {{'username' | translate}}" formControlName="username"
                       class="  p-form-control p-inputtext-sm p-field">
-                    <label for="username" class="control-label required">{{'User Name' | translate}}</label>
+                  
                     <app-field-error-display [displayError]="f.username.errors?.required"
                       errorMsg="{{'Enter'| translate}} {{'User Name' | translate}}">
                     </app-field-error-display>
@@ -46,7 +46,8 @@
 
                   <!--roleid-->
 
-                  <div *ngIf="hidelist.indexOf('roleid')<0" class=" p-float-label  p-col-12 p-md-3">
+                  <div *ngIf="hidelist.indexOf('roleid')<0" class=" titleText col-3">
+                    <label for="roleid" class="commonlabel control-label required">{{'Role' | translate}}</label>
                     <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
                       class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="roleid"
                       pTooltip="{{'Enter' | translate}} {{'roleid' | translate}}" field="label"
@@ -57,20 +58,23 @@
                       </ng-template>
                     </p-autoComplete>
                     <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.roleiddesc?.value}}</label>
-                    <label for="roleid" class="control-label required">{{'Role' | translate}}</label>
+                    
                     <app-field-error-display [displayError]="f.roleid.errors?.required"
                       errorMsg="{{'Enter'| translate}} {{'Role' | translate}}">
                     </app-field-error-display>
                   </div>
-                  <div *ngIf="hidelist.indexOf('email')<0" class="  p-col-12 p-md-12">
-                    <label for="email" class="control-label required">{{'Email' | translate}}</label>
+                  <div *ngIf="hidelist.indexOf('email')<0" class=" titleText col-3">
+                    <label for="email" class="commonlabel control-label required">{{'Email' | translate}}</label>
 
                     <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.email?.value}}</label>
-                    <textarea pKeyFilter="email" autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
+                    <!-- <textarea pKeyFilter="email" autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
                       id="email" required pTooltip="{{'Enter' | translate}} {{'email' | translate}}"
                       formControlName="email" [rows]="5" [cols]="200" pInputTextarea autoResize="autoResize"
                       class=" p-field p-inputwrapper-filled p-md-12">
-</textarea>
+</textarea> -->
+<input type="text" pInputText *ngIf="!showview" id="email"
+pTooltip="{{'Enter' | translate}} {{'email' | translate}}" formControlName="email"
+class="  p-form-control p-inputtext-sm p-field">
                     <app-field-error-display [displayError]="f.email.errors!=null && f.email.errors?.email"
                       errorMsg="Enter valid email">
                     </app-field-error-display>
@@ -78,23 +82,23 @@
                       errorMsg="{{'Enter'| translate}} {{'Email' | translate}}">
                     </app-field-error-display>
                   </div>
-                  <div *ngIf="hidelist.indexOf('emailpassword')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                  <div *ngIf="hidelist.indexOf('emailpassword')<0" class="titleText col-3">
+                    <label for="emailpassword" class="commonlabel control-label">{{'Emailpassword' | translate}}</label>
                     <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.emailpassword?.value}}</label>
                     <input type="text" pInputText *ngIf="!showview" id="emailpassword"
                       pTooltip="{{'Enter' | translate}} {{'emailpassword' | translate}}" formControlName="emailpassword"
                       class="  p-form-control p-inputtext-sm p-field">
-                    <label for="emailpassword" class="control-label">{{'Emailpassword' | translate}}</label>
+                  
                   </div>
-                  <div *ngIf="hidelist.indexOf('mobile')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                  <div *ngIf="hidelist.indexOf('mobile')<0" class="titleText col-3">
+                    <label for="mobile" class="commonlabel control-label required">{{'Mobile' | translate}}</label>
                     <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.mobile?.value}}</label>
                     <int-phone-prefix *ngIf="!showview" id="mobile" required
                       pTooltip="{{'Enter' | translate}} {{'mobile' | translate}}" formControlName="mobile"
                       [locale]="'en'" [defaultCountry]="'ae'"
-                      class="  p-form-control phone p-inputtext-sm p-field telephone p-filled ">
+                      class="  p-form-control phone p-inputtext-sm  telephone p-filled ">
                     </int-phone-prefix>
-                    <label for="mobile" class="control-label required">{{'Mobile' | translate}}</label>
+                   
                     <app-field-error-display
                       [displayError]="f.mobile.errors!=null && f.mobile.errors?.pattern!=null && f.mobile.errors!=undefined && f.mobile.errors.pattern!=undefined  && (f.mobile.touched|| isSubmitted)"
                       errorMsg="Not a valid number">
@@ -115,7 +119,8 @@
 
                   <!--basegeoid-->
 
-                  <div *ngIf="hidelist.indexOf('basegeoid')<0" class=" p-float-label  p-col-12 p-md-3">
+                  <div *ngIf="hidelist.indexOf('basegeoid')<0" class="titleText col-3">
+                    <label for="basegeoid" class="commonlabel control-label required">{{'Base Geo' | translate}}</label>
                     <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
                       class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="basegeoid"
                       pTooltip="{{'Enter' | translate}} {{'basegeoid' | translate}}" field="label"
@@ -126,7 +131,7 @@
                       </ng-template>
                     </p-autoComplete>
                     <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.basegeoiddesc?.value}}</label>
-                    <label for="basegeoid" class="control-label required">{{'Base Geo' | translate}}</label>
+                    
                     <app-field-error-display [displayError]="f.basegeoid.errors?.required"
                       errorMsg="{{'Enter'| translate}} {{'Base Geo' | translate}}">
                     </app-field-error-display>

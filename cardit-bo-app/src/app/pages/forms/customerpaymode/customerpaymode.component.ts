@@ -77,7 +77,7 @@ export class customerpaymodeComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
+    action:any;
     bfilterPopulate_customerpaymodes: boolean = false;
     customerpaymode_menuactions: any = []
 
@@ -112,7 +112,7 @@ export class customerpaymodeComponent implements OnInit {
         public dialog: DialogService,
         private customerpaymode_service: customerpaymodeService,
         private fb: FormBuilder,
-        private sharedService: SharedService,
+        public sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
@@ -374,7 +374,8 @@ export class customerpaymodeComponent implements OnInit {
     }
 
 
-
+    onCopyRecursive(){}
+    onChangeAction(){}
 
     resetForm() {
         this.formid = "";
@@ -692,6 +693,13 @@ export class customerpaymodeComponent implements OnInit {
             this.blockedDocument = false;
             this.customerpaymode_Form.markAsUntouched();
             this.customerpaymode_Form.markAsPristine();
+            if(bclear == true){
+              
+                this.router.navigateByUrl['home/boreportviewer/cpm'];
+                this.router.navigate(['home/' + 'boreportviewer' + '/' + 'cpm' ]);
+            }else if(bclear == false){
+                this.clearList();
+            }
             return new Promise(resolve => {
                 resolve(res);
             });
@@ -708,6 +716,8 @@ export class customerpaymodeComponent implements OnInit {
 
     //dropdown edit from the screen itself -> One screen like Reportviewer
     clearList() {
+        this.resetForm();
+        this.customerpaymode_Form.reset() ;
     }
 
 

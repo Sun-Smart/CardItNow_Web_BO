@@ -49,6 +49,7 @@ import { AppConstants, DropDownValues } from '../../../shared/helper';
 
 
 export class customersecurityquestionComponent implements OnInit {
+    action:any;
     blockedDocument: boolean = false;
     formData: customersecurityquestion;
     list: customersecurityquestion[];
@@ -115,7 +116,7 @@ export class customersecurityquestionComponent implements OnInit {
         public dialog: DialogService,
         private customersecurityquestion_service: customersecurityquestionService,
         private fb: FormBuilder,
-        private sharedService: SharedService,
+        public sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
@@ -341,8 +342,8 @@ export class customersecurityquestionComponent implements OnInit {
 
         }
     }
-
-
+    onCopyRecursive(){}
+    onChangeAction(){}
 
 
     resetForm() {
@@ -663,6 +664,14 @@ export class customersecurityquestionComponent implements OnInit {
             this.blockedDocument = false;
             this.customersecurityquestion_Form.markAsUntouched();
             this.customersecurityquestion_Form.markAsPristine();
+            if(bclear == true){
+              
+                this.router.navigateByUrl['home/boreportviewer/csq'];
+                this.router.navigate(['home/' + 'boreportviewer' + '/' + 'csq' ]);
+            }else if(bclear == false){
+                this.clearList();
+            }
+
             return new Promise(resolve => {
                 resolve(res);
             });
@@ -679,6 +688,8 @@ export class customersecurityquestionComponent implements OnInit {
 
     //dropdown edit from the screen itself -> One screen like Reportviewer
     clearList() {
+        this.resetForm();
+        this.customersecurityquestion_Form.reset() ;
     }
 
 

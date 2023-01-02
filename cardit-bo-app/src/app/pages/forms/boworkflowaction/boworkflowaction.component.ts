@@ -49,6 +49,7 @@ import { AppConstants, DropDownValues } from '../../../shared/helper';
 
 
 export class boworkflowactionComponent implements OnInit {
+    action:any;
     blockedDocument: boolean = false;
     formData: boworkflowaction;
     list: boworkflowaction[];

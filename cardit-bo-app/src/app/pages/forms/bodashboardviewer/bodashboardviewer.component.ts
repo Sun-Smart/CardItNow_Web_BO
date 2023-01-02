@@ -23,7 +23,7 @@ export class BODashboardViewerComponent implements AfterViewInit {
   p1: string;
   p2: string;
   p3: string;
-
+  maindata:any;
   bDashboardShown: boolean = false;
 
   header: bodashboard;

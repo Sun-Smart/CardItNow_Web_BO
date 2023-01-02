@@ -85,7 +85,7 @@ export class transactiondetailComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
+    action:any;
     bfilterPopulate_transactiondetails: boolean = false;
     transactiondetail_menuactions: any = []
 
@@ -136,7 +136,7 @@ export class transactiondetailComponent implements OnInit {
         public dialog: DialogService,
         private transactiondetail_service: transactiondetailService,
         private fb: FormBuilder,
-        private sharedService: SharedService,
+        public sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private customfieldservice: customfieldconfigurationService,
@@ -417,7 +417,8 @@ export class transactiondetailComponent implements OnInit {
         }
     }
 
-
+    onCopyRecursive(){}
+    onChangeAction(){}
 
 
     resetForm() {
@@ -817,6 +818,14 @@ export class transactiondetailComponent implements OnInit {
             this.blockedDocument = false;
             this.transactiondetail_Form.markAsUntouched();
             this.transactiondetail_Form.markAsPristine();
+            if(bclear == true){
+              
+                this.router.navigateByUrl['home/boreportviewer/tdtl'];
+                this.router.navigate(['home/' + 'boreportviewer' + '/' + 'tdtl' ]);
+            }else if(bclear == false){
+                this.clearList();
+            }
+
             return new Promise(resolve => {
                 resolve(res);
             });
@@ -833,6 +842,8 @@ export class transactiondetailComponent implements OnInit {
 
     //dropdown edit from the screen itself -> One screen like Reportviewer
     clearList() {
+        this.resetForm();
+        this.transactiondetail_Form.reset() ;
     }
 
 

@@ -23,6 +23,7 @@ export class avatarmasterService {
 
   }
   async save_avatarmasters(formData): Promise<any> {
+    debugger;
     if (this.valid()) {
       var body = {
         data: formData
@@ -34,6 +35,7 @@ export class avatarmasterService {
   }
 
   async getDefaultData(): Promise<any> {
+    debugger;
     if (this.valid()) {
       let res = await this.http.get(AppConstants.carditnowURL + '/avatarmaster/getdefaultdata', this.sessionService.headeroptions()).toPromise();
       return res;

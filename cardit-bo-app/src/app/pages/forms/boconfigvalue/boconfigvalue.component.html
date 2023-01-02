@@ -22,79 +22,79 @@
                         <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
 
                         </div>
-                        <div class="  p-float-label  p-col-12 p-md-3">
+                        <div class="titleText col-3">
+                              <label for="param" class="commonlabel control-label required">Param</label>
 
                               <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.param?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="param" required
                                     pTooltip="{{'Enter' | translate}} {{'param' | translate}}" formControlName="param"
                                     class="  p-form-control p-inputtext-sm p-field">
-                              <label for="param" class="control-label required">Param</label>
                               <app-field-error-display [displayError]="f.param.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Param' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div class="  p-float-label  p-col-12 p-md-3">
-
+                        <div class=" titleText col-3">
+                              <label for="configkey" class="commonlabel control-label required">Config Key</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.configkey?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="configkey" required
                                     pTooltip="{{'Enter' | translate}} {{'configkey' | translate}}"
                                     formControlName="configkey" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="configkey" class="control-label required">Config Key</label>
+                              
                               <app-field-error-display [displayError]="f.configkey.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Config Key' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div class="  p-float-label  p-col-12 p-md-3">
-
+                        <div class="titleText col-3">
+                              <label for="configtext" class="commonlabel control-label required">Config Text</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.configtext?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="configtext" required
                                     pTooltip="{{'Enter' | translate}} {{'configtext' | translate}}"
                                     formControlName="configtext" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="configtext" class="control-label required">Config Text</label>
+                              
                               <app-field-error-display [displayError]="f.configtext.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Config Text' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div class="  p-float-label  p-col-12 p-md-3">
-
+                        <div class="titleText col-3">
+                              <label for="orderno" class="commonlabel control-label">Order No</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.orderno?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="orderno"
                                     pTooltip="{{'Enter' | translate}} {{'orderno' | translate}}"
                                     formControlName="orderno" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="orderno" class="control-label">Order No</label>
+                             
                         </div>
-                        <div class="  p-float-label  p-col-12 p-md-3">
-
+                        <div class=" titleText col-3">
+                              <label for="htmlcode" class="commonlabel control-label">H T M L Code</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.htmlcode?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="htmlcode"
                                     pTooltip="{{'Enter' | translate}} {{'htmlcode' | translate}}"
                                     formControlName="htmlcode" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="htmlcode" class="control-label">H T M L Code</label>
+                              
                         </div>
-                        <div class="  p-float-label  p-col-12 p-md-3">
+                        <div class=" titleText col-3">
+                              <label for="param1" class="commonlabel control-label">Param1</label>
 
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.param1?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="param1"
                                     pTooltip="{{'Enter' | translate}} {{'param1' | translate}}" formControlName="param1"
                                     class="  p-form-control p-inputtext-sm p-field">
-                              <label for="param1" class="control-label">Param1</label>
                         </div>
-                        <div class="  p-float-label  p-col-12 p-md-3">
-
+                        <div class=" titleText col-3">
+                              <label for="param2" class="commonlabel control-label">Param2</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.param2?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="param2"
                                     pTooltip="{{'Enter' | translate}} {{'param2' | translate}}" formControlName="param2"
                                     class="  p-form-control p-inputtext-sm p-field">
-                              <label for="param2" class="control-label">Param2</label>
+                             
                         </div>
-                        <div class="  p-col-12 p-md-12">
-                              <label for="helptext" class="control-label">Help Text</label>
+                        <div class=" titleText col-12">
+                              <label for="helptext" class="commonlabel control-label">Help Text</label>
 
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.helptext?.value}}</label>
@@ -102,13 +102,13 @@
                                     pTooltip="{{'Enter' | translate}} {{'helptext' | translate}}"
                                     formControlName="helptext" [style]="{  height: '320' }"></p-editor>
                         </div>
-                        <div class="  p-float-label  p-col-12 p-md-3">
-
+                        <div class=" titleText col-3">
+                              <label for="flag" class="commonlabel control-label">Flag</label>
                               <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.flag?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="flag"
                                     pTooltip="{{'Enter' | translate}} {{'flag' | translate}}" formControlName="flag"
                                     class="  p-form-control p-inputtext-sm p-field">
-                              <label for="flag" class="control-label">Flag</label>
+                             
                         </div>
                   </div>
                   <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up">

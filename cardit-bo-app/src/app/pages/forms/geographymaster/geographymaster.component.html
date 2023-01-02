@@ -21,76 +21,89 @@
         <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
 
         </div>
-        <div *ngIf="hidelist.indexOf('geoname')<0" class="  p-float-label  p-col-12 p-md-3">
-
+        <div *ngIf="hidelist.indexOf('geoname')<0" class="titeText col-3">
+          <label for="geoname" class="commonlabel control-label required">{{'Geo Name' | translate}}</label>
+       
           <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.geoname?.value}}</label>
           <input type="text" pInputText *ngIf="!showview" id="geoname" required
             pTooltip="{{'Enter' | translate}} {{'geoname' | translate}}" formControlName="geoname"
             class="  p-form-control p-inputtext-sm p-field">
-          <label for="geoname" class="control-label required">{{'Geo Name' | translate}}</label>
-          <app-field-error-display [displayError]="f.geoname.errors?.required"
+            <app-field-error-display [displayError]="f.geoname.errors?.required"
             errorMsg="{{'Enter'| translate}} {{'Geo Name' | translate}}">
           </app-field-error-display>
         </div>
-        <div *ngIf="hidelist.indexOf('geocode')<0" class="  p-float-label  p-col-12 p-md-3">
-
-          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.geocode?.value}}</label>
+        <div *ngIf="hidelist.indexOf('geocode')<0" class="titeText col-3">
+          <label for="geocode" class="commonlabel control-label required">{{'Geo Code' | translate}}</label>
+        
+          <label *ngIf="showview" class="commonlabel labelview p-inputwrapper-filled">{{f.geocode?.value}}</label>
           <input type="text" pInputText *ngIf="!showview" id="geocode" required
             pTooltip="{{'Enter' | translate}} {{'geocode' | translate}}" formControlName="geocode"
             class="  p-form-control p-inputtext-sm p-field">
-          <label for="geocode" class="control-label required">{{'Geo Code' | translate}}</label>
-          <app-field-error-display [displayError]="f.geocode.errors?.required"
+           <app-field-error-display [displayError]="f.geocode.errors?.required"
             errorMsg="{{'Enter'| translate}} {{'Geo Code' | translate}}">
           </app-field-error-display>
         </div>
-        <div *ngIf="hidelist.indexOf('chargepercent')<0" class="  p-float-label  p-col-12 p-md-3">
-
-          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.chargepercent?.value}}</label>
+        <div *ngIf="hidelist.indexOf('chargepercent')<0" class="titeText col-3">
+          <label for="chargepercent" class="commonlabel control-label">{{'Charge Percent' | translate}}</label>
+       
+          <label *ngIf="showview" class="commonlabel labelview p-inputwrapper-filled">{{f.chargepercent?.value}}</label>
           <input type="text" pInputText *ngIf="!showview" id="chargepercent"
             pTooltip="{{'Enter' | translate}} {{'chargepercent' | translate}}" formControlName="chargepercent"
             class="  p-form-control p-inputtext-sm p-field">
-          <label for="chargepercent" class="control-label">{{'Charge Percent' | translate}}</label>
-        </div>
-        <div *ngIf="hidelist.indexOf('vat')<0" class="  p-float-label  p-col-12 p-md-3">
-
-          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.vat?.value}}</label>
+           </div>
+        <div *ngIf="hidelist.indexOf('vat')<0" class="titeText col-3">
+          <label for="vat" class="commonlabel control-label">{{'V A T' | translate}}</label>
+          <label *ngIf="showview" class="commonlabel labelview p-inputwrapper-filled">{{f.vat?.value}}</label>
           <input type="text" pInputText *ngIf="!showview" id="vat"
             pTooltip="{{'Enter' | translate}} {{'vat' | translate}}" formControlName="vat"
             class="  p-form-control p-inputtext-sm p-field">
-          <label for="vat" class="control-label">{{'V A T' | translate}}</label>
+          
         </div>
-        <div *ngIf="hidelist.indexOf('useraccess')<0" class="  p-float-label  p-col-12 p-md-3">
-
-          <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.useraccess?.value}}</label>
+        <div *ngIf="hidelist.indexOf('useraccess')<0" class="titeText col-3">
+          <label for="useraccess" class="commonlabel control-label">{{'User Access' | translate}}</label>
+ 
+          <label *ngIf="showview" class="commonlabel labelview p-inputwrapper-filled">{{f.useraccess?.value}}</label>
           <input type="text" pInputText *ngIf="!showview" id="useraccess"
             pTooltip="{{'Enter' | translate}} {{'useraccess' | translate}}" formControlName="useraccess"
             class="  p-form-control p-inputtext-sm p-field">
-          <label for="useraccess" class="control-label">{{'User Access' | translate}}</label>
-        </div>
+                </div>
+                <div *ngIf="hidelist.indexOf('useraccess')<0" class="titeText col-3">
+                  <button type="button" id="removeunderline" class="rightside btn btn-link" (click)="AddOrEdit_citymaster(null, null, formid)">Masters</button>
+                  <div [ngClass]="maindata?.ScreenType==2?'dialogscreen':'mainscreen'">
+                    <ngx-reportviewer viewtype="'1'" #tbl_citymasters (onExecute)="onExecute_citymasters($event)">
+                    </ngx-reportviewer>
+                  </div>
+                </div>
+                <div *ngIf="hidelist.indexOf('useraccess')<0" class="titeText col-3">
+                  <button type="button" id="removeunderline" class="rightside btn btn-link" (click)="AddOrEdit_geoaccess(null, null, formid)">Access</button>
+                  <div [ngClass]="maindata?.ScreenType==2?'dialogscreen':'mainscreen'">
+                    <ngx-reportviewer viewtype="'1'" #tbl_geoaccesses (onExecute)="onExecute_geoaccesses($event)">
+                    </ngx-reportviewer>
+                  </div>
+             </div>
         <!-- child table citymasters-->
         <div>
           <!--End-->
-          <h4 class="form-group sticky1  columns left">{{'Masters' | translate}}
+
+          <!-- <h4 class="form-group sticky1  columns left">{{'Masters' | translate}}
             <a *ngIf="formid" class="rightside" [routerLink]='' (click)="AddOrEdit_citymaster(null, null, formid)"><i
                 class="fa fa-plus"></i></a>
-          </h4>
-          <div [ngClass]="maindata?.ScreenType==2?'dialogscreen':'mainscreen'">
-            <ngx-reportviewer viewtype="'1'" #tbl_citymasters (onExecute)="onExecute_citymasters($event)">
-            </ngx-reportviewer>
-          </div>
+          </h4> -->
+          
+         
         </div>
         <!--End of child table citymasters-->
         <!-- child table geoaccesses-->
         <div>
           <!--End-->
-          <h4 class="form-group sticky1  columns left">{{'Accesses' | translate}}
+          <!-- <h4 class="form-group sticky1  columns left">{{'Accesses' | translate}}
             <a *ngIf="formid" class="rightside" [routerLink]='' (click)="AddOrEdit_geoaccess(null, null, formid)"><i
                 class="fa fa-plus"></i></a>
           </h4>
           <div [ngClass]="maindata?.ScreenType==2?'dialogscreen':'mainscreen'">
             <ngx-reportviewer viewtype="'1'" #tbl_geoaccesses (onExecute)="onExecute_geoaccesses($event)">
             </ngx-reportviewer>
-          </div>
+          </div> -->
         </div>
         <!--End of child table geoaccesses-->
       </div>

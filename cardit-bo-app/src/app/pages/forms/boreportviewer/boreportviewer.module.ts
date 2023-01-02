@@ -16,7 +16,7 @@ import { umscourseModule } from '../umscourse/umscourse.module';*/
 
 @NgModule({
   exports: [
-    //NgCommonModule,
+    NgCommonModule,
     dataComponent
   ],
   imports: [

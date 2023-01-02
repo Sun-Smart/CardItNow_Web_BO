@@ -6,8 +6,6 @@ import { TagInputModule } from 'ngx-chips';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import {MatTabsModule} from '@angular/material/tabs';
-
 import { AuthGuard } from './pages/core/gaurds/auth.gaurd';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -134,7 +132,7 @@ import { PopupSelectComponent } from './custom/popupselect.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { showdashboardComponent } from './pages/forms/bodashboardviewer/showdashboard.component';
 
-import { FileUploadModule } from 'ng2-file-upload';
+
 
 import { ReportViewerCtrlComponent } from './pages/forms/boreportviewer/reportviewerctrl.component';
 import { TooltipModule } from 'primeng/tooltip';
@@ -169,6 +167,23 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { NFC, Ndef } from '@awesome-cordova-plugins/nfc/ngx';
 
 import { SignaturePadModule } from 'angular2-signaturepad';
+import { customertermsacceptanceComponent } from './pages/forms/customertermsacceptance/customertermsacceptance.component';
+import { geoaccessComponent } from './pages/forms/geoaccess/geoaccess.component';
+import { geographymasterComponent } from './pages/forms/geographymaster/geographymaster.component';
+import { initiatorrecipientmappingComponent } from './pages/forms/initiatorrecipientmapping/initiatorrecipientmapping.component';
+import { initiatorrecipientprivateComponent } from './pages/forms/initiatorrecipientprivate/initiatorrecipientprivate.component';
+import { masterdataComponent } from './pages/forms/masterdata/masterdata.component';
+import { masterdatatypeComponent } from './pages/forms/masterdatatype/masterdatatype.component';
+import { menuaccessComponent } from './pages/forms/menuaccess/menuaccess.component';
+import { menumasterComponent } from './pages/forms/menumaster/menumaster.component';
+import { recipientdiscountComponent } from './pages/forms/recipientdiscount/recipientdiscount.component';
+import { termsmasterComponent } from './pages/forms/termsmaster/termsmaster.component';
+import { transactiondetailComponent } from './pages/forms/transactiondetail/transactiondetail.component';
+import { transactionitemdetailComponent } from './pages/forms/transactionitemdetail/transactionitemdetail.component';
+import { transactionmasterComponent } from './pages/forms/transactionmaster/transactionmaster.component';
+import { usermasterComponent } from './pages/forms/usermaster/usermaster.component';
+import { userrolemasterComponent } from './pages/forms/userrolemaster/userrolemaster.component';
+import { HeaderComponent } from './pages/layout/header/header.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -213,7 +228,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
 
     exports: [
-
+        DynamicFormBuilderComponent,
+        FieldBuilderComponent,
         CommonModule,
         SignatureFieldComponent,
         SlideMenuModule,
@@ -257,8 +273,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         CommonModule,
         //Ng2SmartTableModule,
         PanelMenuModule,
-        FileUploadModule,
-        MenuModule,
+                MenuModule,
         TreeTableModule,
         RatingModule,
         SelectButtonModule, CheckboxModule, DropdownModule,
@@ -285,7 +300,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         InputTextareaModule, PaginatorModule,
         MessagesModule, EditorModule,
         DynamicFormBuilderComponent,
-        CheckBoxComponent, DropDownComponent, FileComponent, RadioComponent, TextBoxComponent,
+        CheckBoxComponent, DropDownComponent,
         FieldBuilderComponent,
         RouterModule,
         //NgxIntlTelInputModule,
@@ -304,17 +319,34 @@ export function HttpLoaderFactory(http: HttpClient) {
         ////crmtatconfigurationComponent,
         WebcamModule,
         TagInputModule, ColorPickerModule,
-        FileUploadModule,
+    
 
         //ImageViewerModule, 
         SafePipe,
-        SignaturePadModule,
-        MatTabsModule
+        SignaturePadModule
     ],
     declarations: [
         //lmstaskComponent,
+        DynamicFormBuilderComponent,
+        FieldBuilderComponent,
         SignatureFieldComponent,
-        FileUpload,
+        geoaccessComponent,
+        geographymasterComponent,
+        termsmasterComponent,
+        // HeaderComponent,
+        userrolemasterComponent,
+        usermasterComponent,
+        transactiondetailComponent,
+        transactionmasterComponent,
+        transactionitemdetailComponent,
+        customertermsacceptanceComponent,
+        initiatorrecipientmappingComponent,
+        initiatorrecipientprivateComponent,
+        recipientdiscountComponent,
+        masterdataComponent,
+        menumasterComponent,
+        menuaccessComponent,
+        masterdatatypeComponent,
         TimerComponent,
         CommentboxComponent,
         CommentsComponent,
@@ -335,9 +367,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         actionComponent,
         workflowComponent,
         FieldErrorDisplayComponent,
-        DynamicFormBuilderComponent,
-        CheckBoxComponent, DropDownComponent, FileComponent, RadioComponent, TextBoxComponent,
-        FieldBuilderComponent,
+       
+        CheckBoxComponent, DropDownComponent, 
+        
+       
 
         SafePipe,
 
@@ -362,7 +395,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
         CommonModule,
         LayoutModule,
-
+      
         SlideMenuModule,
         CascadeSelectModule,
         MenubarModule,
@@ -398,7 +431,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         CommonModule,
         //Ng2SmartTableModule,
         PanelMenuModule,
-        FileUploadModule,
         MenuModule,
         TreeTableModule,
         RatingModule, SelectButtonModule, CheckboxModule, DropdownModule,
@@ -428,7 +460,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         DynamicDialogModule,
         InputTextareaModule, PaginatorModule,
         MessagesModule, EditorModule,
-        SliderModule, FileUploadModule,
+        SliderModule, 
         NgScrollbarModule,
         KeyboardShortcutsModule,
 
@@ -468,8 +500,16 @@ export class NgCommonModule {
                 ToastService,
                 RouteStateService,
                 SessionService,
-                ThemeService, ApplicationStateService, UserDataService, UserContextService,
-                DynamicDialogRef, DynamicDialogConfig, DialogService]
+                ThemeService, 
+                ApplicationStateService, 
+                UserDataService,
+                 UserContextService,
+                DynamicDialogRef, 
+                DynamicDialogConfig, 
+                DialogService
+            ],
+                
+                
         };
     }
 }

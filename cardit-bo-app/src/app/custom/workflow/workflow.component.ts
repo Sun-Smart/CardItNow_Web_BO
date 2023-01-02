@@ -50,7 +50,7 @@ export class workflowComponent implements ControlValueAccessor {
 
     @Input('value') _value;
 
-
+    editfield :any;
     onChange: any = () => { };
     onTouched: any = () => { };
 
@@ -446,6 +446,9 @@ export class workflowComponent implements ControlValueAccessor {
 
         });
     }
+    // editfield(){}
+
+
     resetForm() {
         if (this.boworkflowForm != null)
             this.boworkflowForm.reset();

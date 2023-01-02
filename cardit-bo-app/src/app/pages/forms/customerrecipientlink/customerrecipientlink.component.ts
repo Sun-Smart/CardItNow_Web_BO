@@ -77,7 +77,7 @@ export class customerrecipientlinkComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
+    action:any;
     bfilterPopulate_customerrecipientlinks: boolean = false;
     customerrecipientlink_menuactions: any = []
 
@@ -118,7 +118,7 @@ export class customerrecipientlinkComponent implements OnInit {
         public dialog: DialogService,
         private customerrecipientlink_service: customerrecipientlinkService,
         private fb: FormBuilder,
-        private sharedService: SharedService,
+        public sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
@@ -361,8 +361,8 @@ export class customerrecipientlinkComponent implements OnInit {
         }
     }
 
-
-
+    onCopyRecursive(){}
+    onChangeAction(){}
 
     resetForm() {
         this.formid = "";
@@ -683,6 +683,14 @@ export class customerrecipientlinkComponent implements OnInit {
             this.blockedDocument = false;
             this.customerrecipientlink_Form.markAsUntouched();
             this.customerrecipientlink_Form.markAsPristine();
+            if(bclear == true){
+              
+                this.router.navigateByUrl['home/boreportviewer/crl'];
+                this.router.navigate(['home/' + 'boreportviewer' + '/' + 'crl' ]);
+            }else if(bclear == false){
+                this.clearList();
+            }
+
             return new Promise(resolve => {
                 resolve(res);
             });
@@ -699,6 +707,8 @@ export class customerrecipientlinkComponent implements OnInit {
 
     //dropdown edit from the screen itself -> One screen like Reportviewer
     clearList() {
+        this.resetForm();
+        this.customerrecipientlink_Form.reset() ;
     }
 
 

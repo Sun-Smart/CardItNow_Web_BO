@@ -77,7 +77,7 @@ export class recipientdiscountComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
+    action:any;
     bfilterPopulate_recipientdiscounts: boolean = false;
     recipientdiscount_menuactions: any = []
 
@@ -115,7 +115,7 @@ export class recipientdiscountComponent implements OnInit {
         public dialog: DialogService,
         private recipientdiscount_service: recipientdiscountService,
         private fb: FormBuilder,
-        private sharedService: SharedService,
+        public sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
@@ -365,8 +365,8 @@ export class recipientdiscountComponent implements OnInit {
 
         }
     }
-
-
+    onCopyRecursive(){}
+    onChangeAction(){}
 
 
     resetForm() {
@@ -684,6 +684,13 @@ export class recipientdiscountComponent implements OnInit {
             this.blockedDocument = false;
             this.recipientdiscount_Form.markAsUntouched();
             this.recipientdiscount_Form.markAsPristine();
+            if(bclear == true){
+              
+                this.router.navigateByUrl['home/boreportviewer/rd'];
+                this.router.navigate(['home/' + 'boreportviewer' + '/' + 'rd' ]);
+            }else if(bclear == false){
+                this.clearList();
+            }
             return new Promise(resolve => {
                 resolve(res);
             });
@@ -700,6 +707,8 @@ export class recipientdiscountComponent implements OnInit {
 
     //dropdown edit from the screen itself -> One screen like Reportviewer
     clearList() {
+        this.resetForm();
+        this.recipientdiscount_Form.reset() ;
     }
 
 

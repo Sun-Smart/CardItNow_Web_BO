@@ -20,6 +20,7 @@ export class BOReportViewerComponent implements AfterViewInit {
   reportcode: any;
   dashboardid: any;
   dialogdata: any;
+  loadingspinner:boolean=false;
   //ParamsChangeEvent: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('tbl_report', { static: false }) tbl_report!: ReportViewerCtrlComponent;
   menuid: any;
@@ -43,6 +44,7 @@ export class BOReportViewerComponent implements AfterViewInit {
   }
   ngOnInit() {
     debugger;
+    this.loadingspinner=true;
     this.currentRoute.params.subscribe(params => {
 
       debugger;

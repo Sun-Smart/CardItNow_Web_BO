@@ -70,6 +70,7 @@ import { CalendarView } from 'angular-calendar';
   `
 })
 export class CalendarHeaderComponent {
+  theme:boolean;
   @Input() view: CalendarView | 'month' | 'week' | 'day';
 
   @Input() viewDate: Date;

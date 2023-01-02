@@ -49,6 +49,7 @@ import { AppConstants, DropDownValues } from '../../../shared/helper';
 
 
 export class citymasterComponent implements OnInit {
+    action:any;
     blockedDocument: boolean = false;
     formData: citymaster;
     list: citymaster[];
@@ -112,7 +113,7 @@ export class citymasterComponent implements OnInit {
         public dialog: DialogService,
         private citymaster_service: citymasterService,
         private fb: FormBuilder,
-        private sharedService: SharedService,
+        public sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
@@ -344,7 +345,8 @@ export class citymasterComponent implements OnInit {
         }
     }
 
-
+    onCopyRecursive(){}
+    onChangeAction(){}
 
 
     resetForm() {
@@ -655,6 +657,14 @@ export class citymasterComponent implements OnInit {
             this.blockedDocument = false;
             this.citymaster_Form.markAsUntouched();
             this.citymaster_Form.markAsPristine();
+            if(bclear == true){
+              
+                this.router.navigateByUrl['home/boreportviewer/citym'];
+                this.router.navigate(['home/' + 'boreportviewer' + '/' + 'citym' ]);
+            }else if(bclear == false){
+                this.clearList();
+            }
+            
             return new Promise(resolve => {
                 resolve(res);
             });
@@ -671,6 +681,8 @@ export class citymasterComponent implements OnInit {
 
     //dropdown edit from the screen itself -> One screen like Reportviewer
     clearList() {
+        this.resetForm();
+        this.citymaster_Form.reset() ;
     }
 
 

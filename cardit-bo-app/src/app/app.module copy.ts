@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA ,NO_ERRORS_SCHEMA} from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgbDate, NgbModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { APP_ROUTER_PROVIDERS } from './app-routing.module';
@@ -91,6 +91,11 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CheckboxModule } from 'primeng/checkbox';
+import { FieldBuilderComponent } from './pages/forms/dynamic-form-builder/field-builder/field-builder.component';
+import { DynamicFormBuilderComponent } from './pages/forms/dynamic-form-builder/dynamic-form-builder.component';
+import { TextBoxComponent } from './pages/forms/dynamic-form-builder/atoms/textbox';
+import { RadioComponent } from './pages/forms/dynamic-form-builder/atoms/radio';
+import { FileComponent } from './custom/dynamic-form-builder/atoms/file';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -113,6 +118,14 @@ export function tokenGetter() {
         HeaderComponent, FooterComponent,
         LayoutComponent,
         MenuComponent,
+        FieldBuilderComponent,
+        DynamicFormBuilderComponent,
+        DynamicFormBuilderComponent,
+        TextBoxComponent,
+        RadioComponent,
+        FileComponent,
+        FileComponent,
+        FieldBuilderComponent,
         //routedComponents
     ],
     exports: [
@@ -165,7 +178,7 @@ export function tokenGetter() {
             }
         })
     ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA],
     //
     providers: [
         /* {

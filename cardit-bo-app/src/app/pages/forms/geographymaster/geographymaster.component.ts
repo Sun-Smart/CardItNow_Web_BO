@@ -83,7 +83,7 @@ export class geographymasterComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
+    action:any;
     bfilterPopulate_geographymasters: boolean = false;
     bfilterPopulate_citymasters: boolean = false;
     bfilterPopulate_geoaccesses: boolean = false;
@@ -133,9 +133,9 @@ export class geographymasterComponent implements OnInit {
         public dialogRef: DynamicDialogRef,
         public dynamicconfig: DynamicDialogConfig,
         public dialog: DialogService,
-        private geographymaster_service: geographymasterService,
+        public geographymaster_service: geographymasterService,
         private fb: FormBuilder,
-        private sharedService: SharedService,
+        public sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
@@ -378,7 +378,8 @@ export class geographymasterComponent implements OnInit {
         }
     }
 
-
+    onCopyRecursive(){}
+    onChangeAction(){}
 
     resetForm() {
         this.formid = "";
@@ -706,6 +707,13 @@ export class geographymasterComponent implements OnInit {
             this.blockedDocument = false;
             this.geographymaster_Form.markAsUntouched();
             this.geographymaster_Form.markAsPristine();
+            if(bclear == true){
+              
+                this.router.navigateByUrl['home/boreportviewer/gm'];
+                this.router.navigate(['home/' + 'boreportviewer' + '/' + 'gm' ]);
+            }else if(bclear == false){
+                this.clearList();
+            }
             return new Promise(resolve => {
                 resolve(res);
             });
@@ -722,6 +730,8 @@ export class geographymasterComponent implements OnInit {
 
     //dropdown edit from the screen itself -> One screen like Reportviewer
     clearList() {
+        this.resetForm();
+        this.geographymaster_Form.reset() ;
     }
 
     AddOrEdit_citymaster(event: any, cityid: any, geoid: any) {

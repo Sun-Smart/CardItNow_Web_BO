@@ -21,20 +21,22 @@
                         <div *ngIf="(viewHtml != '' && showview)" [innerHTML]='getHtml(viewHtml)'>
 
                         </div>
-                        <div *ngIf="hidelist.indexOf('customerid')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('customerid')<0" class="titleText col-3">
+                              <label for="customerid" class="commonlabel control-label">{{'Customer' | translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.customerid?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="customerid"
                                     pTooltip="{{'Enter' | translate}} {{'customerid' | translate}}"
                                     formControlName="customerid" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="customerid" class="control-label">{{'Customer' | translate}}</label>
+                             
                         </div>
 
 
                         <!--uid-->
 
-                        <div *ngIf="hidelist.indexOf('uid')<0" class=" p-float-label  p-col-12 p-md-3">
+                        <div *ngIf="hidelist.indexOf('uid')<0" class="titleText col-3">
+                              <label for="uid" class="commonlabel control-label required">{{'UID' | translate}}</label>
+                             
                               <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
                                     class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled"
                                     formControlName="uid" pTooltip="{{'Enter' | translate}} {{'uid' | translate}}"
@@ -46,66 +48,70 @@
                               </p-autoComplete>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.uiddesc?.value}}</label>
-                              <label for="uid" class="control-label required">{{'UID' | translate}}</label>
-                              <app-field-error-display [displayError]="f.uid.errors?.required"
+                               <app-field-error-display [displayError]="f.uid.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'UID' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('cardnumber')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('cardnumber')<0" class="titleText col-3">
+                              <label for="cardnumber" class="commonlabel control-label required">{{'Card Number' |
+                                    translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.cardnumber?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="cardnumber" required
                                     pTooltip="{{'Enter' | translate}} {{'cardnumber' | translate}}"
                                     formControlName="cardnumber" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="cardnumber" class="control-label required">{{'Card Number' |
-                                    translate}}</label>
+                             
                               <app-field-error-display [displayError]="f.cardnumber.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Card Number' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('cardname')<0" class="  p-col-12 p-md-12">
-                              <label for="cardname" class="control-label required">{{'Card Name' | translate}}</label>
+                        <div *ngIf="hidelist.indexOf('cardname')<0" class="titleText col-3">
+                              <label for="cardname" class="commonlabel control-label required">{{'Card Name' | translate}}</label>
 
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.cardname?.value}}</label>
-                              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
+                              <!-- <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
                                     id="cardname" required pTooltip="{{'Enter' | translate}} {{'cardname' | translate}}"
                                     formControlName="cardname" [rows]="5" [cols]="200" pInputTextarea
                                     autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
-</textarea>
+</textarea> -->
+<input type="text" pInputText *ngIf="!showview" id="cardname" required
+                                    pTooltip="{{'Enter' | translate}} {{'cardname' | translate}}"
+                                    formControlName="cardname" class="  p-form-control p-inputtext-sm p-field">
+                            
                               <app-field-error-display [displayError]="f.cardname.errors?.required"
                                     errorMsg="{{'Enter'| translate}} {{'Card Name' | translate}}">
                               </app-field-error-display>
                         </div>
-                        <div *ngIf="hidelist.indexOf('expirydate')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('expirydate')<0" class="titleText col-3">
+                              <label for="expirydate"
+                              class="commonlabel control-label">{{'Expiry Date' | translate}}</label>
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.expirydate?.value)}}</label>
                               <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview"
                                     dateFormat="d/M/y" class="p-form-control p-inputtext-sm p-field"
                                     pTooltip="{{'Select' | translate}} {{'expirydate' | translate}}"
-                                    formControlName="expirydate"></p-calendar><label for="expirydate"
-                                    class="control-label">{{'Expiry Date' | translate}}</label>
+                                    formControlName="expirydate"></p-calendar>
+                                    
                         </div>
-                        <div *ngIf="hidelist.indexOf('bankname')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                        <div *ngIf="hidelist.indexOf('bankname')<0" class="titleText col-3">
+                              <label for="bankname" class="commonlabel control-label">{{'Bank Name' | translate}}</label>
+                     
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.bankname?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="bankname"
                                     pTooltip="{{'Enter' | translate}} {{'bankname' | translate}}"
                                     formControlName="bankname" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="bankname" class="control-label">{{'Bank Name' | translate}}</label>
-                        </div>
-                        <div *ngIf="hidelist.indexOf('ibannumber')<0" class="  p-float-label  p-col-12 p-md-3">
-
+                                 </div>
+                        <div *ngIf="hidelist.indexOf('ibannumber')<0" class="titleText col-3">
+                              <label for="ibannumber" class="commonlabel control-label">{{'I B A N Number' | translate}}</label>
+                
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.ibannumber?.value}}</label>
                               <input type="text" pInputText *ngIf="!showview" id="ibannumber"
                                     pTooltip="{{'Enter' | translate}} {{'ibannumber' | translate}}"
                                     formControlName="ibannumber" class="  p-form-control p-inputtext-sm p-field">
-                              <label for="ibannumber" class="control-label">{{'I B A N Number' | translate}}</label>
-                        </div>
+                                      </div>
                   </div>
                   <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up">
                   </p-scrollTop>

@@ -56,6 +56,7 @@ import { DynamicFormBuilderComponent } from '../dynamic-form-builder/dynamic-for
 
 
 export class boworkflowComponent implements OnInit {
+    action:any;
     blockedDocument: boolean = false;
     formData: boworkflow;
     list: boworkflow[];

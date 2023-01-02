@@ -77,7 +77,7 @@ export class initiatorrecipientprivateComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
+    action:any;
     bfilterPopulate_initiatorrecipientprivates: boolean = false;
     initiatorrecipientprivate_menuactions: any = []
 
@@ -124,7 +124,7 @@ export class initiatorrecipientprivateComponent implements OnInit {
         public dialog: DialogService,
         private initiatorrecipientprivate_service: initiatorrecipientprivateService,
         private fb: FormBuilder,
-        private sharedService: SharedService,
+        public sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
@@ -418,9 +418,9 @@ export class initiatorrecipientprivateComponent implements OnInit {
 
         }
     }
+    onCopyRecursive(){}
 
-
-
+    onChangeAction(){}
 
     resetForm() {
         this.formid = "";
@@ -767,6 +767,13 @@ export class initiatorrecipientprivateComponent implements OnInit {
             this.blockedDocument = false;
             this.initiatorrecipientprivate_Form.markAsUntouched();
             this.initiatorrecipientprivate_Form.markAsPristine();
+            if(bclear == true){
+              
+                this.router.navigateByUrl['home/boreportviewer/priv'];
+                this.router.navigate(['home/' + 'boreportviewer' + '/' + 'priv' ]);
+            }else if(bclear == false){
+                this.clearList();
+            }
             return new Promise(resolve => {
                 resolve(res);
             });
@@ -783,6 +790,8 @@ export class initiatorrecipientprivateComponent implements OnInit {
 
     //dropdown edit from the screen itself -> One screen like Reportviewer
     clearList() {
+        this.resetForm();
+        this.initiatorrecipientprivate_Form.reset() ;
     }
 
 

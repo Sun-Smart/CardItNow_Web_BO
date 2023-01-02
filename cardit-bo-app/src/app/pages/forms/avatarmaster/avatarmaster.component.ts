@@ -2,9 +2,11 @@ import { avatarmasterService } from './../../../service/avatarmaster.service';
 import { avatarmaster } from './../../../model/avatarmaster.model';
 import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
 import { ToastService } from '../../../pages/core/services/toast.service';
+import {ToastModule} from 'primeng/toast';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+
 import { ReportViewerCtrlComponent } from '../../../pages/forms/boreportviewer/reportviewerctrl.component';
 //Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
 
@@ -49,6 +51,7 @@ import { AppConstants, DropDownValues } from '../../../shared/helper';
 
 
 export class avatarmasterComponent implements OnInit {
+    action:any;
     blockedDocument: boolean = false;
     formData: avatarmaster;
     list: avatarmaster[];
@@ -67,6 +70,7 @@ export class avatarmasterComponent implements OnInit {
     pkoptionsEvent: EventEmitter<any> = new EventEmitter<any>();//autocomplete of pk
     toolbarVisible: boolean = true;
     customFieldServiceList: any;
+    @ViewChild('fileUpload') fileUpload: any;
     @ViewChild('panelscroller') private panelscroller: ElementRef;
     CustomFormName: string = "";
     CustomFormField: string = "";
@@ -92,6 +96,7 @@ export class avatarmasterComponent implements OnInit {
 
     sessionData: any;
     sourceKey: any;
+    img: any;
 
 
 
@@ -109,7 +114,7 @@ export class avatarmasterComponent implements OnInit {
         public dialog: DialogService,
         private avatarmaster_service: avatarmasterService,
         private fb: FormBuilder,
-        private sharedService: SharedService,
+        public sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
@@ -145,7 +150,7 @@ export class avatarmasterComponent implements OnInit {
                 avatarid: [null],
                 orderid: [null, Validators.compose([Validators.required,])],
                 avatarname: [null, Validators.compose([Validators.required, Validators.maxLength(100)])],
-                avatarurl: [null, Validators.compose([Validators.required, Validators.maxLength(1000)])],
+                img: [null],
                 status: [null],
                 statusdesc: [null],
             });
@@ -349,6 +354,8 @@ export class avatarmasterComponent implements OnInit {
             this.sharedService.error(e);
         }
     }
+    onCopyRecursive(){}
+    onChangeAction(){}
 
 
 
@@ -379,6 +386,11 @@ export class avatarmasterComponent implements OnInit {
             this.toastr.addSingle("error", "", "select a record");
         }
     }
+    onFileChanged(event) {
+debugger;
+        this.img = event.target.files[0];
+        console.log( this.img )
+      }
     onCopy() {
         this.formid = null;
         this.avatarmaster_Form.patchValue({
@@ -490,6 +502,7 @@ export class avatarmasterComponent implements OnInit {
         } catch (e) {
             this.blockedDocument = false;
             this.sharedService.error(e);
+            
         }
     }
 
@@ -651,17 +664,28 @@ export class avatarmasterComponent implements OnInit {
                 }
                 else {
                     this.FillData(res);
+                  
                 }
             }
             this.blockedDocument = false;
             this.avatarmaster_Form.markAsUntouched();
             this.avatarmaster_Form.markAsPristine();
+            if(bclear == true){
+              
+                this.router.navigateByUrl['/home/boreportviewer/avtar'];
+                this.router.navigate(['home/' + 'boreportviewer' + '/' + 'avtar' ]);
+            }else if(bclear == false){
+                this.clearList();
+            }
+          
             return new Promise(resolve => {
                 resolve(res);
+               
             });
         } catch (e) {
             this.blockedDocument = false;
             this.sharedService.error(e);
+          
         }
 
 

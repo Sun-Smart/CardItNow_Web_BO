@@ -123,6 +123,7 @@ export class SessionService {
         return obj;
     }
     getFormData(body, filearraylist) {
+        debugger;
         //return body;
         const formData = new FormData();
         for (let i = 0; i < filearraylist.length; i++) {

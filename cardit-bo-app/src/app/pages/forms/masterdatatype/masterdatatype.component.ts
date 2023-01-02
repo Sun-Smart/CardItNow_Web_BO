@@ -80,7 +80,7 @@ export class masterdatatypeComponent implements OnInit {
     ShowTableslist: string[] = [];
     data: any;
     maindata: any;
-
+    action:any;
     bfilterPopulate_masterdatatypes: boolean = false;
     bfilterPopulate_masterdatas: boolean = false;
     masterdatatype_menuactions: any = []
@@ -122,7 +122,7 @@ export class masterdatatypeComponent implements OnInit {
         public dialog: DialogService,
         private masterdatatype_service: masterdatatypeService,
         private fb: FormBuilder,
-        private sharedService: SharedService,
+        public sharedService: SharedService,
         private sessionService: SessionService,
         private toastr: ToastService,
         private sanitizer: DomSanitizer,
@@ -337,8 +337,8 @@ export class masterdatatypeComponent implements OnInit {
             this.sharedService.error(e);
         }
     }
-
-
+    onCopyRecursive(){}
+    onChangeAction(){}
 
     resetForm() {
         this.formid = "";
@@ -653,9 +653,17 @@ export class masterdatatypeComponent implements OnInit {
             this.blockedDocument = false;
             this.masterdatatype_Form.markAsUntouched();
             this.masterdatatype_Form.markAsPristine();
+            if(bclear == true){
+              
+                this.router.navigateByUrl['home/boreportviewer/mdt'];
+                this.router.navigate(['home/' + 'boreportviewer' + '/' + 'mdt' ]);
+            }else if(bclear == false){
+                this.clearList();
+            }
             return new Promise(resolve => {
                 resolve(res);
             });
+        
         } catch (e) {
             this.blockedDocument = false;
             this.sharedService.error(e);
@@ -669,9 +677,12 @@ export class masterdatatypeComponent implements OnInit {
 
     //dropdown edit from the screen itself -> One screen like Reportviewer
     clearList() {
+        this.resetForm();
+        this.masterdatatype_Form.reset() ;
     }
 
     AddOrEdit_masterdata(event: any, masterdataid: any, datatypeid: any) {
+        debugger;
         let add = false;
         if (event == null) add = true;
         let childsave = false;

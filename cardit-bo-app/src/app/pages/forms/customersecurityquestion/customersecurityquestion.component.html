@@ -26,7 +26,8 @@
 
         <!--customerid-->
 
-        <div *ngIf="hidelist.indexOf('customerid')<0" class=" p-float-label  p-col-12 p-md-3">
+        <div *ngIf="hidelist.indexOf('customerid')<0" class="titleText col-3">
+          <label for="customerid" class="commonlabel control-label required">{{'Customer' | translate}}</label>
           <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
             class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="customerid"
             pTooltip="{{'Enter' | translate}} {{'customerid' | translate}}" field="label"
@@ -37,7 +38,7 @@
             </ng-template>
           </p-autoComplete>
           <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.customeriddesc?.value}}</label>
-          <label for="customerid" class="control-label required">{{'Customer' | translate}}</label>
+
           <app-field-error-display [displayError]="f.customerid.errors?.required"
             errorMsg="{{'Enter'| translate}} {{'Customer' | translate}}">
           </app-field-error-display>
@@ -46,7 +47,9 @@
 
         <!--questionid-->
 
-        <div *ngIf="hidelist.indexOf('questionid')<0" class=" p-float-label  p-col-12 p-md-3">
+        <div *ngIf="hidelist.indexOf('questionid')<0" class="titleText col-3">
+          <label for="questionid" class="commonlabel control-label" (click)="AddOrEdit_questionid(null)">{{'Question' |
+            translate}}</label>
           <p-autoComplete forceSelection="true" showClear=true *ngIf="!showview"
             class="p-form-control p-inputtext-sm p-field p-inputwrapper-filled" formControlName="questionid"
             pTooltip="{{'Enter' | translate}} {{'questionid' | translate}}" field="label"
@@ -57,26 +60,28 @@
             </ng-template>
           </p-autoComplete>
           <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.questioniddesc?.value}}</label>
-          <label for="questionid" class="control-label" (click)="AddOrEdit_questionid(null)">{{'Question' |
-            translate}}</label>
+          
         </div>
-        <div *ngIf="hidelist.indexOf('answer')<0" class="  p-col-12 p-md-12">
-          <label for="answer" class="control-label">{{'Answer' | translate}}</label>
+        <div *ngIf="hidelist.indexOf('answer')<0" class="titleText  col-3">
+          <label for="answer" class="commonlabel control-label">{{'Answer' | translate}}</label>
 
           <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.answer?.value}}</label>
-          <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="answer"
+          <!-- <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" id="answer"
             pTooltip="{{'Enter' | translate}} {{'answer' | translate}}" formControlName="answer" [rows]="5" [cols]="200"
             pInputTextarea autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
-</textarea>
+</textarea> -->
+<input type="text" pInputText *ngIf="!showview" id="answer"
+            pTooltip="{{'Enter' | translate}} {{'answer' | translate}}" formControlName="answer"
+            class="  p-form-control p-inputtext-sm p-field">
         </div>
-        <div *ngIf="hidelist.indexOf('deletedon')<0" class="  p-float-label  p-col-12 p-md-3">
-
+        <div *ngIf="hidelist.indexOf('deletedon')<0" class="titleText col-3">
+          <label for="deletedon" class="commonlabel control-label">{{'Deleted On' | translate}}</label>
           <label *ngIf="showview"
             class="labelview p-inputwrapper-filled">{{sharedService.getDate(f.deletedon?.value)}}</label>
           <p-calendar [showButtonBar]="true" [defaultDate]="null" appendTo="body" *ngIf="!showview" dateFormat="d/M/y"
             class="p-form-control p-inputtext-sm p-field"
             pTooltip="{{'Select' | translate}} {{'deletedon' | translate}}" formControlName="deletedon"></p-calendar>
-          <label for="deletedon" class="control-label">{{'Deleted On' | translate}}</label>
+          
         </div>
       </div>
       <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
