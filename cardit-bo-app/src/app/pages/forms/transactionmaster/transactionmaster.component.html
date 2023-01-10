@@ -147,13 +147,18 @@
 
                                                             <label *ngIf="showview"
                                                                   class="labelview p-inputwrapper-filled">{{f.recipientname?.value}}</label>
-                                                            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true"
+                                                            <!-- <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true"
                                                                   *ngIf="!showview" id="recipientname" required
                                                                   pTooltip="{{'Enter' | translate}} {{'recipientname' | translate}}"
                                                                   formControlName="recipientname" [rows]="5"
                                                                   [cols]="200" pInputTextarea autoResize="autoResize"
-                                                                  class=" p-field p-inputwrapper-filled p-md-12">
-</textarea>
+                                                                  class=" p-field p-inputwrapper-filled p-md-12"> -->
+                                                                  <input type="text" pInputText *ngIf="!showview"
+                                                                  id="recipientname" required
+                                                                  pTooltip="{{'Enter' | translate}} {{'recipientname' | translate}}"
+                                                                  formControlName="recipientname"
+                                                                  class="  p-form-control p-inputtext-sm p-field">
+<!-- </textarea> -->
                                                             <app-field-error-display
                                                                   [displayError]="f.recipientname.errors?.required"
                                                                   errorMsg="{{'Enter'| translate}} {{'Recipient Name' | translate}}">
@@ -167,13 +172,21 @@
 
                                                             <label *ngIf="showview"
                                                                   class="labelview p-inputwrapper-filled">{{f.documentnumber?.value}}</label>
-                                                            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true"
+                                                            <!-- <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true"
                                                                   *ngIf="!showview" id="documentnumber" required
                                                                   pTooltip="{{'Enter' | translate}} {{'documentnumber' | translate}}"
                                                                   formControlName="documentnumber" [rows]="5"
                                                                   [cols]="200" pInputTextarea autoResize="autoResize"
-                                                                  class=" p-field p-inputwrapper-filled p-md-12">
-</textarea>
+                                                                  class=" p-field p-inputwrapper-filled p-md-12"> -->
+
+
+<!-- </textarea> -->
+
+<input type="text" pInputText *ngIf="!showview"
+id="documentnumber" required
+pTooltip="{{'Enter' | translate}} {{'documentnumber' | translate}}"
+formControlName="documentnumber"
+class="  p-form-control p-inputtext-sm p-field">
                                                             <app-field-error-display
                                                                   [displayError]="f.documentnumber.errors?.required"
                                                                   errorMsg="{{'Enter'| translate}} {{'Document Number' | translate}}">
@@ -187,14 +200,20 @@
 
                                                             <label *ngIf="showview"
                                                                   class="labelview p-inputwrapper-filled">{{f.additionaldocumentnumber?.value}}</label>
-                                                            <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true"
+                                                            <!-- <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true"
                                                                   *ngIf="!showview" id="additionaldocumentnumber"
                                                                   required
                                                                   pTooltip="{{'Enter' | translate}} {{'additionaldocumentnumber' | translate}}"
                                                                   formControlName="additionaldocumentnumber" [rows]="5"
                                                                   [cols]="200" pInputTextarea autoResize="autoResize"
                                                                   class=" p-field p-inputwrapper-filled p-md-12">
-</textarea>
+</textarea> -->
+<input type="text" pInputText *ngIf="!showview"
+id="additionaldocumentnumber" required
+pTooltip="{{'Enter' | translate}} {{'additionaldocumentnumber' | translate}}"
+formControlName="additionaldocumentnumber"
+class="  p-form-control p-inputtext-sm p-field">
+
                                                             <app-field-error-display
                                                                   [displayError]="f.additionaldocumentnumber.errors?.required"
                                                                   errorMsg="{{'Enter'| translate}} {{'Additional Document Number' | translate}}">

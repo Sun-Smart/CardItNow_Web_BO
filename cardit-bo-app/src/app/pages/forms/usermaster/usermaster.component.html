@@ -93,11 +93,16 @@ class="  p-form-control p-inputtext-sm p-field">
                   <div *ngIf="hidelist.indexOf('mobile')<0" class="titleText col-3">
                     <label for="mobile" class="commonlabel control-label required">{{'Mobile' | translate}}</label>
                     <label *ngIf="showview" class="labelview p-inputwrapper-filled">{{f.mobile?.value}}</label>
-                    <int-phone-prefix *ngIf="!showview" id="mobile" required
+                    
+                    <input type="number" pInputText *ngIf="!showview" id="mobile"
+                    pTooltip="{{'Enter' | translate}} {{'mobile' | translate}}" formControlName="mobile"
+                    class="  p-form-control p-inputtext-sm p-field">
+                    
+                    <!-- <int-phone-prefix *ngIf="!showview" id="mobile" required
                       pTooltip="{{'Enter' | translate}} {{'mobile' | translate}}" formControlName="mobile"
                       [locale]="'en'" [defaultCountry]="'ae'"
                       class="  p-form-control phone p-inputtext-sm  telephone p-filled ">
-                    </int-phone-prefix>
+                    </int-phone-prefix> -->
                    
                     <app-field-error-display
                       [displayError]="f.mobile.errors!=null && f.mobile.errors?.pattern!=null && f.mobile.errors!=undefined && f.mobile.errors.pattern!=undefined  && (f.mobile.touched|| isSubmitted)"

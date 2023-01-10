@@ -1,74 +1,123 @@
-<ng-container>
-    <p-fileUpload #fileInput name="files" multiple="multiple" accept="image/*" showUploadButton="false"
-        (onSelect)="addFiles($event)"></p-fileUpload>
-</ng-container>
-<ng-container>
-    <form [formGroup]="attachmentForm">
-        <div class="container">
+<form  [formGroup]="attachmentForm">
+    <div class="container">
+    <div class="row">
+    <div ng2FileDrop
+         [ngClass]="{'another-file-over-class': hasAnotherDropZoneOver}"
+         (fileOver)="fileOverAnother($event)"
+         (uploader)="uploader"
+          (onFileDrop)="onFileSelected($event)"
+         class="well my-drop-zone">
+    </div>
 
+    <!--Multiple-->
+    <ng-container *ngIf='isAttachment'>
+    <div class="col-4">
+    Category <label style="color: red;">*</label><br/><select (click)="show()" id="category" formControlName="category" class="form-control">
+    <option  [ngValue]="null" [disabled]="true" selected>-Select-</option>
+    <!-- <option value="W">Work</option>
+    <option value="L">Work Links</option>
+    <option value="A">Appreciations</option>
+    <option value="S">Social Media</option>
+    <option value="I">Images</option> -->
+    <option value="W">Work Experience</option>
+    <option value="L">Degree Certificates</option>
+    <option value="A">Course Certification</option>
+    <option value="S">Documents</option>
+    <option value="I">Others</option>
+    </select>
+    <div *ngIf="attachmentForm.controls['category'].invalid && attachmentForm.controls['category'].touched" >
+     <div *ngIf="attachmentForm.controls['category'].errors.required">
+     <label style="color: red;"> Category is required.</label>
+   </div>
+ </div>
+    </div>
+    <div class="col-4">
+    <div>
+      Description <label style="color: red;">*</label>
+    <br/> <input  id="description" (click)="show()" formControlName="description" class="form-control" placeholder="Enter attachment description">
+    <div *ngIf="attachmentForm.controls['description'].invalid && attachmentForm.controls['description'].touched" >
+    <div *ngIf="attachmentForm.controls['description'].errors.required">
+    <label style="color: red;">Description is required.</label>
+  </div>
+</div>
+    </div>
+    </div>
+    <div class="col-4">
+    URL <br/><input  id="url" (click)="show()" formControlName="url" [(ngModel)]="url" style="margin-top: 7px;" class="form-control">
+    </div>
+    <!--<div>
+    Select <br/><input type="file" style="margin-top: 8px;" #myImageInput formControlName="ImageName"  appImgCompressor  [uploader]="uploader" multiple  (onFileSelected)="onFileSelected($event)" class="" />
+    </div>
+    <div class="col">
+    <a [routerLink]='' (click)="test(attachmentForm)" *ngIf="showplus==true"><i style="color:black !important; font-size: 20px; position: absolute;
+    margin-top: 27px;" class="fa fa-plus"></i></a>
+    </div>-->
+    
+    </ng-container>
 
+    <div class="col-5" style="display: flex; top:8px;">
+    Select
+     <!-- <input type="file"  appImgCompressor  [uploader]="uploader" multiple  (onFileSelected)="onFileSelected($event)" class="" /> -->
+     <input type="file" style="margin: 2rem -2rem 0rem -2.5rem;;" #myImageInput formControlName="ImageName"  appImgCompressor  (uploader)="uploader" multiple  (onFileSelected)="onFileSelected($event)" class="" />
+    
+     <a [routerLink]='' (click)="test(attachmentForm)" *ngIf="showplus"><i style="color:black !important; font-size: 20px; position: absolute;
+        margin: 2.3rem 6rem;
+" class="fa fa-plus-circle"></i></a>
+    
+    </div>
 
+    <!-- <div class="col-5">
+ 
+    </div> -->
+   
+    
 
-            <div class="p-grid row">
+    <div class="col-2">
+    <!-- <div  *ngIf="!isAttachment && src!=null && src!=undefined"><img [src]="src" style="width:200px;height:200px"></div> -->
+    </div>
+</div>
 
+        <div class="row" style="margin-bottom: 40px" *ngIf="isAttachment">
 
-
-                <!--Multiple-->
-                <div *ngIf='isAttachment' class="p-col-12 p-md-3 p-float-label">
-                    <input id="description" formControlName="description" class="form-control"
-                        placeholder="Enter attachment description">
-                    <label for="description"></label>
-                </div>
-                <div class="p-col-12 p-md-5">
-                    <input type="file" appImgCompressor (uploader)="uploader" multiple
-                        (onFileSelected)="onFileSelected($event)" />
-                    <div ng2FileDrop [ngClass]="{'another-file-over-class': hasAnotherDropZoneOver}"
-                        (fileOver)="fileOverAnother($event)" (uploader)="uploader" (onFileDrop)="onFileSelected($event)"
-                        class="well my-drop-zone">
-                    </div>
-                    <div class="p-col" *ngIf="!isAttachment && uploadedFiles.length>0"><img
-                            [src]="AttachmentURL+uploadedFiles[uploadedFiles.length-1].filekey"
-                            style="width:200px;height:200px"></div>
-
-
-                </div>
-            </div>
-
-            <div class="row" style="margin-bottom: 40px" *ngIf="isAttachment">
-
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th width="50%">Name</th>
-                            <th>Size</th>
-                            <th *ngFor="let attachmentfield of attachmentfields">
-                                {{attachmentfield.label}}
-                            </th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let uploadedfile of attachedfiles">
-                            <td>{{uploadedfile.desc}}</td>
-                            <td><a [routerLink]=''
-                                    (click)="geturl(uploadedfile.filekey,uploadedfile.type)">{{uploadedfile.name}}</a>
-                            </td>
-                            <!--<td *ngFor="let attachmentfield of attachmentfields">
+            <table class="table" style="
+            max-width: 100%;
+            overflow-x: scroll;">
+                <thead>
+                <tr>
+                <th>Category</th>
+                <th>Description</th>
+                <th>URL</th>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th *ngFor="let attachmentfield of attachmentfields">
+                        {{attachmentfield.label}}
+                    </th>
+                    <th><i class='fa fa-thumbs-up'></i></th>
+                    <th *ngIf='showremove' >&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr  *ngFor="let uploadedfile of attachedfiles">
+                <td>{{getCategoryDescription(uploadedfile.category)}}</td>
+                <td>{{uploadedfile.desc}}</td>
+                <td>   <a href="https://{{uploadedfile.certificationurl}}" target="_blank">{{uploadedfile.certificationurl}}</a></td>
+                
+                <td><a href="javascript:void(0);" (click)="geturl(uploadedfile,uploadedfile.filekey,uploadedfile.type)" >{{uploadedfile.name}}</a></td>
+                <!--<td *ngFor="let attachmentfield of attachmentfields">
                     {{uploadedfile[attachmentfield.label + uploadedfile.Key]}}
                 </td>-->
-                            <td>{{uploadedfile.size}} bytes</td>
-                            <td><button type="button" class="btn btn-danger btn-xs p-button-icon pi pi-times"
-                                    (click)="delete(uploadedfile.filekey)"> <span
-                                        class="glyphicon glyphicon-trash"></span></button></td>
+                <td>{{uploadedfile.size}} bytes</td>
+                <th><i class='fa fa-thumbs-up backcolor' (click)='updateRatings(uploadedfile)'>&nbsp;{{uploadedfile.ratings}}</i>&nbsp;&nbsp;<i class='fa fa-eye backcolor'>&nbsp;{{uploadedfile.views}}</i>&nbsp;&nbsp;<i class='fa fa-comment backcolor'  (click)='opencomment(uploadedfile)'>&nbsp;{{getCount(uploadedfile.comments)}}</i></th>
+                <td *ngIf='showremove' ><button type="button" class="btn btn-danger btn-xs"
+                (click)="delete(uploadedfile.filekey)"> <span class="glyphicon glyphicon-trash"></span> Remove </button></td>
 
-                        </tr>
+                </tr>
 
-                    </tbody>
-                </table>
-
-            </div>
+                </tbody>
+            </table>
 
         </div>
 
+    </div>
+
     </form>
-</ng-container>

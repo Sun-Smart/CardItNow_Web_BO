@@ -166,7 +166,7 @@ export class usermasterComponent implements OnInit {
                 roleiddesc: [null],
                 email: [null, Validators.compose([Validators.required, Validators.maxLength(200)])],
                 emailpassword: [null, Validators.compose([Validators.maxLength(100)])],
-                mobile: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]+([0-9]{0,})?$'), Validators.max(100000000),])],
+                mobile: [null,Validators.compose([Validators.required, Validators.pattern('^[0-9]+([0-9]{0,})?$'),Validators.maxLength(13)])],
                 basegeoid: [null, Validators.compose([Validators.required,])],
                 basegeoiddesc: [null],
                 status: [null],
@@ -636,6 +636,7 @@ export class usermasterComponent implements OnInit {
 
     GetFormValues() {
         let formData: any;
+        
         formData = this.usermaster_Form.getRawValue();
         formData.roleid = (this.usermaster_Form.get('roleid'))?.value?.value;
         formData.basegeoid = (this.usermaster_Form.get('basegeoid'))?.value?.value;
@@ -679,8 +680,10 @@ export class usermasterComponent implements OnInit {
 
 
     async onSubmitData(bclear: any): Promise<any> {
+        debugger
         try {
             //debugger;
+         this.formData.mobile=this.formData.mobile; 
             this.SetFormValues();
             this.isSubmitted = true;
             let strError = "";

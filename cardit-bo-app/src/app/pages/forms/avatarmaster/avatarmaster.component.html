@@ -47,6 +47,7 @@
                                     errorMsg="{{'Enter'| translate}} {{'Avatar Name' | translate}}">
                               </app-field-error-display>
                         </div>
+               
                         <!-- <div class="col-1"></div> -->
                         <!-- <div class="col-6 ">
                               <label for="profilephoto" class="control-label">Photo</label>
@@ -56,14 +57,25 @@
                               <a [routerLink]='' 
                                 ></a>
                             </div> --> 
-                        <div class="col-3">
+                        <!-- <div class="col-3">
                               <label for="imagefile" class="control-label required">{{'Image Upload' |
                                     translate}}</label>
                                     <input style="
                                     height: 30px !important;
                                 " class="form-control" type="file" id="formFile" (change)="onFileChanged($event)">
                         
-                        </div>
+                        </div> -->
+
+                        <div
+                        style='' class="col-6 ">
+                        <label for="profilephoto" class="control-label">Photo</label>
+                        <label *ngIf="showview" class="labelview">{{f.profilephoto?.value[0]?.name}}</label>
+                        <app-attachment #profilephoto formControlName="profilephoto" [showremove]='bmyrecord'
+                          [SessionData]="sessionData"></app-attachment>
+                        <button type="button" class="btn" *ngIf="profilephoto.getAttachmentList().length > 0"
+                          (click)="getprofilephoto()">Open File</button>
+                      </div>
+
                         <!-- <div class="row"> -->
                               <!-- <div *ngIf="hidelist.indexOf('avatarurl')<0" style="margin-left: 10px;" class="col-6">
                                     <label for="avatarurl" class="control-label required">{{'Avatar U R L' |

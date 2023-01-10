@@ -489,10 +489,10 @@ export class customerdetailComponent implements OnInit {
 
     getlivestockphoto() {
         //debugger;
-        if (this.livestockphoto?.getAttachmentList()?.length > 0) {
-            let file = this.livestockphoto.getAttachmentList()[0];
-            this.sharedService.geturl(file.filekey, file.type);
-        }
+        // if (this.livestockphoto?.getAttachmentList()?.length > 0) {
+        //     let file = this.livestockphoto.getAttachmentList()[0];
+        //     this.sharedService.geturl(file.filekey, file.type);
+        // }
     }
 
     onCopyRecursive(){}

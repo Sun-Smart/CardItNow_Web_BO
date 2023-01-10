@@ -40,6 +40,7 @@ import { SessionService } from '../../../pages/core/services/session.service';
 import { ThemeService } from '../../../pages/core/services/theme.service';
 //custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../shared/helper';
+import { AttachmentComponent } from 'src/app/custom/attachment/attachment.component';
 
 @Component({
     selector: 'app-avatarmaster',
@@ -92,6 +93,7 @@ export class avatarmasterComponent implements OnInit {
     showFormType: any;
     formid: any;
     pkcol: any;
+    @ViewChild('profilephoto', { static: false }) profilephoto: AttachmentComponent;
     SESSIONUSERID: any;//current user
 
     sessionData: any;
@@ -151,6 +153,7 @@ export class avatarmasterComponent implements OnInit {
                 orderid: [null, Validators.compose([Validators.required,])],
                 avatarname: [null, Validators.compose([Validators.required, Validators.maxLength(100)])],
                 img: [null],
+                profilephoto: [null],
                 status: [null],
                 statusdesc: [null],
             });
@@ -179,6 +182,22 @@ export class avatarmasterComponent implements OnInit {
             }
         }
         return Observable.of(true);
+    }
+
+    getprofilephoto() {
+        //debugger;;
+        if (this.profilephoto.getAttachmentList().length > 0) {
+            let file = this.profilephoto.getAttachmentList()[0];
+            this.sharedService.geturl(file.filekey, file.type);
+        }
+    }
+
+    edit_mstapplicantmasters() {
+        this.showview = false;
+        setTimeout(() => {
+            if (this.profilephoto != null && this.profilephoto != undefined) this.profilephoto.setattachmentlist(this.avatarmaster_Form.get('profilephoto').value);
+        });
+        return false;
     }
 
     //check Unique fields
@@ -524,8 +543,11 @@ debugger;
                 avatarurl: res.avatarmaster.avatarurl,
                 status: res.avatarmaster.status,
                 statusdesc: res.avatarmaster.statusdesc,
+                profilephoto: JSON.parse(res.avatarmaster.profilephoto),
             });
             this.avatarmaster_menuactions = res.avatarmaster_menuactions;
+            if (this.avatarmaster_Form.get('profilephoto').value != null && this.avatarmaster_Form.get('profilephoto').value != "" && this.profilephoto != null && this.profilephoto != undefined) this.profilephoto.setattachmentlist(this.avatarmaster_Form.get('profilephoto').value);
+
             //Child Tables if any
             setTimeout(() => {
             });
@@ -548,6 +570,9 @@ debugger;
             let val = this.avatarmaster_Form.controls[key].value;
             if (val == 'null' || val == null || val == undefined) val = '';
             if (this.avatarmaster_Form.controls[key] != null) {
+                if (key == "profilephoto") {
+                    if (this.formData != null && this.formData[key] != null && this.formData[key] != '[]' && this.formData[key] != undefined && this.formData[key].length > 0) ret = ret.replace(new RegExp('##' + key + '##', 'g'), AppConstants.AttachmentURL + JSON.parse(this.formData[key])[0]["name"]);
+                }
                 if (false) {
                     if (this.formData != null && this.formData[key] != null && this.formData[key] != '[]' && this.formData[key] != undefined && this.formData[key].length > 0) ret = ret.replace(new RegExp('##' + key + '##', 'g'), AppConstants.AttachmentURL + this.sharedService.JSON_parse(this.formData[key])[0]["name"]);
                 }
@@ -592,6 +617,8 @@ debugger;
             return;
         }
         var obj = this.GetFormValues();
+        if (this.profilephoto.getAttachmentList() != null) obj.profilephoto = JSON.stringify(this.profilephoto.getAttachmentList());
+        await this.sharedService.upload(this.profilephoto.getAllFiles());
         console.log(obj);
         this.objvalues.push(obj);
         this.dialogRef.close(this.objvalues);
@@ -613,6 +640,7 @@ debugger;
 
 
     async onSubmitData(bclear: any): Promise<any> {
+        debugger;
         try {
             //debugger;
             this.SetFormValues();
@@ -636,11 +664,23 @@ debugger;
             if (!this.validate()) {
                 return;
             }
-            this.formData = this.GetFormValues();
+            this.formData = this.avatarmaster_Form.getRawValue();
+            if (this.dynamicconfig.data != null) {
+                for (let key in this.dynamicconfig.data) {
+                    if (key != 'visiblelist' && key != 'hidelist') {
+                        if (this.avatarmaster_Form.controls[key] != null) {
+                            this.formData[key] = this.avatarmaster_Form.controls[key].value;
+                        }
+                    }
+                }
+            }
             console.log(this.formData);
             this.blockedDocument = true;
+            if (this.profilephoto.getAttachmentList() != null) this.formData.profilephoto = JSON.stringify(this.profilephoto.getAttachmentList());
+
             let res = await this.avatarmaster_service.save_avatarmasters(this.formData);
             this.blockedDocument = false;
+            await this.sharedService.upload(this.profilephoto.getAllFiles());
             //debugger;
             this.toastr.addSingle("success", "", "Successfully saved");
             this.objvalues.push((res as any).avatarmaster);

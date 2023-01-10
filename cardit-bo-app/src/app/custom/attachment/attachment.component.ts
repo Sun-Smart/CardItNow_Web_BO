@@ -1,4 +1,4 @@
-import { Component, forwardRef, ViewChild, Input, HostListener, EventEmitter, OnInit, AfterViewInit, AfterContentInit, OnDestroy, } from '@angular/core';
+import { Component, forwardRef, ViewChild, Input, HostListener, EventEmitter, OnInit, AfterViewInit, AfterContentInit, OnDestroy, ElementRef, } from '@angular/core';
 import { BlockableUI } from 'primeng/api';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { FileUpload } from 'primeng/fileupload';
@@ -17,6 +17,8 @@ import * as JSZip from 'jszip';
 import { Guid } from "guid-typescript";
 import { DialogService } from 'primeng/dynamicdialog';
 import { openfileComponent } from '../openfile.component';
+import { opencommentComponent } from '../opencomment.component';
+import { SessionService } from 'src/app/pages/core/services/session.service';
 
 function readBase64(file): Promise<any> {
     var reader = new FileReader();
@@ -54,11 +56,7 @@ const URL = AppConstants.UploadURL;
     }]
 })
 export class AttachmentComponent implements ControlValueAccessor {
-
-    //,OnInit,AfterViewInit,AfterContentInit,OnInit,OnDestroy,BlockableUI 
-    //UIDesign="primeNG";
-    @ViewChild('fileInput') fileInput: FileUpload;
-    fileAttachmentList: any[] = [];
+    showplus: boolean = false;
 
     onChange: Function;
 
@@ -67,7 +65,7 @@ export class AttachmentComponent implements ControlValueAccessor {
 
     @Input() SessionData: any;
     @Input() isAttachment: boolean = false;
-
+    @Input() showremove: boolean = true;
 
     @ViewChild('fileUpload', { static: false }) fileUpload: FileUpload;
 
@@ -75,7 +73,7 @@ export class AttachmentComponent implements ControlValueAccessor {
     color: string = "#30e4c3";
     _value: any;
     src: any;
-    public uploadedFiles: any[] = [];
+    private uploadedFiles: any[] = [];
     private attachedfiles: any[] = [];
     private AllFiles: any[] = [];
     readonly URL = AppConstants.UploadURL;
@@ -85,7 +83,7 @@ export class AttachmentComponent implements ControlValueAccessor {
     public attachmentfieldlist: any = { "fields": this.attachmentfields };
     bshowcolor: boolean = false;
     bshowcamera: boolean = false;
-
+    @ViewChild('myImageInput') myInputVariable: ElementRef;
     // toggle webcam on/off
     private showWebcamImage = false;
     private showWebcam = false;
@@ -113,16 +111,8 @@ export class AttachmentComponent implements ControlValueAccessor {
     public hasAnotherDropZoneOver: boolean = false;
 
     fileObject: any;
-
-    ngOnInit() {
-
-    }
-
-    addFiles(event) {
-        //debugger;
-        this.attachedfiles = event.currentFiles;
-        console.log(this.attachedfiles)
-    }
+    showview: any;
+    setpage: any;
 
 
     public fileOverBase(e: any): void {
@@ -135,29 +125,153 @@ export class AttachmentComponent implements ControlValueAccessor {
 
     public async onFileSelected(event: EventEmitter<File[]>) {
 
-        return this.onFileSelect(event);
 
-        for (let i = 0; i < event.length; i++) {
-            const file: File = event[i];
 
-            debugger;
+
+        localStorage.removeItem("attachedsaved")
+        this.showplus = !this.showplus;
+
+     this.setpage=localStorage.getItem("choosefileforprofile")
+     if(this.setpage=="ok"){
+    
+
+      const file: File = event[0];
+
+      //debugger;
+      this.onFileSelect(event);
+
+      this.src = await readBase64(file)
+          .then(function (data) {
+              return data;
+          })
+     this.showplus=false
+
+     }
+     else
+     {
+          if(!this.attachmentForm.valid){
+            alert("Enter the required fields")
+            this.attachmentForm.reset();
+            this.myInputVariable.nativeElement.value = "";
+          }
+          else{
+            const file: File = event[0];
+
+            //debugger;
             this.onFileSelect(event);
+
             this.src = await readBase64(file)
                 .then(function (data) {
                     return data;
+
                 })
-        }
+                this.attachmentForm.reset();
+          }
+          this.attachmentForm.reset();
+
+
+
+
+
+
+
+
+     }
+
+
+
+
+
+
+
+
+
+
+
+
+        // localStorage.removeItem("attachedsaved")
+        // this.showplus = !this.showplus;
+        // if(!this.attachmentForm.valid){
+        //     alert("Enter the required fields")
+        //     this.attachmentForm.reset();
+        //     this.myInputVariable.nativeElement.value = "";
+          
+        //   }
+        //   else{
+        //     const file: File = event[0];
+          
+        //     //debugger;
+        //     this.onFileSelect(event);
+          
+        //     this.src = await readBase64(file)
+        //         .then(function (data) {
+        //             return data;
+          
+        //         })
+        //         this.attachmentForm.reset();
+        //   }
+        //   this.attachmentForm.reset();
+        // // const file: File = event[0];
+
+        // // //debugger;
+        // // this.onFileSelect(event);
+
+        // // this.src = await readBase64(file)
+        // //     .then(function (data) {
+        // //         return data;
+        // //     })
+
+
     }
 
-    constructor(private fb: FormBuilder, public sharedService: SharedService, public dialog: DialogService) {
+    constructor(private fb: FormBuilder, private sharedService: SharedService, public dialog: DialogService, public sessionService: SessionService) {
         ////debugger;
         this.attachmentForm = this.fb.group({
-            description: [null],
+            // category: ['', Validators.required],
+            // description: ['', Validators.required],
+            category: [null, Validators.compose([Validators.required])],
+            description: [null, Validators.compose([Validators.required])],
             color: [null],
-            ImageName: [null]
+            ImageName: [null],
+            // url: ['', Validators.required]
+            // category: [null],
+            // description: [null],
+            // color: [null],
+            // ImageName: [null],
+            url:[null]
         });
     }
+    getCount(e) {
+        if (e != undefined && e != null && e != "") {
+            //debugger;
+            // console.log(e);
+            // console.log(JSON.parse(e))
+            return JSON.parse(e).length;
+        }
 
+    }
+    show() {
+        this.myInputVariable.nativeElement.value = "";
+        this.showplus = true;
+    }
+    test(form) {
+        console.log(form.value);
+        if (this.attachmentForm.valid) {
+            this.attachedfiles.push(form.value);
+            for (let i = 0; i < this.attachedfiles.length; i++) {
+                this.attachedfiles[i]['certificationurl'] = this.attachedfiles[i].url;
+                this.attachedfiles[i]['desc'] = this.attachedfiles[i].description;
+            }
+            this.attachmentForm.reset();
+            this.myInputVariable.nativeElement.value = "";
+        } else {
+            alert("Enter the required fields");
+            this.attachmentForm.reset();
+            this.myInputVariable.nativeElement.value = "";
+        }
+
+
+    }
     upload() {
         ////debugger;
         //this.fileUpload.upload();
@@ -194,14 +308,50 @@ export class AttachmentComponent implements ControlValueAccessor {
         if (val == "Color") this.bshowcolor = !this.bshowcolor;
         if (val == "Camera") this.bshowcamera = !this.bshowcamera;
     }
-    geturl(filename: string, filetype: string) {
+    opencomment(e) {
         //debugger;
-        this.dialog.open(openfileComponent,
+        this.dialog.open(opencommentComponent,
             {
-                data: { url: AppConstants.AttachmentURL + filename, ScreenType: 2 },
-                header: filename
+                data: { comments: e.comments, ScreenType: 2 },
+                header: "Comments"
             }
+        ).onClose.subscribe(res => {
+            if (res != undefined) this.attachedfiles[this.attachedfiles.findIndex(x => x.Key === e.Key)].comments = res;
+        }); 
+    }
+    geturl(e, filename: string, filetype: string) {
+      
+        this.showview = this.sessionService.getItem("attachedsaved");
+        if (this.showview=="true"){
+      console.log(e, filename, filetype);
+      this.attachedfiles[this.attachedfiles.findIndex(x => x.Key === e.Key)].views += 1;
+      this.dialog.open(openfileComponent,
+        {
+            data: { url: AppConstants.AttachmentURL + filename, ScreenType: 2 },
+            header: filename
+        }
         );
+          }
+          else{
+           alert("View the file once you submit")
+            return
+          }
+      
+      
+        //old
+        //debugger;
+        // console.log(e, filename, filetype);
+
+        // this.attachedfiles[this.attachedfiles.findIndex(x => x.Key === e.Key)].views += 1;
+        // this.dialog.open(openfileComponent,
+        //     {
+        //         data: { url: AppConstants.AttachmentURL + filename, ScreenType: 2 },
+        //         header: filename
+        //     }
+        // );
+
+//end
+
         //window.open(AppConstants.AttachmentURL + filename);
         return;
         fetch(AppConstants.AttachmentURL + filename)
@@ -253,12 +403,10 @@ export class AttachmentComponent implements ControlValueAccessor {
     }
     getLength() {
         ////debugger;
-        if (this.attachedfiles == undefined || this.attachedfiles == null) this.attachedfiles = [];
         return this.attachedfiles?.length;
     }
     getAllFiles() {
         ////debugger;
-        if (this.AllFiles == undefined || this.AllFiles == null) this.AllFiles = [];
         return this.AllFiles;
     }
     setattachmentlist(files) {
@@ -267,38 +415,40 @@ export class AttachmentComponent implements ControlValueAccessor {
 
     }
     getattachmentlist() {
-        if (this.attachedfiles == undefined || this.attachedfiles == null) this.attachedfiles = [];
         return this.attachedfiles;
     }
     getAttachmentList() {
-        if (this.attachedfiles == undefined || this.attachedfiles == null) this.attachedfiles = [];
         return this.attachedfiles;
     }
     async onFileSelect(e: any) {
-        debugger;
+        
+        ////debugger;
         //this.attachedfiles = [];
+        if (!this.isAttachment) {
+            this.uploadedFiles = [];
+            this.attachedfiles = [];
+        }
+
         for (let i = 0; i < e.length; i++) {
             let max = 0;
             let attachmentobj = null;
             if (this.attachedfiles == null) this.attachedfiles = [];
             max = Array.of(this.uploadedFiles).length + Array.of(this.attachedfiles).length;
-            let key = new Date().toLocaleString().replace(/ /g, '_').replace(/\//g, '_').replace(/:/g, '_');
 
-            debugger;
-            e[i].filekey = key + e[i].name;
+
 
             //this.fileattachmentlist.push(e.files[i]);
             //this.AllFiles.push(e[i]);
             /*const jszip = new JSZip();
-            
-                
+
+
                 let reader = new FileReader();
                 let content;
- 
+
                 let filename=e[i].name;
                 let filekey=Guid.create() + ".zip"; //e[i].name.split('.')[0]
                     let filetype=e[i].type;
-                    
+
                     jszip.file(filename,e[i]);
                     let objFile=await  jszip.generateAsync({type:"blob",compression: "DEFLATE",compressionOptions: {level: 9}}).then(function(blob) {
                           return blob;
@@ -309,8 +459,9 @@ export class AttachmentComponent implements ControlValueAccessor {
 
 
             let description = this.attachmentForm.get('description').value;
-
-            attachmentobj = { Key: (this.attachedfiles.length + 1 + max).toString(), name: e[i].name, size: e[i].size, type: e[i].type, username: this.SessionData.username, uploadeddate: this.getCurrentDate(), desc: description, color: this.color, filekey: e[i].filekey };
+            let category = this.attachmentForm.get('category').value;
+            let url = this.attachmentForm.get('url').value;
+            attachmentobj = { Key: (this.attachedfiles.length + 1 + max).toString(), name: e[i].name, size: e[i].size, type: e[i].type, username: this.SessionData.username, uploadeddate: this.getCurrentDate(), desc: description, category: category, certificationurl: url, ratings: 0, views: 0, comments: '', color: this.color, filekey: e[i].name };
 
 
             this.attachmentfields.forEach((attachmentfield) => {
@@ -329,7 +480,9 @@ export class AttachmentComponent implements ControlValueAccessor {
             //this.attachmentForm.patchValue({ description: "" });
         }
         this.attachmentForm.patchValue({
-            description: [null]
+            category: [null],
+            description: [null],
+            url: [null]
         });
     }
 
@@ -340,7 +493,7 @@ export class AttachmentComponent implements ControlValueAccessor {
               .then(function(content) {
                  // see FileSaver.js
                  console.log(content)
-                 fileSaver.saveAs(content, name)       
+                 fileSaver.saveAs(content, name)
                  var item = {
                    'name': name,
                    'type': content.type,
@@ -358,9 +511,37 @@ export class AttachmentComponent implements ControlValueAccessor {
     getCurrentDate() {
         return formatDate(Date.now(), 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0530');
     }
+    getCategoryDescription(val) {
+        let ret = "";
+
+        if (val == "W")
+            ret = "Work Experience";
+        else if (val == "A")
+            ret = "Degree Certificates";
+        else if (val == "L")
+            ret = "Course Certification";
+        else if (val == "S")
+            ret = "Documents";
+        else if (val == "I")
+            ret = "Others";
+        return ret;
+    }
     getDescription() {
         console.log(this.attachmentForm.get('description').value);
         return this.attachmentForm.get('description').value;
+    }
+    // updateRatings(e) {
+    //     //debugger;
+    //     console.log(e);
+    //     this.attachedfiles[this.attachedfiles.findIndex(x => x.Key === e.Key)].ratings += 1;
+    // }
+    updateRatings(e) {
+
+        console.log(e);
+        if (e.ratings === 1) {
+        } else {
+            this.attachedfiles[this.attachedfiles.findIndex(x => x.Key === e.Key)].ratings += 1;
+        }
     }
     getFile(file) {
         console.log(file);
@@ -380,9 +561,9 @@ export class AttachmentComponent implements ControlValueAccessor {
 
         if (value != null && value != undefined && value != "[]") {
             this.uploadedFiles = value;
-            if (this.uploadedFiles.length > 0) this.src = this.AttachmentURL + this.uploadedFiles[this.uploadedFiles.length - 1].name;
+            if (this.uploadedFiles.length > 0) this.src = this.AttachmentURL + this.uploadedFiles[0].name;
         }
-        //this.sharedService.JSON_parse(value)
+        //JSON.parse(value)
         else
             this.uploadedFiles = [];
 
@@ -456,9 +637,9 @@ export class AttachmentComponent implements ControlValueAccessor {
         return this.nextWebcam.asObservable();
     }
 
-    /*    
+    /*
         async OCR() {
-    
+
             const worker = createWorker({
                 //logger: m => console.log(m),
             });

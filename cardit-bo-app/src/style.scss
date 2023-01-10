@@ -531,6 +531,9 @@ ngb-timepicker fieldset {
 .noborder {
   border-color: var(--surface-ground) !important;
 }
+tbody.p-datatable-tbody {
+  height: 50vh;
+}
 
 .titlemenu{
   display: flex;

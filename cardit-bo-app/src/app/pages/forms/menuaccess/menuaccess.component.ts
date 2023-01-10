@@ -323,9 +323,11 @@ export class menuaccessComponent implements OnInit {
         }
     }
     onEntered_menuid(value: any) {
+        debugger;
         this.menuid_Suggestions = this.menuid_List?.filter(v => v["label"] != null && v["label"]?.toString().toLowerCase().indexOf(value.query.toLowerCase()) > -1);
     }
     onSelected_menuid(menuidDetail: any) {
+        debugger;
         if (menuidDetail.value && menuidDetail) {
 
         }
@@ -556,9 +558,10 @@ export class menuaccessComponent implements OnInit {
     }
 
     GetFormValues() {
+        debugger;
         let formData: any;
         formData = this.menuaccess_Form.getRawValue();
-        formData.menuid = (this.menuaccess_Form.get('menuid'))?.value?.uid;
+        formData.menuid = (this.menuaccess_Form.get('menuid'))?.value?.value;
         formData.roleid = (this.menuaccess_Form.get('roleid'))?.value?.value;
         if (this.dynamicconfig.data != null) {
             for (let key in this.dynamicconfig.data) {
@@ -600,6 +603,7 @@ export class menuaccessComponent implements OnInit {
 
 
     async onSubmitData(bclear: any): Promise<any> {
+        debugger;
         try {
             //debugger;
             this.SetFormValues();
@@ -623,6 +627,7 @@ export class menuaccessComponent implements OnInit {
             if (!this.validate()) {
                 return;
             }
+            debugger;
             this.formData = this.GetFormValues();
             console.log(this.formData);
             this.blockedDocument = true;

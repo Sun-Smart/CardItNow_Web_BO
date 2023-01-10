@@ -792,13 +792,15 @@ export class SharedService {
     }
 
   }
-  async upload(files: any[], folderid: any = 0): Promise<any> {
-    debugger;
+
+  async upload(files: File[], folderid: any = 0) {
+    debugger
+    //debugger;
     const formData = new FormData();
     formData.append("folderid", folderid.toString());
     if (files.length > 0) {
       for (let file of files) {
-        formData.append(file.filekey, file);
+        formData.append(file.name, file);
 
       }
 

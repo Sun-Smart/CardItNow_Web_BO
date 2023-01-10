@@ -160,22 +160,32 @@
 
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.remarks?.value}}</label>
-                              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
+                              <!-- <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
                                     id="remarks" pTooltip="{{'Enter' | translate}} {{'remarks' | translate}}"
                                     formControlName="remarks" [rows]="5" [cols]="200" pInputTextarea
                                     autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
-</textarea>
+</textarea> -->
+
+<input type="text" pInputText *ngIf="!showview" id="remarks" required
+pTooltip="{{'Enter' | translate}} {{'remarks' | translate}}"
+formControlName="remarks" class="  p-form-control p-inputtext-sm p-field">
+
+
                         </div>
                         <div *ngIf="hidelist.indexOf('acquirername')<0" class="titleText col-12">
                               <label for="acquirername" class="commonlabel control-label">{{'Acquirer Name' | translate}}</label>
 
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.acquirername?.value}}</label>
-                              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
+                              <!-- <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
                                     id="acquirername" pTooltip="{{'Enter' | translate}} {{'acquirername' | translate}}"
                                     formControlName="acquirername" [rows]="5" [cols]="200" pInputTextarea
                                     autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
-</textarea>
+</textarea> -->
+<input type="text" pInputText *ngIf="!showview" id="acquirername" required
+pTooltip="{{'Enter' | translate}} {{'acquirername' | translate}}"
+formControlName="acquirername" class="  p-form-control p-inputtext-sm p-field">
+
                         </div>
                         <div *ngIf="hidelist.indexOf('transactionconfirmnumber')<0" class="titleText col-12">
                               <label for="transactionconfirmnumber" class="commonlabel control-label">{{'Transaction Confirm Number'
@@ -183,12 +193,15 @@
 
                               <label *ngIf="showview"
                                     class="labelview p-inputwrapper-filled">{{f.transactionconfirmnumber?.value}}</label>
-                              <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview"
-                                    id="transactionconfirmnumber"
+                              <!-- <textarea autosize MinRows="10" MaxRows="15" onlyGrow="true" *ngIf="!showview" -->
+                                    <!-- id="transactionconfirmnumber"
                                     pTooltip="{{'Enter' | translate}} {{'transactionconfirmnumber' | translate}}"
                                     formControlName="transactionconfirmnumber" [rows]="5" [cols]="200" pInputTextarea
                                     autoResize="autoResize" class=" p-field p-inputwrapper-filled p-md-12">
-</textarea>
+</textarea> -->
+<input type="text" pInputText *ngIf="!showview" id="transactionconfirmnumber" required
+pTooltip="{{'Enter' | translate}} {{'transactionconfirmnumber' | translate}}"
+formControlName="transactionconfirmnumber" class="  p-form-control p-inputtext-sm p-field">
                         </div>
                         <div *ngIf="hidelist.indexOf('processedon')<0" class=" titleText col-3">
                               <label for="processedon"
