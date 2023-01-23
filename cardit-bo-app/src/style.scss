@@ -681,6 +681,17 @@ ng2-smart-table {
   height: 100%;
 
 }
+:host ::ng-deep {
+  .p-toast-message-custom {
+      background-color: #E1CFE7;
+      border: solid #8A427A;
+      border-width: 0 0 0 6px;
+      color: #2c1e30;
+      .p-toast-icon-close {
+          color: #2c1e30;
+      }
+  }
+}
 
 .p-button-icon-only {
   padding: 0.375375rem 0.375375rem !important;
@@ -691,7 +702,7 @@ ng2-smart-table {
 }
 .p-inputtext-sm .p-inputtext {
   font-size: 0.875rem;
-  padding: 0.65625rem 4.65625rem;
+  padding: -0.34375rem  4.65625rem;
 }
 .p-accordion-content>.p-grid>.p-float-label,
 .p-tabview-panel>.p-grid>.p-float-label,

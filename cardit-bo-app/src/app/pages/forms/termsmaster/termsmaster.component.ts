@@ -1,7 +1,7 @@
 import { termsmasterService } from './../../../service/termsmaster.service';
 import { termsmaster } from './../../../model/termsmaster.model';
 import { ElementRef, Component, OnInit, Inject, Optional, ViewChild, EventEmitter } from '@angular/core';
-import { ToastService } from '../../../pages/core/services/toast.service';
+import { ToastService } from '../../core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
@@ -99,6 +99,7 @@ export class termsmasterComponent implements OnInit {
 
 
     constructor(
+        private toastr: ToastService,
         private nav: Location,
         private translate: TranslateService,
         private keyboard: KeyboardShortcutsService, private router: Router,
@@ -111,7 +112,7 @@ export class termsmasterComponent implements OnInit {
         private fb: FormBuilder,
         public sharedService: SharedService,
         private sessionService: SessionService,
-        private toastr: ToastService,
+       
         private sanitizer: DomSanitizer,
         private currentRoute: ActivatedRoute) {
         try {
@@ -551,6 +552,7 @@ export class termsmasterComponent implements OnInit {
 
 
     async onSubmitData(bclear: any): Promise<any> {
+        debugger;
         try {
             //debugger;
             this.SetFormValues();
@@ -579,7 +581,7 @@ export class termsmasterComponent implements OnInit {
             this.blockedDocument = true;
             let res = await this.termsmaster_service.save_termsmasters(this.formData);
             this.blockedDocument = false;
-            //debugger;
+            debugger;
             this.toastr.addSingle("success", "", "Successfully saved");
             this.objvalues.push((res as any).termsmaster);
             if (!bclear && (this.formid != null && this.formid != "")) this.showview = true;

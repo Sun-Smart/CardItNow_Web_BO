@@ -1,6 +1,7 @@
 //import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { Injectable, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgxSpinnerModule } from "ngx-spinner";
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { TagInputModule } from 'ngx-chips';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -41,7 +42,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { PanelModule } from 'primeng/panel';
-import { ToastModule } from 'primeng/toast';
+// import { ToastModule } from 'primeng/toast';
 import { MegaMenuModule } from 'primeng/megamenu';
 import { TableModule } from 'primeng/table';
 import { MessageModule } from 'primeng/message';
@@ -72,7 +73,7 @@ import { actionComponent } from './custom/actions/action.component';
 import { SignatureFieldComponent } from './custom/signature-field/signature-field.component';
 
 import { LoaderService } from './pages/core/services/loader.service';
-import { ToastService } from './pages/core/services/toast.service';
+// import { ToastService } from './pages/core/services/toast.service';
 import { RouteStateService } from './pages/core/services/route-state.service';
 import { SessionService } from './pages/core/services/session.service';
 import { ThemeService } from './pages/core/services/theme.service';
@@ -184,6 +185,8 @@ import { transactionmasterComponent } from './pages/forms/transactionmaster/tran
 import { usermasterComponent } from './pages/forms/usermaster/usermaster.component';
 import { userrolemasterComponent } from './pages/forms/userrolemaster/userrolemaster.component';
 import { HeaderComponent } from './pages/layout/header/header.component';
+import { ImgCompressorDirective } from './service/img-compressor.directive';
+import { ToastModule } from 'primeng/toast';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -228,6 +231,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
 
     exports: [
+     
         DynamicFormBuilderComponent,
         FieldBuilderComponent,
         CommonModule,
@@ -259,7 +263,11 @@ export function HttpLoaderFactory(http: HttpClient) {
         showdashboardComponent,
         BODashboardViewerComponent,
         ReportViewerCtrlComponent,
-        AttachmentComponent, PopupSelectComponent, useraccessComponent, durationComponent, titleComponent, commentComponent, appmultipleentryComponent,
+        AttachmentComponent,
+        PopupSelectComponent,
+        useraccessComponent,
+        durationComponent,
+        titleComponent, commentComponent, appmultipleentryComponent,
         stringlistComponent,
 
         BOReportViewerComponent,
@@ -327,6 +335,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ],
     declarations: [
         //lmstaskComponent,
+        ImgCompressorDirective,
         DynamicFormBuilderComponent,
         FieldBuilderComponent,
         SignatureFieldComponent,
@@ -379,11 +388,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     providers: [
 
         NFC, Ndef,
-        TreeDragDropService, MessageService,
-        //MessageService,
+        TreeDragDropService, 
+        MessageService,
         DatePipe, AuthGuard, Pipe,
         LoaderService,
-        //ToastService, 
+        // ToastService, 
         RouteStateService,
         SessionService,
         ThemeService, ApplicationStateService, UserDataService, UserContextService,
@@ -392,7 +401,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ],
 
     imports: [
-
+        ToastModule,
+        NgxSpinnerModule,
         CommonModule,
         LayoutModule,
       
@@ -438,7 +448,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         InputTextModule,
         ButtonModule,
         PanelModule,
-        ToastModule,
+        // ToastModule,
         MegaMenuModule,
         RadioButtonModule,
         TableModule,
@@ -494,10 +504,10 @@ export class NgCommonModule {
         return {
             ngModule: NgCommonModule,
             providers: [
-                //  MessageService,
+                 MessageService,
                 DatePipe, AuthGuard,
                 LoaderService,
-                ToastService,
+                // ToastService,
                 RouteStateService,
                 SessionService,
                 ThemeService, 

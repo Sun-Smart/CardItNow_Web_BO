@@ -6,7 +6,6 @@ import {ToastModule} from 'primeng/toast';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
-
 import { ReportViewerCtrlComponent } from '../../../pages/forms/boreportviewer/reportviewerctrl.component';
 //Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
 
@@ -41,6 +40,7 @@ import { ThemeService } from '../../../pages/core/services/theme.service';
 //custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../shared/helper';
 import { AttachmentComponent } from 'src/app/custom/attachment/attachment.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector: 'app-avatarmaster',
@@ -93,7 +93,7 @@ export class avatarmasterComponent implements OnInit {
     showFormType: any;
     formid: any;
     pkcol: any;
-    @ViewChild('profilephoto', { static: false }) profilephoto: AttachmentComponent;
+    @ViewChild('avatarurl', { static: false }) avatarurl: AttachmentComponent;
     SESSIONUSERID: any;//current user
 
     sessionData: any;
@@ -106,6 +106,7 @@ export class avatarmasterComponent implements OnInit {
 
 
     constructor(
+        private spinner: NgxSpinnerService,
         private nav: Location,
         private translate: TranslateService,
         private keyboard: KeyboardShortcutsService, private router: Router,
@@ -152,8 +153,7 @@ export class avatarmasterComponent implements OnInit {
                 avatarid: [null],
                 orderid: [null, Validators.compose([Validators.required,])],
                 avatarname: [null, Validators.compose([Validators.required, Validators.maxLength(100)])],
-                img: [null],
-                profilephoto: [null],
+                avatarurl:[null],
                 status: [null],
                 statusdesc: [null],
             });
@@ -186,8 +186,8 @@ export class avatarmasterComponent implements OnInit {
 
     getprofilephoto() {
         //debugger;;
-        if (this.profilephoto.getAttachmentList().length > 0) {
-            let file = this.profilephoto.getAttachmentList()[0];
+        if (this.avatarurl.getAttachmentList().length > 0) {
+            let file = this.avatarurl.getAttachmentList()[0];
             this.sharedService.geturl(file.filekey, file.type);
         }
     }
@@ -195,7 +195,7 @@ export class avatarmasterComponent implements OnInit {
     edit_mstapplicantmasters() {
         this.showview = false;
         setTimeout(() => {
-            if (this.profilephoto != null && this.profilephoto != undefined) this.profilephoto.setattachmentlist(this.avatarmaster_Form.get('profilephoto').value);
+            if (this.avatarurl != null && this.avatarurl != undefined) this.avatarurl.setattachmentlist(this.avatarmaster_Form.get('avatarurl').value);
         });
         return false;
     }
@@ -540,13 +540,13 @@ debugger;
                 avatarid: res.avatarmaster.avatarid,
                 orderid: res.avatarmaster.orderid,
                 avatarname: res.avatarmaster.avatarname,
-                avatarurl: res.avatarmaster.avatarurl,
+                // avatarurl: res.avatarmaster.avatarurl,
                 status: res.avatarmaster.status,
                 statusdesc: res.avatarmaster.statusdesc,
-                profilephoto: JSON.parse(res.avatarmaster.profilephoto),
+                avatarurl: JSON.parse(res.avatarmaster.avatarurl),
             });
             this.avatarmaster_menuactions = res.avatarmaster_menuactions;
-            if (this.avatarmaster_Form.get('profilephoto').value != null && this.avatarmaster_Form.get('profilephoto').value != "" && this.profilephoto != null && this.profilephoto != undefined) this.profilephoto.setattachmentlist(this.avatarmaster_Form.get('profilephoto').value);
+            if (this.avatarmaster_Form.get('avatarurl').value != null && this.avatarmaster_Form.get('avatarurl').value != "" && this.avatarurl != null && this.avatarurl != undefined) this.avatarurl.setattachmentlist(this.avatarmaster_Form.get('avatarurl').value);
 
             //Child Tables if any
             setTimeout(() => {
@@ -570,7 +570,7 @@ debugger;
             let val = this.avatarmaster_Form.controls[key].value;
             if (val == 'null' || val == null || val == undefined) val = '';
             if (this.avatarmaster_Form.controls[key] != null) {
-                if (key == "profilephoto") {
+                if (key == "avatarurl") {
                     if (this.formData != null && this.formData[key] != null && this.formData[key] != '[]' && this.formData[key] != undefined && this.formData[key].length > 0) ret = ret.replace(new RegExp('##' + key + '##', 'g'), AppConstants.AttachmentURL + JSON.parse(this.formData[key])[0]["name"]);
                 }
                 if (false) {
@@ -617,8 +617,8 @@ debugger;
             return;
         }
         var obj = this.GetFormValues();
-        if (this.profilephoto.getAttachmentList() != null) obj.profilephoto = JSON.stringify(this.profilephoto.getAttachmentList());
-        await this.sharedService.upload(this.profilephoto.getAllFiles());
+        if (this.avatarurl.getAttachmentList() != null) obj.avatarurl = JSON.stringify(this.avatarurl.getAttachmentList());
+        await this.sharedService.upload(this.avatarurl.getAllFiles());
         console.log(obj);
         this.objvalues.push(obj);
         this.dialogRef.close(this.objvalues);
@@ -640,7 +640,9 @@ debugger;
 
 
     async onSubmitData(bclear: any): Promise<any> {
+        this.spinner.show();
         debugger;
+     
         try {
             //debugger;
             this.SetFormValues();
@@ -654,11 +656,16 @@ debugger;
                     });
                 }
             });
-            if (strError != "") return this.sharedService.alert(strError);
-
+            if (strError != ""){
+          
+                return this.sharedService.alert(strError);
+              
+            } 
+      
 
             if (!this.avatarmaster_Form.valid) {
                 this.toastr.addSingle("error", "", "Enter the required fields");
+            
                 return;
             }
             if (!this.validate()) {
@@ -676,13 +683,18 @@ debugger;
             }
             console.log(this.formData);
             this.blockedDocument = true;
-            if (this.profilephoto.getAttachmentList() != null) this.formData.profilephoto = JSON.stringify(this.profilephoto.getAttachmentList());
+            if (this.avatarurl.getAttachmentList() != null) this.formData.avatarurl = JSON.stringify(this.avatarurl.getAttachmentList());
 
             let res = await this.avatarmaster_service.save_avatarmasters(this.formData);
             this.blockedDocument = false;
-            await this.sharedService.upload(this.profilephoto.getAllFiles());
+            await this.sharedService.upload(this.avatarurl.getAllFiles());
             //debugger;
-            this.toastr.addSingle("success", "", "Successfully saved");
+            setTimeout(() => {
+                this.toastr.addSingle("success", "", "Successfully saved");
+            
+                this.spinner.hide();
+            }, 5000);
+            
             this.objvalues.push((res as any).avatarmaster);
             if (!bclear && (this.formid != null && this.formid != "")) this.showview = true;
             if (this.panelscroller != undefined) (this.panelscroller as any)?.scrollTop(0);
@@ -714,6 +726,7 @@ debugger;
               
                 this.router.navigateByUrl['/home/boreportviewer/avtar'];
                 this.router.navigate(['home/' + 'boreportviewer' + '/' + 'avtar' ]);
+               
             }else if(bclear == false){
                 this.clearList();
             }
@@ -727,6 +740,8 @@ debugger;
             this.sharedService.error(e);
           
         }
+        this.spinner.hide();
+
 
 
     }

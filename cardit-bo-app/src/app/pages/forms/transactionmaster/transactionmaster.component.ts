@@ -5,6 +5,7 @@ import { ToastService } from '../../../pages/core/services/toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { NgxSpinnerService } from "ngx-spinner";
 import { ReportViewerCtrlComponent } from '../../../pages/forms/boreportviewer/reportviewerctrl.component';
 //Dropdown - nvarchar(5) - Backoffice -> Fixed Values menu
 
@@ -157,6 +158,7 @@ export class transactionmasterComponent implements OnInit {
         private toastr: ToastService,
         private customfieldservice: customfieldconfigurationService,
         private sanitizer: DomSanitizer,
+        private spinner: NgxSpinnerService,
         private currentRoute: ActivatedRoute) {
         try {
             this.sessionData = this.sessionService.getSession();
@@ -814,6 +816,8 @@ export class transactionmasterComponent implements OnInit {
 
 
     async onSubmitData(bclear: any): Promise<any> {
+        debugger;
+       this.spinner.show();
         try {
             //debugger;
             this.SetFormValues();
@@ -855,6 +859,7 @@ export class transactionmasterComponent implements OnInit {
             this.blockedDocument = false;
             //debugger;
             this.toastr.addSingle("success", "", "Successfully saved");
+            this.spinner.hide();
             this.objvalues.push((res as any).transactionmaster);
             if (!bclear && (this.formid != null && this.formid != "")) this.showview = true;
             if (this.panelscroller != undefined) (this.panelscroller as any)?.scrollTop(0);
@@ -910,11 +915,22 @@ export class transactionmasterComponent implements OnInit {
     }
 
     AddOrEdit_transactiondetail(event: any, transactiondetailid: any, transactionid: any) {
+        debugger;
         let add = false;
         if (event == null) add = true;
         let childsave = false;
         if (this.pkcol != undefined && this.pkcol != null) childsave = true;
-        let data = { showview: false, save: childsave, maindatapkcol: this.pkcol, event, transactiondetailid: event?.data?.pk, transactionid, visiblelist: this.transactiondetails_visiblelist, hidelist: this.transactiondetails_hidelist, ScreenType: 2, privateid: this.transactionmaster_Form.get('privateid').value?.value, privateiddesc: this.transactionmaster_Form.get('privateiddesc').value?.label, uid: this.transactionmaster_Form.get('uid').value?.value, uiddesc: this.transactionmaster_Form.get('uiddesc').value?.label, recipientuid: this.transactionmaster_Form.get('recipientuid').value?.value, recipientuiddesc: this.transactionmaster_Form.get('recipientuiddesc').value?.label, payid: this.transactionmaster_Form.get('payid').value?.value, payiddesc: this.transactionmaster_Form.get('payiddesc').value?.label };
+        let data = { showview: false, save: childsave, maindatapkcol: this
+            .pkcol, event, transactiondetailid: event?.data?.pk, transactionid, visiblelist: this.transactiondetails_visiblelist, hidelist: this.transactiondetails_hidelist, ScreenType: 2,
+            //  privateid: this.transactionmaster_Form.get('privateid').value?.value, 
+            //  privateiddesc: this.transactionmaster_Form.get('privateiddesc').value?.label, 
+            //  uid: this.transactionmaster_Form.get('uid').value?.value,
+            //   uiddesc: this.transactionmaster_Form.get('uiddesc').value?.label,
+            //   recipientuid: this.transactionmaster_Form.get('recipientuid').value?.value,
+            //   recipientuiddesc: this.transactionmaster_Form.get('recipientuiddesc').value?.label,
+            //   payid: this.transactionmaster_Form.get('payid').value?.value, 
+            //   payiddesc: this.transactionmaster_Form.get('payiddesc').value?.label 
+            };
         for (let d = 0; d < this.keylist.length; d++) {
             let prop = this.keylist[d];
             let val = this.f[prop].value;

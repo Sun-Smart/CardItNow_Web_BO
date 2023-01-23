@@ -38,6 +38,7 @@ import { SessionService } from '../../../pages/core/services/session.service';
 import { ThemeService } from '../../../pages/core/services/theme.service';
 //custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../shared/helper';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector: 'app-carditchargesdiscount',
@@ -102,6 +103,7 @@ export class carditchargesdiscountComponent implements OnInit {
 
 
     constructor(
+        private spinner: NgxSpinnerService,
         private nav: Location,
         private translate: TranslateService,
         private keyboard: KeyboardShortcutsService, private router: Router,
@@ -580,6 +582,7 @@ export class carditchargesdiscountComponent implements OnInit {
 
 
     async onSubmitData(bclear: any): Promise<any> {
+        this.spinner.show();
         debugger;
         try {
             //debugger;
@@ -610,6 +613,7 @@ export class carditchargesdiscountComponent implements OnInit {
             let res = await this.carditchargesdiscount_service.save_carditchargesdiscounts(this.formData);
             this.blockedDocument = false;
             //debugger;
+            this.spinner.hide();
             this.toastr.addSingle("success", "", "Successfully saved");
         
             this.objvalues.push((res as any).carditchargesdiscount);
@@ -654,7 +658,7 @@ export class carditchargesdiscountComponent implements OnInit {
             this.blockedDocument = false;
             this.sharedService.error(e);
         }
-
+        this.spinner.hide();
 
     }
 

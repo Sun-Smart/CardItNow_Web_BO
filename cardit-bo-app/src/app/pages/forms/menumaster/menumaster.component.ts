@@ -708,6 +708,7 @@ export class menumasterComponent implements OnInit {
     }
 
     AddOrEdit_menuaccess(event: any, menuaccessid: any, menuid: any) {
+        debugger;
         let add = false;
         if (event == null) add = true;
         let childsave = false;

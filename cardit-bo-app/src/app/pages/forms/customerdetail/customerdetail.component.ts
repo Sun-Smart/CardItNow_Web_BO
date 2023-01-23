@@ -45,6 +45,7 @@ import { AttachmentComponent } from '../../../custom/attachment/attachment.compo
 import { customfieldconfigurationService } from '../../../service/customfieldconfiguration.service';
 import { customfieldconfiguration } from '../../../model/customfieldconfiguration.model';
 import { DynamicFormBuilderComponent } from '../../../custom/dynamic-form-builder/dynamic-form-builder.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector: 'app-customerdetail',
@@ -137,6 +138,7 @@ export class customerdetailComponent implements OnInit {
 
 
     constructor(
+        private spinner: NgxSpinnerService,
         private nav: Location,
         private translate: TranslateService,
         private keyboard: KeyboardShortcutsService, private router: Router,
@@ -792,8 +794,9 @@ export class customerdetailComponent implements OnInit {
     }
 
     GetFormValues() {
+        debugger
         let formData: any;
-        formData = this.customerdetail_Form.getRawValue();
+        formData = this.customerdetail_Form.value;
         var customfields = this.customfieldservice.getCustomValues(document);
         formData.customerid = (this.customerdetail_Form.get('customerid'))?.value?.value;
         formData.uid = (this.customerdetail_Form.get('uid'))?.value?.uid;
@@ -801,7 +804,14 @@ export class customerdetailComponent implements OnInit {
         formData.cityid = (this.customerdetail_Form.get('cityid'))?.value?.value;
         formData.idissuedate = this.sharedService.getDate(this.customerdetail_Form.get('idissuedate').value)
         formData.idexpirydate = this.sharedService.getDate(this.customerdetail_Form.get('idexpirydate').value)
-        if (this.livestockphoto.getAttachmentList() != null) formData.livestockphoto = JSON.stringify(this.livestockphoto.getAttachmentList());
+        debugger
+        if(this.livestockphoto.getAttachmentList.length !=0||this.livestockphoto.getAttachmentList.length !=0){
+        if (this.livestockphoto.getAttachmentList() != null){
+            debugger;
+         formData.livestockphoto = JSON.stringify(this.livestockphoto.getAttachmentList());
+        }
+    }else{
+        debugger
         formData.divmode = (this.customerdetail_Form.get('divmode'))?.value?.value;
         formData.divsubmissionon = this.sharedService.getDate(this.customerdetail_Form.get('divsubmissionon').value)
         formData.divstatus = (this.customerdetail_Form.get('divstatus'))?.value?.value;
@@ -819,6 +829,9 @@ export class customerdetailComponent implements OnInit {
         }
         formData.customerdetailid = this.formid;
         return formData;
+
+    }
+ 
     }
     async onSubmitDataDlg(bclear: any) {
         this.isSubmitted = true;
@@ -849,6 +862,8 @@ export class customerdetailComponent implements OnInit {
 
 
     async onSubmitData(bclear: any): Promise<any> {
+        debugger;
+        this.spinner.show()
         try {
             //debugger;
             this.SetFormValues();
@@ -876,6 +891,7 @@ export class customerdetailComponent implements OnInit {
 
 
             if (!this.customerdetail_Form.valid || (this.customform != undefined && this.customform.form != undefined && !this.customform.form.valid)) {
+               this.spinner.hide();
                 this.toastr.addSingle("error", "", "Enter the required fields");
                 return;
             }
@@ -889,6 +905,7 @@ export class customerdetailComponent implements OnInit {
             let res = await this.customerdetail_service.save_customerdetails(this.formData, this.livestockphoto.getAllFiles(), this.fileAttachmentList);
             this.blockedDocument = false;
             //debugger;
+            this.spinner.hide();
             this.toastr.addSingle("success", "", "Successfully saved");
             this.objvalues.push((res as any).customerdetail);
             if (!bclear && (this.formid != null && this.formid != "")) this.showview = true;
@@ -930,6 +947,7 @@ export class customerdetailComponent implements OnInit {
         } catch (e) {
             this.blockedDocument = false;
             this.sharedService.error(e);
+            this.spinner.hide();
         }
 
 

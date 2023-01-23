@@ -57,7 +57,7 @@ const URL = AppConstants.UploadURL;
 })
 export class AttachmentComponent implements ControlValueAccessor {
     showplus: boolean = false;
-
+    UIDesign = "primeNG";
     onChange: Function;
 
 
@@ -73,7 +73,7 @@ export class AttachmentComponent implements ControlValueAccessor {
     color: string = "#30e4c3";
     _value: any;
     src: any;
-    private uploadedFiles: any[] = [];
+    public uploadedFiles: any[] = [];
     private attachedfiles: any[] = [];
     private AllFiles: any[] = [];
     readonly URL = AppConstants.UploadURL;
@@ -127,47 +127,47 @@ export class AttachmentComponent implements ControlValueAccessor {
 
 
 
-
+        debugger;
         localStorage.removeItem("attachedsaved")
         this.showplus = !this.showplus;
 
-     this.setpage=localStorage.getItem("choosefileforprofile")
-     if(this.setpage=="ok"){
-    
+        this.setpage = localStorage.getItem("choosefileforprofile")
+        if (this.setpage == null) {
 
-      const file: File = event[0];
 
-      //debugger;
-      this.onFileSelect(event);
-
-      this.src = await readBase64(file)
-          .then(function (data) {
-              return data;
-          })
-     this.showplus=false
-
-     }
-     else
-     {
-          if(!this.attachmentForm.valid){
-            alert("Enter the required fields")
-            this.attachmentForm.reset();
-            this.myInputVariable.nativeElement.value = "";
-          }
-          else{
             const file: File = event[0];
 
             //debugger;
             this.onFileSelect(event);
-
+            debugger;
             this.src = await readBase64(file)
                 .then(function (data) {
                     return data;
-
                 })
+            this.showplus = false
+
+        }
+        else {
+            debugger;
+            if (!this.attachmentForm.valid) {
+                alert("Enter the required fields")
                 this.attachmentForm.reset();
-          }
-          this.attachmentForm.reset();
+                // this.myInputVariable.nativeElement.value = "";
+            }
+            else {
+                const file: File = event[0];
+
+                //debugger;
+                this.onFileSelect(event);
+
+                this.src = await readBase64(file)
+                    .then(function (data) {
+                        return data;
+
+                    })
+                this.attachmentForm.reset();
+            }
+            this.attachmentForm.reset();
 
 
 
@@ -176,7 +176,7 @@ export class AttachmentComponent implements ControlValueAccessor {
 
 
 
-     }
+        }
 
 
 
@@ -195,18 +195,18 @@ export class AttachmentComponent implements ControlValueAccessor {
         //     alert("Enter the required fields")
         //     this.attachmentForm.reset();
         //     this.myInputVariable.nativeElement.value = "";
-          
+
         //   }
         //   else{
         //     const file: File = event[0];
-          
+
         //     //debugger;
         //     this.onFileSelect(event);
-          
+
         //     this.src = await readBase64(file)
         //         .then(function (data) {
         //             return data;
-          
+
         //         })
         //         this.attachmentForm.reset();
         //   }
@@ -238,7 +238,7 @@ export class AttachmentComponent implements ControlValueAccessor {
             // description: [null],
             // color: [null],
             // ImageName: [null],
-            url:[null]
+            url: [null]
         });
     }
     getCount(e) {
@@ -303,6 +303,10 @@ export class AttachmentComponent implements ControlValueAccessor {
         //this.remove(null, index);
     }
 
+    addFiles(ev: any) {
+        console.log(ev)
+    }
+
     onChangeAction(val) {
         ////debugger;
         if (val == "Color") this.bshowcolor = !this.bshowcolor;
@@ -317,27 +321,27 @@ export class AttachmentComponent implements ControlValueAccessor {
             }
         ).onClose.subscribe(res => {
             if (res != undefined) this.attachedfiles[this.attachedfiles.findIndex(x => x.Key === e.Key)].comments = res;
-        }); 
+        });
     }
     geturl(e, filename: string, filetype: string) {
-      
+        debugger
         this.showview = this.sessionService.getItem("attachedsaved");
-        if (this.showview=="true"){
-      console.log(e, filename, filetype);
-      this.attachedfiles[this.attachedfiles.findIndex(x => x.Key === e.Key)].views += 1;
-      this.dialog.open(openfileComponent,
-        {
-            data: { url: AppConstants.AttachmentURL + filename, ScreenType: 2 },
-            header: filename
+        if (this.showview == "true") {
+            console.log(e, filename, filetype);
+            this.attachedfiles[this.attachedfiles.findIndex(x => x.Key === e.Key)].views += 1;
+            this.dialog.open(openfileComponent,
+                {
+                    data: { url: AppConstants.AttachmentURL + filename, ScreenType: 2 },
+                    header: filename
+                }
+            );
         }
-        );
-          }
-          else{
-           alert("View the file once you submit")
+        else {
+            alert("View the file once you submit")
             return
-          }
-      
-      
+        }
+
+
         //old
         //debugger;
         // console.log(e, filename, filetype);
@@ -350,7 +354,7 @@ export class AttachmentComponent implements ControlValueAccessor {
         //     }
         // );
 
-//end
+        //end
 
         //window.open(AppConstants.AttachmentURL + filename);
         return;
@@ -421,8 +425,8 @@ export class AttachmentComponent implements ControlValueAccessor {
         return this.attachedfiles;
     }
     async onFileSelect(e: any) {
-        
-        ////debugger;
+
+        debugger;
         //this.attachedfiles = [];
         if (!this.isAttachment) {
             this.uploadedFiles = [];
@@ -433,6 +437,7 @@ export class AttachmentComponent implements ControlValueAccessor {
             let max = 0;
             let attachmentobj = null;
             if (this.attachedfiles == null) this.attachedfiles = [];
+            debugger;
             max = Array.of(this.uploadedFiles).length + Array.of(this.attachedfiles).length;
 
 
@@ -465,6 +470,8 @@ export class AttachmentComponent implements ControlValueAccessor {
 
 
             this.attachmentfields.forEach((attachmentfield) => {
+                debugger;
+
                 attachmentobj[attachmentfield.name] = (document.all[attachmentfield.name + (this.attachedfiles.length + 1 + max).toString()]);
             });
             this.attachedfiles.push(attachmentobj);
@@ -558,8 +565,9 @@ export class AttachmentComponent implements ControlValueAccessor {
     set value(value: any) {
         ////debugger;
         this._value = value;
-
+        debugger;
         if (value != null && value != undefined && value != "[]") {
+            debugger;
             this.uploadedFiles = value;
             if (this.uploadedFiles.length > 0) this.src = this.AttachmentURL + this.uploadedFiles[0].name;
         }

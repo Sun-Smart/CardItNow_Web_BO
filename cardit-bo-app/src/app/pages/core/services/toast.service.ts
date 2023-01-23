@@ -15,16 +15,17 @@ export class ToastService {
      * @param summary Summary text of the message.
      * @param detail Detail text of the message.
      */
-    addSingle(severity: string, summary: string, details: any) {
+    addSingle(severity: string, summary: string, detail: string) {
         debugger;
-        let detail: string = details;
-        if (details?.error != undefined) detail = details?.error
+        this.messageService.add({ severity: severity, summary: summary, detail: detail, life: 1000 });
+        // alert(detail);
 
-        this.messageService.add({ severity: severity, summary: summary, detail: detail });
-        alert(detail);
-        console.log(detail);
     }
+    addMessage(severity: string, summary: string, detail: string) {
+        this.messageService.add({ severity: severity, summary: summary, detail: detail, sticky: true, life: 600 });
+        // alert(detail);
 
+    }
     /**
      * add multiple toast messages
      * @param messages 

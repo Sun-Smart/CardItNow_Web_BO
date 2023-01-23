@@ -26,6 +26,7 @@ import { MessageService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TreeNode } from 'primeng/api';
+
 //import {WebcamModule} from 'ngx-webcam';
 //
 //import { NgPrimeModule, routedComponents, ENTRY_COMPONENTS } from './app.ngprime.module'
@@ -51,6 +52,7 @@ import { FooterComponent } from './pages/layout/footer/footer.component';
 import { Auth } from './service/auth.service';
 import { LoaderService } from './pages/core/services/loader.service';
 import { ToastService } from './pages/core/services/toast.service';
+import {ToastModule} from 'primeng/toast';
 import { RouteStateService } from './pages/core/services/route-state.service';
 
 import { SessionService } from './pages/core/services/session.service';
@@ -138,7 +140,8 @@ import { SignatureFieldComponent } from './custom/signature-field/signature-fiel
 import { PopupSelectComponent } from './custom/popupselect.component';
 import { openfileComponent } from './custom/openfile.component';
 import { FileUploadModule } from 'ng2-file-upload';
-import { CarditImgCompressorDirective } from './service/cardit-img-compressor.directive';
+
+
 
 
 
@@ -208,14 +211,14 @@ openfileComponent,
 TextBoxComponent,
 RadioComponent,
 FileComponent,
-CarditImgCompressorDirective
+
 
         //routedComponents
     ],
     exports: [
        
       ProgressSpinnerModule ,
-       NgxSpinnerModule,
+      
         SidebarModule,
         TranslateModule,
         NgScrollbarModule,
@@ -235,6 +238,9 @@ CarditImgCompressorDirective
         //layoutModule,
         //
         //WebcamModule,
+     
+        ToastModule,
+        NgxSpinnerModule,
         FileUploadModule,
         NgCommonModule.forRoot(),
         NgbModule,

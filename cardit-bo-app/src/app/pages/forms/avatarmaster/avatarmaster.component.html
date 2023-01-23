@@ -1,3 +1,7 @@
+<ngx-spinner  bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#fff"
+type="ball-scale-multiple"></ngx-spinner>
 <i class="fa fa-step-backward" *ngIf="sourceKey" (click)="nav.back()"></i>
 <p-blockUI [target]="pnl" [blocked]="blockedDocument"><i class="pi pi-lock" style="font-size: 3rem"></i></p-blockUI>
 <form id="frm_avatarmaster" [formGroup]="avatarmaster_Form" (ngSubmit)="onSubmit()" [ngClass]="theme">
@@ -68,11 +72,11 @@
 
                         <div
                         style='' class="col-6 ">
-                        <label for="profilephoto" class="control-label">Photo</label>
-                        <label *ngIf="showview" class="labelview">{{f.profilephoto?.value[0]?.name}}</label>
-                        <app-attachment #profilephoto formControlName="profilephoto" [showremove]='bmyrecord'
+                        <label for="avatarurl" class="control-label">Photo</label>
+                        <label *ngIf="showview" class="labelview">{{f.avatarurl?.value[0]?.name}}</label>
+                        <app-attachment #avatarurl formControlName="avatarurl" [showremove]='bmyrecord'
                           [SessionData]="sessionData"></app-attachment>
-                        <button type="button" class="btn" *ngIf="profilephoto.getAttachmentList().length > 0"
+                        <button type="button" class="btn" *ngIf="avatarurl.getAttachmentList().length > 0"
                           (click)="getprofilephoto()">Open File</button>
                       </div>
 

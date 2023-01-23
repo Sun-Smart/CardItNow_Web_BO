@@ -38,6 +38,7 @@ import { SessionService } from '../../../pages/core/services/session.service';
 import { ThemeService } from '../../../pages/core/services/theme.service';
 //custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../shared/helper';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector: 'app-citymaster',
@@ -103,6 +104,7 @@ export class citymasterComponent implements OnInit {
 
 
     constructor(
+        private spinner: NgxSpinnerService,
         private nav: Location,
         private translate: TranslateService,
         private keyboard: KeyboardShortcutsService, private router: Router,
@@ -601,6 +603,7 @@ export class citymasterComponent implements OnInit {
 
 
     async onSubmitData(bclear: any): Promise<any> {
+        this.spinner.show();
         try {
             //debugger;
             this.SetFormValues();
@@ -630,6 +633,7 @@ export class citymasterComponent implements OnInit {
             let res = await this.citymaster_service.save_citymasters(this.formData);
             this.blockedDocument = false;
             //debugger;
+            this.spinner.hide();
             this.toastr.addSingle("success", "", "Successfully saved");
             this.objvalues.push((res as any).citymaster);
             if (!bclear && (this.formid != null && this.formid != "")) this.showview = true;
@@ -672,7 +676,7 @@ export class citymasterComponent implements OnInit {
             this.blockedDocument = false;
             this.sharedService.error(e);
         }
-
+this.spinner.hide();
 
     }
 

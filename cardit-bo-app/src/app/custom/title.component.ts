@@ -7,7 +7,7 @@ import { TranslateService } from "@ngx-translate/core";
 
   selector: 'app-title',
   template: `  
-
+ 
   <div class="p-grid zero"  [ngClass]="novo" style="background-color: #cee812;height: 30px;" >
   <div class="p-col zero col-4" style="text-align: initial; margin-left: 10px !important;">
   <a href='#/{{p_currenturl}}'>{{title | translate}}</a>
@@ -16,7 +16,7 @@ import { TranslateService } from "@ngx-translate/core";
   <div class="p-col zero col-4" style="display:flex; justify-content: end;margin-right: 15px !important;">
  
   
-  <p-button   icon="pi pi-save" pTooltip="save" tooltipPosition ="bottom" (onClick)="action_onSubmit()" [model]="saveitems"></p-button
+  <p-button   icon="pi pi-save" pTooltip="save" style="padding-right: 10px;" tooltipPosition ="bottom" (onClick)="action_onSubmit()" [model]="saveitems"></p-button
   >
   <p-button   icon="pi pi-file" pTooltip="Submit & Clear" tooltipPosition ="bottom" (onClick)="action_onSubmitAndWait()" [model]="items"></p-button
   >
@@ -183,6 +183,7 @@ export class titleComponent implements ControlValueAccessor, OnInit {
     this.resetForm.emit();
   }
   action_onSubmit() {
+  
     debugger;
     if (this.maindata == undefined) {
       this.onSubmit.emit();

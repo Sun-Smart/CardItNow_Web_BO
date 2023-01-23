@@ -72,6 +72,7 @@ import { DynamicFormBuilderComponent } from './custom/dynamic-form-builder/dynam
 import { TextBoxComponent } from './pages/forms/dynamic-form-builder/atoms/textbox';
 import { RadioComponent } from './pages/forms/dynamic-form-builder/atoms/radio';
 import { FileComponent } from './pages/forms/dynamic-form-builder/atoms/file';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 export const ENTRY_COMPONENTS = [];
@@ -255,7 +256,8 @@ const config: ExtraOptions = {
 
     ],
     imports: [
-
+      
+        NgxSpinnerModule,
         NgCommonModule,
         RouterModule.forChild(paths),
         FormsModule, ReactiveFormsModule,

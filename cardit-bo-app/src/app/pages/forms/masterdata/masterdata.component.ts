@@ -42,7 +42,7 @@ import { AppConstants, DropDownValues } from '../../../shared/helper';
 @Component({
     selector: 'app-masterdata',
     templateUrl: './masterdata.component.html',
-    styles: [],
+    styleUrls: ['./masterdata.component.scss'],
     providers: [KeyboardShortcutsService]
 })
 

@@ -38,6 +38,7 @@ import { SessionService } from '../../core/services/session.service';
 import { ThemeService } from '../../../pages/core/services/theme.service';
 //custom fields & attachments
 import { AppConstants, DropDownValues } from '../../../shared/helper';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector: 'app-boconfigvalue',
@@ -99,6 +100,7 @@ export class boconfigvalueComponent implements OnInit {
 
 
     constructor(
+        private spinner: NgxSpinnerService,
         private nav: Location,
         private translate: TranslateService,
         private keyboard: KeyboardShortcutsService, private router: Router,
@@ -561,6 +563,7 @@ export class boconfigvalueComponent implements OnInit {
 
 
     async onSubmitData(bclear: any): Promise<any> {
+        this.spinner.show();
         try {
             //debugger;
             this.isSubmitted = true;
@@ -577,6 +580,7 @@ export class boconfigvalueComponent implements OnInit {
 
 
             if (!this.boconfigvalue_Form.valid) {
+                this.spinner.hide();
                 this.toastr.addSingle("error", "", "Enter the required fields");
                 return;
             }
@@ -590,7 +594,9 @@ export class boconfigvalueComponent implements OnInit {
             let result;
             this.blockedDocument = false;
             //debugger;
+            this.spinner.hide();
             this.toastr.addSingle("success", "", "Successfully saved");
+            
             this.objvalues.push((res as any).boconfigvalue);
             if (!bclear && (this.formid != null && this.formid != "")) this.showview = true;
             if (this.panelscroller != undefined) (this.panelscroller as any)?.scrollTop(0);
@@ -632,7 +638,7 @@ export class boconfigvalueComponent implements OnInit {
             this.blockedDocument = false;
             this.sharedService.error(e);
         }
-
+this.spinner.hide();
 
     }
 

@@ -565,6 +565,7 @@ export class transactiondetailComponent implements OnInit {
 
 
     edit_transactiondetails() {
+        debugger;
         this.showview = false;
         setTimeout(() => {
         });
